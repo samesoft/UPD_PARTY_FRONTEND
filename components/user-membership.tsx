@@ -104,8 +104,10 @@ export default function UserMembershipPage() {
 
     const fetchDistrictsByState = async (stateId: number) => {
         try {
+            console.log(">>>>>>>HELLO WORLD >>>>>>>>");
             const response = await axios.get(`/district/districtByState/${stateId}`);
-            setDistrictOptions(response.data.data);
+            setDistrictOptions({ data: response.data.data });
+            console.log("Districts fetched:", response.data.data);
         } catch (error) {
             console.error('Error fetching districts:', error);
         }
@@ -415,7 +417,7 @@ export default function UserMembershipPage() {
                                             onChange={handleInputChange}
                                         >
                                             <option value="">Select District</option>
-                                            {districtOptions.data?.map(option => (
+                                            {districtOptions.data && districtOptions.data.map(option => (
                                                 <option key={option.district_id} value={option.district_id}>
                                                     {option.district}
                                                 </option>
