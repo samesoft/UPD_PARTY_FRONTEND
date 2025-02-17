@@ -1,7 +1,7 @@
 "use client"
 
 import { useEffect } from "react"
-import MembersFormElements from "@/components/membership"
+import MembersFormElements from "@/components/memberships"
 import MembershipFormElements from "@/components/membrship-level"
 import StatesFormElements from "@/components/state"
 
