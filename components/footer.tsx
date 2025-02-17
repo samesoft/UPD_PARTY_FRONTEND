@@ -16,38 +16,38 @@ const mainNavLinks = [
 const footerColumns = [
   {
     links: [
-      { name: "Register to Vote", href: "/register" },
-      { name: "Renew your Membership", href: "/renew" },
-      { name: "Party Organisation", href: "/organisation" },
-      { name: "Equal Opportunities", href: "/equality" },
-      { name: "Young Members", href: "/young-members" },
+      { name: "Register to Vote", href: "#" },
+      { name: "Renew your Membership", href: "#" },
+      { name: "Party Organisation", href: "#" },
+      { name: "Equal Opportunities", href: "#" },
+      { name: "Young Members", href: "#" },
     ],
   },
   {
     links: [
-      { name: "Women", href: "/women" },
-      { name: "Shop", href: "/shop" },
-      { name: "Lottery", href: "/lottery" },
-      { name: "Policy Forum", href: "/policy" },
-      { name: "Transparency", href: "/transparency" },
+      { name: "Women", href: "#" },
+      { name: "Shop", href: "#" },
+      { name: "Lottery", href: "#" },
+      { name: "Policy Forum", href: "#" },
+      { name: "Transparency", href: "#" },
     ],
   },
   {
     links: [
-      { name: "Member Governance", href: "/governance" },
-      { name: "Safeguarding", href: "/safeguarding" },
-      { name: "Privacy Notice", href: "/privacy" },
-      { name: "Terms of Use", href: "/terms" },
-      { name: "Cookies", href: "/cookies" },
+      { name: "Member Governance", href: "#" },
+      { name: "Safeguarding", href: "#" },
+      { name: "Privacy Notice", href: "#" },
+      { name: "Terms of Use", href: "#" },
+      { name: "Cookies", href: "#" },
     ],
   },
   {
     links: [
-      { name: "Parliamentary Diversity Data", href: "/diversity" },
-      { name: "Gender Pay Statistics", href: "/gender-pay" },
-      { name: "Work for Us", href: "/careers" },
-      { name: "Contact Us", href: "/contact" },
-      { name: "Old Site", href: "/old-site" },
+      { name: "Parliamentary Diversity Data", href: "#" },
+      { name: "Gender Pay Statistics", href: "#" },
+      { name: "Work for Us", href: "#" },
+      { name: "Contact Us", href: "#" },
+      { name: "Old Site", href: "#" },
     ],
   },
 ];

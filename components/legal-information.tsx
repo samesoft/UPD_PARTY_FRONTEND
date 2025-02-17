@@ -4,132 +4,6 @@ interface LegalInformationProps {
   className?: string;
 }
 
-// export default function LegalInformation({ className = "" }: LegalInformationProps) {
-//   return (
-//     <div className={`space-y-4 text-sm text-gray-600 bg-white p-6 rounded-lg ${className}`}>
-//       <h2 className="text-lg font-bold text-gray-900">POLITICAL PARTIES, ELECTIONS AND REFERENDUMS ACT 2000 (PPERA)</h2>
-
-//       <p>
-//         Under the <em>Political Parties, Elections and Referendums Act 2000 (PPERA)</em> you must be on the electoral
-//         register in the US excluding territories in order to make a donation of more than $500.
-//       </p>
-
-//       <p>
-//         If you donate more than $11,180 to the Party, we are obliged under the{" "}
-//         <em>Political Parties, Elections and Referendums Act 2000</em> to report such a donation to the Electoral
-//         Commission, who will publish the fact that you have made a donation over $11,180. For more information, please
-//         see{" "}
-//         <Link
-//           href="https://www.electoralcommission.org.uk"
-//           className="text-secondary hover:underline"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           https://www.electoralcommission.org.uk
-//         </Link>
-//         .
-//       </p>
-
-//       <p>
-//         All donations to this unrestricted fundraising campaign will be used to support political campaigning and the
-//         operations of the Party and is not time restricted.
-//       </p>
-
-//       <p>The Party reserves the right to not accept a donation or application for membership.</p>
-
-//       <p>
-//         Donating to the Party, either centrally or locally, does not automatically make you a member of the Party. If
-//         you wish to become a member of the Party please sign up and join via{" "}
-//         <Link href="/join" className="text-secondary hover:underline">
-//           our membership page
-//         </Link>
-//         .
-//       </p>
-
-//       <p>
-//         Any financial data such as payment card numbers will be used by The Party and will be given to our payment
-//         providers via a secure method as part of our democratic engagement with electors. Where necessary, your data
-//         will be shared with our candidates and elected representatives. For more information please see our{" "}
-//         <Link href="/privacy" className="text-secondary hover:underline">
-//           privacy notice
-//         </Link>
-//         .
-//       </p>
-//     </div>
-//   )
-// }
-
-// export default function LegalInformation({
-//   className = "",
-// }: LegalInformationProps) {
-//   return (
-//     <div
-//       className={`space-y-4 text-sm text-gray-600 bg-white  p-6 rounded-lg shadow-3xl ${className}`}
-//     >
-//       <h2 className="text-lg font-bold text-gray-900">
-//         POLITICAL PARTIES, ELECTIONS AND REFERENDUMS ACT 2000 (PPERA)
-//       </h2>
-
-//       <p>
-//         Under the{" "}
-//         <em>Political Parties, Elections and Referendums Act 2000 (PPERA)</em>{" "}
-//         you must be on the electoral register in the US excluding territories in
-//         order to make a donation of more than $500.
-//       </p>
-
-//       <p>
-//         If you donate more than $11,180 to the Party, we are obliged under the{" "}
-//         <em>Political Parties, Elections and Referendums Act 2000</em> to report
-//         such a donation to the Electoral Commission, who will publish the fact
-//         that you have made a donation over $11,180. For more information, please
-//         see{" "}
-//         <Link
-//           href="https://www.electoralcommission.org.uk"
-//           className="text-secondary hover:underline"
-//           target="_blank"
-//           rel="noopener noreferrer"
-//         >
-//           https://www.electoralcommission.org.uk
-//         </Link>
-//         .
-//       </p>
-
-//       <p>
-//         All donations to this unrestricted fundraising campaign will be used to
-//         support political campaigning and the operations of the Party and is not
-//         time restricted.
-//       </p>
-
-//       <p>
-//         The Party reserves the right to not accept a donation or application for
-//         membership.
-//       </p>
-
-//       <p>
-//         Donating to the Party, either centrally or locally, does not
-//         automatically make you a member of the Party. If you wish to become a
-//         member of the Party please sign up and join via{" "}
-//         <Link href="/join" className="text-secondary hover:underline">
-//           our membership page
-//         </Link>
-//         .
-//       </p>
-
-//       <p>
-//         Any financial data such as payment card numbers will be used by The
-//         Party and will be given to our payment providers via a secure method as
-//         part of our democratic engagement with electors. Where necessary, your
-//         data will be shared with our candidates and elected representatives. For
-//         more information please see our{" "}
-//         <Link href="/privacy" className="text-secondary hover:underline">
-//           privacy notice
-//         </Link>
-//         .
-//       </p>
-//     </div>
-//   );
-// }
-
 export default function LegalInformation({
   className = "",
 }: LegalInformationProps) {
@@ -138,62 +12,70 @@ export default function LegalInformation({
       className={`max-w-4xl mx-auto space-y-4 text-sm text-gray-600 bg-white p-6 rounded-lg  ${className}`}
     >
       <h2 className="text-lg font-bold text-gray-900">
-        POLITICAL PARTIES, ELECTIONS AND REFERENDUMS ACT 2000 (PPERA)
+        XEERKA XISBIYADA SIYAASADDA, DOORASHOOYINKA IYO AFTI-RAACYADA 2000
+        (PPERA)
       </h2>
 
       <p>
-        Under the{" "}
-        <em>Political Parties, Elections and Referendums Act 2000 (PPERA)</em>{" "}
-        you must be on the electoral register in the US excluding territories in
-        order to make a donation of more than $500.
+        Sida uu qabo{" "}
+        <em>
+          Xeerka Xisbiyada Siyaasadda, Doorashooyinka iyo Afti-raacyada 2000
+          (PPERA)
+        </em>{" "}
+        waa inaad ku jirtaa diiwaanka cod-bixiyeyaasha Mareykanka marka laga
+        reebo dhulalka hoostagaa si aad u sameyso deeq ka badan $500.
       </p>
 
       <p>
-        If you donate more than $11,180 to the Party, we are obliged under the{" "}
-        <em>Political Parties, Elections and Referendums Act 2000</em> to report
-        such a donation to the Electoral Commission, who will publish the fact
-        that you have made a donation over $11,180. For more information, please
-        see{" "}
+        Haddii aad Xisbiga u deeqdo in ka badan $11,180, waxaa naga waajib ah
+        sida uu qabo{" "}
+        <em>
+          Xeerka Xisbiyada Siyaasadda, Doorashooyinka iyo Afti-raacyada 2000
+        </em>{" "}
+        inaan ka warbixinno deeqdaas Guddiga Doorashooyinka, kaas oo daabici
+        doona xaqiiqda ah inaad samaysay deeq ka badan $11,180. Wixii macluumaad
+        dheeraad ah, fadlan ka eeg{" "}
         <Link
-          href="https://www.electoralcommission.org.uk"
+          href="https://www.@example.com"
           className="text-secondary hover:underline"
           target="_blank"
           rel="noopener noreferrer"
         >
-          https://www.electoralcommission.org.uk
+          https://www.@example.com
         </Link>
         .
       </p>
 
       <p>
-        All donations to this unrestricted fundraising campaign will be used to
-        support political campaigning and the operations of the Party and is not
-        time restricted.
+        Dhammaan deeqaha loo sameeyo ololahan uruurinta lacagta ee aan xadidnayn
+        waxaa loo isticmaali doonaa taageeridda ololaha siyaasadeed iyo
+        hawlgallada Xisbiga, mana aha mid waqti xadidan.
       </p>
 
       <p>
-        The Party reserves the right to not accept a donation or application for
-        membership.
+        Xisbigu wuxuu xaq u leeyahay inuusan aqbalin deeq ama codsiga
+        xubinnimada.
       </p>
 
       <p>
-        Donating to the Party, either centrally or locally, does not
-        automatically make you a member of the Party. If you wish to become a
-        member of the Party please sign up and join via{" "}
+        Deeq-bixinta Xisbiga, ha ahaato si dhexe ama si maxalli ah, si toos ah
+        kuuguma sameeynayso xubin ka tirsan Xisbiga. Haddii aad rabto inaad
+        noqoto xubin ka tirsan Xisbiga fadlan iska diiwaan geli oo ku biir{" "}
         <Link href="/join" className="text-secondary hover:underline">
-          our membership page
+          boggeena xubinnimada
         </Link>
         .
       </p>
 
       <p>
-        Any financial data such as payment card numbers will be used by The
-        Party and will be given to our payment providers via a secure method as
-        part of our democratic engagement with electors. Where necessary, your
-        data will be shared with our candidates and elected representatives. For
-        more information please see our{" "}
+        Xogta maaliyadeed sida lambarrada kaararka lacag-bixinta waxaa
+        isticmaali doona Xisbiga, waxaana la siin doonaa bixiyeyaasheena
+        lacag-bixinta hab ammaan ah oo qayb ka ah hawlgalkeena dimuqraadiyadeed
+        ee cod-bixiyeyaasha. Marka loo baahdo, xogtaada waxaa la wadaagi doona
+        musharaxiinteena iyo wakiilladeena la soo doortay. Wixii macluumaad
+        dheeraad ah fadlan eeg{" "}
         <Link href="/privacy" className="text-secondary hover:underline">
-          privacy notice
+          ogeysiiska sirta
         </Link>
         .
       </p>
