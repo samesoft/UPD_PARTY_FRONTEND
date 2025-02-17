@@ -1,20 +1,25 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
+import { useRouter } from "next/navigation";
 
+
+const router = useRouter();
 const actions = [
   {
     title: "MEMBERSHIP",
     description: "Join our party and make a difference in your community.",
     image: "/campaign.jpg",
     buttonText: "Join Now",
-    onClick: () => {},
+    onClick: () => {
+      router.push('/create-account');
+    },
   },
   {
     title: "VOLUNTEER",
     description: "Contribute your time and skills to support our cause.",
     image: "/Volun...jpg",
     buttonText: "Volunteer",
-    onClick: () => {},
+    onClick: () => { },
   },
   {
     title: "DONATE",
@@ -22,7 +27,7 @@ const actions = [
       "Support our campaign financially to help us reach more people.",
     image: "/HSMPIC1.jpg",
     buttonText: "Donate",
-    onClick: () => {},
+    onClick: () => { },
   },
 ];
 
