@@ -56,21 +56,14 @@ interface MembershipLevelResponse {
 }
 
 interface StateOption {
-    state_id: number;
-    state_name: string;
+    stateid: number;
+    state: string;
+    total_count: number;
 }
 
 interface StateResponse {
     data: StateOption[];
 }
-
-const stateDistricts = {
-    Puntland: ["Bosaso", "Garowe", "Galkacyo"],
-    Jubaland: ["Kismayo", "Afmadow", "Bardhere"],
-    Hirshabelle: ["Jowhar", "Beledweyne", "Buuloburde"],
-    "South West": ["Baidoa", "Baraawe", "Marka"],
-    Galmudug: ["Dhuusamareeb", "Cadaado", "Guriceel", "Hobyo"],
-};
 
 export default function UserMembershipPage() {
     const [isLoading, setIsLoading] = useState<boolean>(false);
@@ -140,21 +133,7 @@ export default function UserMembershipPage() {
                 setAgeGroupOptions(ageGroups.data);
                 setEduLevelOptions(eduLevels.data);
                 setPartyRoleOptions(partyRoles.data);
-
-                // Update state options with new states
-                const newStates = [
-                    "Puntland",
-                    "Jubaland",
-                    "Hirshabelle",
-                    "Koonfur Galbeed",
-                    "Galmudug",
-                ];
-                setStateOptions({
-                    data: newStates.map((state, index) => ({
-                        state_id: index + 1,
-                        state_name: state,
-                    })),
-                });
+                setStateOptions(states.data);
             } catch (error) {
                 console.error("Error fetching options:", error);
                 setError("Failed to load form options");
@@ -167,27 +146,16 @@ export default function UserMembershipPage() {
     const handleInputChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
     ) => {
-        setFormData({ ...formData, [e.target.name]: e.target.value });
-    };
-
-    const handleStateChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
-        const stateId = Number.parseInt(e.target.value, 10);
-        setSelectedState(stateId);
-        setFormData({ ...formData, state_id: stateId, district_id: 0 });
-
-        const selectedStateName = stateOptions.data.find(
-            (state) => state.state_id === stateId
-        )?.state_name;
-        if (selectedStateName && selectedStateName in stateDistricts) {
-            const districts = stateDistricts[
-                selectedStateName as keyof typeof stateDistricts
-            ].map((district, index) => ({
-                district_id: index + 1,
-                district: district,
-            }));
-            setDistrictOptions({ data: districts });
+        const { name, value } = e.target;
+        if (name === "state_id") {
+            setSelectedState(Number(value));
+            setFormData({
+                ...formData,
+                [name]: Number(value),
+                district_id: 0
+            });
         } else {
-            setDistrictOptions({ data: [] });
+            setFormData({ ...formData, [name]: value });
         }
     };
 
@@ -199,10 +167,10 @@ export default function UserMembershipPage() {
         try {
             const response = await axios.post("/members", formData);
             if (response.status === 201) {
-                localStorage.setItem("member_id", response.data.member_id.toString());
                 setShowSuccess(true);
             }
         } catch (err: any) {
+            console.log(err);
             setError(err.response?.data?.error || "Failed to register. Please try again.");
         } finally {
             setIsLoading(false);
@@ -414,43 +382,38 @@ export default function UserMembershipPage() {
                                 </h3>
 
                                 <div className="grid grid-cols-3 gap-6">
+                                    {/* State Dropdown */}
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-2">
-                                            State
-                                        </label>
+                                        <label className="block text-sm font-medium text-gray-700 mb-2">State</label>
                                         <select
                                             name="state_id"
                                             required
                                             className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition-all"
                                             value={formData.state_id}
-                                            onChange={handleStateChange}
+                                            onChange={handleInputChange}
                                         >
                                             <option value="">Select State</option>
-                                            {stateOptions.data?.map((option) => (
-                                                <option key={option.state_id} value={option.state_id}>
-                                                    {option.state_name}
+                                            {stateOptions.data?.map(option => (
+                                                <option key={option.stateid} value={option.stateid}>
+                                                    {option.state}
                                                 </option>
                                             ))}
                                         </select>
                                     </div>
+
+                                    {/* District Dropdown */}
                                     <div>
-                                        <label className="block text-sm font-medium text-gray-700 mb-2">
-                                            District
-                                        </label>
+                                        <label className="block text-sm font-medium text-gray-700 mb-2">District</label>
                                         <select
                                             name="district_id"
                                             required
                                             className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition-all"
                                             value={formData.district_id}
                                             onChange={handleInputChange}
-                                            disabled={!selectedState}
                                         >
                                             <option value="">Select District</option>
-                                            {districtOptions.data?.map((option) => (
-                                                <option
-                                                    key={option.district_id}
-                                                    value={option.district_id}
-                                                >
+                                            {districtOptions.data?.map(option => (
+                                                <option key={option.district_id} value={option.district_id}>
                                                     {option.district}
                                                 </option>
                                             ))}
