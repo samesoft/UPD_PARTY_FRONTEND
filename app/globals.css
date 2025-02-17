@@ -1,0 +1,159 @@
+@import url("https://fonts.googleapis.com/css2?family=Merriweather:ital,wght@0,300;0,400;0,700;1,300;1,400;1,700&display=swap");
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 222.2 84% 4.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 222.2 84% 4.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 222.2 84% 4.9%;
+    --primary: 147 50% 36%;
+    --primary-foreground: 210 40% 98%;
+    --secondary: 122 53% 49%;
+    --secondary-foreground: 222.2 47.4% 11.2%;
+    --muted: 210 40% 96.1%;
+    --muted-foreground: 215.4 16.3% 46.9%;
+    --accent: 210 40% 96.1%;
+    --accent-foreground: 222.2 47.4% 11.2%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 214.3 31.8% 91.4%;
+    --input: 214.3 31.8% 91.4%;
+    --ring: 147 50% 36%;
+    --radius: 0.5rem;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+.animate-scroll-text {
+  animation: scroll-text 20s linear infinite;
+  min-width: 100%;
+}
+
+@keyframes scroll-text {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+/* Scrollbar Styles */
+.scrollbar-visible::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+  padding-top: 20px;
+}
+
+.scrollbar-visible::-webkit-scrollbar-track {
+  background: hsl(var(--muted));
+  border-radius: 5px;
+}
+
+.scrollbar-visible::-webkit-scrollbar-thumb {
+  background-color: hsl(var(--primary));
+  border-radius: 14px;
+  border: 3px solid hsl(var(--muted));
+}
+
+.scrollbar-visible {
+  scrollbar-width: thin;
+  scrollbar-color: hsl(var(--primary)) hsl(var(--muted));
+}
+
+/* Animation for scrolling cards */
+@keyframes scroll-cards {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(calc(-100% + 100vw));
+  }
+}
+
+.animate-scroll-cards {
+  animation: scroll-cards 30s linear infinite;
+}
+
+.animate-scroll-cards:hover {
+  animation-play-state: paused;
+}
+
+@media (max-width: 640px) {
+  .donate-hero-bg {
+    object-position: 25% center;
+  }
+}
+
+/* Custom scrollbar styling */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: green; /* Green color for the thumb */
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: darkgreen; /* Dark green when hovered */
+}
+
+/* Journal-style typography */
+.prose {
+  font-family: "Merriweather", serif;
+}
+
+.prose h1 {
+  @apply text-4xl sm:text-5xl font-bold mb-6 text-gray-900 leading-tight;
+}
+
+.prose h2 {
+  @apply text-2xl sm:text-3xl font-bold mt-8 mb-4 text-gray-800;
+}
+
+.prose p {
+  @apply mb-6 text-gray-700 leading-relaxed;
+}
+
+.prose .lead {
+  @apply text-xl text-gray-600 mb-8 font-light leading-relaxed;
+}
+
+.prose a {
+  @apply text-primary hover:text-primary/80 transition-colors;
+}
+
+.prose blockquote {
+  @apply border-l-4 border-primary pl-4 italic my-6 text-gray-600;
+}
+
