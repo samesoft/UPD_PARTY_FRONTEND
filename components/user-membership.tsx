@@ -284,6 +284,25 @@ export default function UserMembershipPage() {
                         Enter 9 digits after +251
                       </p>
                     </div>
+
+                    {/* New Password Field */}
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Password
+                      </label>
+                      <input
+                        type="password"
+                        name="password_hash"
+                        required
+                        placeholder="Enter your password"
+                        className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition-all"
+                        value={formData.password_hash}
+                        onChange={handleInputChange}
+                      />
+                      <p className="mt-1 text-sm text-gray-500">
+                         Must be at least 4 characters long 
+                      </p>
+                    </div>
                   </div>
                 </div>
 
