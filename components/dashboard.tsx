@@ -245,7 +245,7 @@ export default function Dashboard() {
                                     New member registered
                                 </p>
                                 <p className="text-xs text-gray-500">
-                                    John Doe joined from Addis Ababa
+                                    Abdi Doe joined from Benadir
                                 </p>
                             </div>
                         </div>
