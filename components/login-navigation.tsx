@@ -67,6 +67,12 @@ export default function LoginNavigation() {
                                 Stats
                             </button>
                             <button
+                                onClick={() => handleLoginNavigation("/memberships")}
+                                className="text-[#2E8B57] hover:text-secondary transition-colors"
+                            >
+                                Members
+                            </button>
+                            <button
                                 onClick={() => handleLoginNavigation("/event-registration")}
                                 className="text-[#2E8B57] hover:text-secondary transition-colors"
                             >
