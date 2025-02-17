@@ -52,12 +52,12 @@ const membershipGrowthData = [
 ];
 
 const stateDistributionData = [
-    { state: 'Addis Ababa', members: 1200 },
-    { state: 'Oromia', members: 900 },
-    { state: 'Amhara', members: 800 },
-    { state: 'Tigray', members: 600 },
-    { state: 'SNNPR', members: 500 },
-    { state: 'Somali', members: 400 },
+    { state: 'Benaadir', members: 1200 },
+    { state: 'Galmudug', members: 900 },
+    { state: 'Putland', members: 800 },
+    { state: 'Hirshabbele', members: 600 },
+    { state: 'Konfur Galbed', members: 500 },
+    { state: 'Jubaland', members: 400 },
 ];
 
 export default function Dashboard() {
