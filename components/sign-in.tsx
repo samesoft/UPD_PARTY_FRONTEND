@@ -24,9 +24,12 @@ export default function SignInPage() {
         mobile,
         password_hash
       });
+
       const { token, role_name, member_id } = response.data;
+      console.log("----ADMIN-------");
+      console.log(role_name);
       localStorage.setItem("token", token);
-      localStorage.setItem("userRole", role_name === 'admin' ? 'ADMIN' : 'USER');
+      localStorage.setItem("userRole", role_name === 'Admin' ? 'ADMIN' : 'USER');
       localStorage.setItem("member_id", member_id.toString());
       localStorage.setItem("district_id", member_id.toString());
       router.replace("/dashboard");
