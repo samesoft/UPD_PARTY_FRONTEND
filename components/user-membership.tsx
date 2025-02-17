@@ -138,7 +138,7 @@ export default function UserMembershipPage() {
         <div className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-primary-50">
             <div className="max-w-[1200px] mx-auto px-4 py-16 sm:px-6 lg:px-8">
                 {/* Header Section */}
-                <motion.div 
+                <motion.div
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
                     className="text-center mb-16"
@@ -152,7 +152,7 @@ export default function UserMembershipPage() {
                 </motion.div>
 
                 {/* Main Form Card */}
-                <motion.div 
+                <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
                     className="bg-white rounded-2xl shadow-xl overflow-hidden max-w-5xl mx-auto"
@@ -184,7 +184,7 @@ export default function UserMembershipPage() {
                     {/* Form Content */}
                     <div className="p-8">
                         {error && (
-                            <motion.div 
+                            <motion.div
                                 initial={{ opacity: 0, x: -20 }}
                                 animate={{ opacity: 1, x: 0 }}
                                 className="mb-6 p-4 bg-red-50 border-l-4 border-red-500 rounded-r-lg"
@@ -200,7 +200,7 @@ export default function UserMembershipPage() {
                                     <User className="w-5 h-5 mr-2 text-primary-600" />
                                     Personal Information
                                 </h3>
-                                
+
                                 <div className="grid grid-cols-3 gap-6">
                                     <div className="col-span-3 sm:col-span-1">
                                         <label className="block text-sm font-medium text-gray-700 mb-2">
@@ -249,7 +249,7 @@ export default function UserMembershipPage() {
                                     <Phone className="w-5 h-5 mr-2 text-primary-600" />
                                     Contact Information
                                 </h3>
-                                
+
                                 <div className="grid grid-cols-1 gap-6">
                                     <div>
                                         <label className="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
@@ -267,9 +267,9 @@ export default function UserMembershipPage() {
                                                 value={formData.mobile.replace('+251', '')}
                                                 onChange={(e) => {
                                                     const value = e.target.value.replace(/\D/g, '');
-                                                    setFormData({ 
-                                                        ...formData, 
-                                                        mobile: value ? `+251${value}` : '' 
+                                                    setFormData({
+                                                        ...formData,
+                                                        mobile: value ? `+251${value}` : ''
                                                     });
                                                 }}
                                             />
@@ -285,7 +285,7 @@ export default function UserMembershipPage() {
                                     <Users className="w-5 h-5 mr-2 text-primary-600" />
                                     Additional Information
                                 </h3>
-                                
+
                                 <div className="grid grid-cols-3 gap-6">
                                     <div>
                                         <label className="block text-sm font-medium text-gray-700 mb-2">District</label>
@@ -403,11 +403,11 @@ export default function UserMembershipPage() {
                             </div>
 
                             {/* Submit Button */}
-                            <div className="flex justify-end">
+                            <div className="flex justify-end mt-6 relative bg-white p-6">
                                 <button
                                     type="submit"
                                     disabled={isLoading}
-                                    className="group bg-gradient-to-r from-primary-600 to-primary-700 text-white px-8 py-3 rounded-lg hover:from-primary-700 hover:to-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-200 transition-all disabled:opacity-50 flex items-center space-x-2"
+                                    className="group relative inline-flex bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-lg focus:outline-none focus:ring-4 focus:ring-green-200 transition-all disabled:opacity-50 items-center space-x-2 shadow-lg"
                                 >
                                     {isLoading ? (
                                         <>
