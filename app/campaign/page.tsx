@@ -17,14 +17,13 @@ export default function Campaign() {
           <div className="absolute inset-0 bg-primary/60 mix-blend-multiply"></div>
           <div className="container mx-auto px-4 text-center relative z-10">
             <h1 className="text-4xl md:text-5xl font-bold text-primary-foreground mb-4 animate-fade-in-up">
-              Building a Greener Future Togetherr
+              Building a Greener Future Together.
             </h1>
             <p
               className="text-xl text-primary-foreground mb-8 max-w-2xl mx-auto animate-fade-in-up"
               style={{ animationDelay: "0.2s" }}
             >
-              Join our mission to create sustainable change and build a more
-              environmentally conscious nation for all.
+              SOOMAALI HESHIIS AH DUNIDANA HESHIIS LA AH.
             </p>
             <Button
               className="bg-background text-primary hover:bg-accent text-lg px-8 py-3 animate-fade-in-up"
@@ -38,7 +37,7 @@ export default function Campaign() {
         <section id="issues" className="py-16 bg-accent overflow-hidden">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold text-center text-primary mb-12">
-              Arrimaha Muhiimka ah ee aan ka shaqeyno
+              Our Key Issues
             </h2>
             <div className="relative">
               <div className="overflow-x-auto scrollbar-visible">
@@ -117,7 +116,7 @@ export default function Campaign() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {[
                 { name: "Xasan Sheekh Maxamuud", image: "/HSMPIC1.jpg" },
-                { name: "Cabdiraxmaan Odowaa", image: "/odowaa.jpg" },
+                { name: "Cabdiraxmaan Odowaa", image: "/Odowaa.jpg" },
                 { name: "Xamse Cabdi Barre", image: "/PM-Hamze.jpg" },
               ].map((candidate, index) => (
                 <Card
