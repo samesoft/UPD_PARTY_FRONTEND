@@ -112,20 +112,28 @@ export default function MembershipPage() {
     const [stateOptions, setStateOptions] = useState<StateOption[]>([]);
     const [selectedState, setSelectedState] = useState<number | null>(null);
 
+    const fetchDistrictsByState = async (stateId: number) => {
+        try {
+          const response = await axios.get(`/district/districtByState/${stateId}`);
+          setDistrictOptions(response.data.data);
+        } catch (error) {
+          console.error('Error fetching districts:', error);
+        }
+      };
+      
+
     // Fetch dropdown options when the component mounts
     useEffect(() => {
         const fetchDropdownOptions = async () => {
             try {
                 const [
                     membLevels,
-                    districts,
                     ageGroups,
                     eduLevels,
                     partyRoles,
                     states,
                 ] = await Promise.all([
                     axios.get("/membership-level"),
-                    axios.get("/district"),
                     axios.get("/age-groups"),
                     axios.get("/education-level"),
                     axios.get("/party-role"),
@@ -133,7 +141,6 @@ export default function MembershipPage() {
                 ]);
 
                 setMembLevelsOptions(membLevels.data.data);
-                setDistrictOptions(districts.data.data);
                 setAgeGroupOptions(ageGroups.data.data);
                 setEduLevelOptions(eduLevels.data.data);
                 setPartyRoleOptions(partyRoles.data.data);
@@ -247,15 +254,42 @@ export default function MembershipPage() {
         }
     };
 
-    const handleEditInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>, field: keyof Member) => {
-        if (editingMember) {
-            setEditingMember({ ...editingMember, [field]: e.target.value });
+    // Modify the state change handlers
+    // For Add Modal
+    const handleNewInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+        const field = e.target.name as keyof Omit<Member, 'id'>;
+        if (field === 'state_id') {
+            const stateId = Number(e.target.value);
+            setNewMember({
+                ...newMember,
+                [field]: stateId,
+                district_id: 0 // Reset district when state changes
+            });
+            if (stateId) {
+                fetchDistrictsByState(stateId);
+            }
+        } else {
+            setNewMember({ ...newMember, [field]: e.target.value });
         }
     };
 
-    const handleNewInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
-        const field = e.target.name as keyof Omit<Member, 'id'>;
-        setNewMember({ ...newMember, [field]: e.target.value });
+    // For Edit Modal
+    const handleEditInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>, field: keyof Member) => {
+        if (!editingMember) return;
+
+        if (field === 'state_id') {
+            const stateId = Number(e.target.value);
+            setEditingMember({
+                ...editingMember,
+                [field]: stateId,
+                district_id: 0
+            });
+            if (stateId) {
+                fetchDistrictsByState(stateId);
+            }
+        } else {
+            setEditingMember({ ...editingMember, [field]: e.target.value });
+        }
     };
 
     const handleAdd = async () => {
@@ -299,7 +333,7 @@ export default function MembershipPage() {
                     axios.get(`/members?page=${pagination.page}&limit=${pagination.limit}`),
                     axios.get('/state')
                 ]);
-                
+
                 const { data, pagination: paginationData } = membersResponse.data;
                 setMembers(data);
                 setPagination({
@@ -308,7 +342,7 @@ export default function MembershipPage() {
                     limit: paginationData.limit,
                     totalPages: paginationData.totalPages,
                 });
-                
+
                 setStateOptions(statesResponse.data.data);
             } catch (error) {
                 console.error('Error fetching data:', error);
@@ -454,8 +488,8 @@ export default function MembershipPage() {
                                     <button
                                         key={pageNumber}
                                         className={`px-3 py-2 rounded ${pagination.page === pageNumber
-                                                ? 'bg-green-600 text-white'
-                                                : 'bg-green-500 text-white hover:bg-green-600'
+                                            ? 'bg-green-600 text-white'
+                                            : 'bg-green-500 text-white hover:bg-green-600'
                                             }`}
                                         onClick={() => handlePageChange(pageNumber)}
                                     >

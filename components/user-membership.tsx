@@ -17,14 +17,14 @@ interface ApiResponse {
     data: DistrictOption[];
 }
 
-interface PartyRoleOption {
-    party_role_id: number;
-    party_role: string;
-}
+// interface PartyRoleOption {
+//     party_role_id: number;
+//     party_role: string;
+// }
 
-interface PartyRoleResponse {
-    data: PartyRoleOption[];
-}
+// interface PartyRoleResponse {
+//     data: PartyRoleOption[];
+// }
 
 interface EduLevelOption {
     edu_level_id: number;
@@ -79,9 +79,9 @@ export default function UserMembershipPage() {
     const [eduLevelOptions, setEduLevelOptions] = useState<EduLevelResponse>({
         data: [],
     });
-    const [partyRoleOptions, setPartyRoleOptions] = useState<PartyRoleResponse>({
-        data: [],
-    });
+    // const [partyRoleOptions, setPartyRoleOptions] = useState<PartyRoleResponse>({
+    //     data: [],
+    // });
     const [stateOptions, setStateOptions] = useState<StateResponse>({ data: [] });
     const [selectedState, setSelectedState] = useState<number | null>(null);
     const [showSuccess, setShowSuccess] = useState(false);
@@ -102,58 +102,30 @@ export default function UserMembershipPage() {
         state_id: 0,
     });
 
-    useEffect(() => {
-        const fetchDropdownOptions = async () => {
-            try {
-                const [
-                    membLevels,
-                    districts,
-                    ageGroups,
-                    eduLevels,
-                    partyRoles,
-                    states,
-                ] = await Promise.all([
-                    axios.get("/membership-level"),
-                    axios.get("/district"),
-                    axios.get("/age-groups"),
-                    axios.get("/education-level"),
-                    axios.get("/party-role"),
-                    axios.get("/state"),
-                ]);
-
-                console.log("Districts:", districts);
-                console.log("MembLevels:", membLevels);
-                console.log("AgeGroups:", ageGroups);
-                console.log("EduLevels:", eduLevels);
-                console.log("PartyRoles:", partyRoles);
-                console.log("States:", states);
-
-                setMembLevelsOptions(membLevels.data);
-                setDistrictOptions(districts.data);
-                setAgeGroupOptions(ageGroups.data);
-                setEduLevelOptions(eduLevels.data);
-                setPartyRoleOptions(partyRoles.data);
-                setStateOptions(states.data);
-            } catch (error) {
-                console.error("Error fetching options:", error);
-                setError("Failed to load form options");
-            }
-        };
-
-        fetchDropdownOptions();
-    }, []);
+    const fetchDistrictsByState = async (stateId: number) => {
+        try {
+            const response = await axios.get(`/district/districtByState/${stateId}`);
+            setDistrictOptions(response.data.data);
+        } catch (error) {
+            console.error('Error fetching districts:', error);
+        }
+    };
 
     const handleInputChange = (
         e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
     ) => {
         const { name, value } = e.target;
         if (name === "state_id") {
-            setSelectedState(Number(value));
+            const stateId = Number(value);
+            setSelectedState(stateId);
             setFormData({
                 ...formData,
-                [name]: Number(value),
-                district_id: 0
+                [name]: stateId,
+                district_id: 0 // Reset district when state changes
             });
+            if (stateId) {
+                fetchDistrictsByState(stateId);
+            }
         } else {
             setFormData({ ...formData, [name]: value });
         }
@@ -180,6 +152,37 @@ export default function UserMembershipPage() {
     const handleOkClick = () => {
         setShowSuccess(false);
     };
+
+    useEffect(() => {
+        const fetchDropdownOptions = async () => {
+            try {
+                const [
+                    membLevels,
+                    ageGroups,
+                    eduLevels,
+                    // partyRoles,
+                    states,
+                ] = await Promise.all([
+                    axios.get("/membership-level"),
+                    axios.get("/age-groups"),
+                    axios.get("/education-level"),
+                    // axios.get("/party-role"),
+                    axios.get("/state"),
+                ]);
+
+                setMembLevelsOptions(membLevels.data);
+                setAgeGroupOptions(ageGroups.data);
+                setEduLevelOptions(eduLevels.data);
+                // setPartyRoleOptions(partyRoles.data);
+                setStateOptions(states.data);
+            } catch (error) {
+                console.error("Error fetching options:", error);
+                setError("Failed to load form options");
+            }
+        };
+
+        fetchDropdownOptions();
+    }, []);
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-primary-50">
@@ -479,7 +482,7 @@ export default function UserMembershipPage() {
                                             ))}
                                         </select>
                                     </div>
-                                    <div>
+                                    {/* <div>
                                         <label className="block text-sm font-medium text-gray-700 mb-2">
                                             Party Role
                                         </label>
@@ -500,7 +503,7 @@ export default function UserMembershipPage() {
                                                 </option>
                                             ))}
                                         </select>
-                                    </div>
+                                    </div> */}
                                     <div>
                                         <label className="block text-sm font-medium text-gray-700 mb-2">
                                             Gender
