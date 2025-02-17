@@ -10,7 +10,7 @@ export default function SignUpBanner() {
             SIGN UP FOR MORE..
           </span>
           <Link
-            href="/sign-in"
+            href="/create-account"
             className="bg-white text-secondary px-6 py-2 rounded-full font-bold flex items-center gap-2 hover:bg-gray-100 transition-colors text-sm sm:text-base whitespace-nowrap"
           >
             I&apos;M IN
