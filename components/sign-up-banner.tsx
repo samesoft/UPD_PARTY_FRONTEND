@@ -7,7 +7,7 @@ export default function SignUpBanner() {
       <div className="container mx-auto px-4">
         <div className="flex flex-col items-center justify-center gap-3 sm:gap-4 text-center">
           <span className="text-white text-base sm:text-lg md:text-xl font-bold">
-            SIGN UP TO HEAR FROM KEMI
+            SIGN UP
           </span>
           <Link
             href="/sign-up"

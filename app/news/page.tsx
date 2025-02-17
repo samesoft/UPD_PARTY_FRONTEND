@@ -4,52 +4,53 @@ import { Button } from "@/components/ui/button";
 
 const newsItems = [
   {
-    title: "REBUILDING TRUST: OUR NEW IMMIGRATION POLICY",
+    title: "DHISIDDA KALSOONIDA: SIYAASADDEENA CUSUB EE SOCDAALKA",
     excerpt:
-      "UPD PARTY new plan for immigration shows the Party is back in the service of the British people",
+      "Qorshaha cusub ee xisbiga UPD ee socdaalka ayaa muujinaya in xisbiga uu dib ugu soo laabtay adeegga dadka Soomaaliyeed",
     date: "6/2/2025",
     image: "/NESW-6.jpg",
-    link: "/news/immigration-policy",
+    link: "/news/siyaasadda-socdaalka",
   },
   {
-    title: "HSM FIRST SPEECH OF 2025: REBUILDING TRUST",
+    title:
+      "KHUDBADDII UGU HORREYSAY EE MADAXWEYNAHA 2025: DIB U DHISIDDA KALSOONIDA",
     excerpt:
-      "HSM gave a speech on how she'll rebuild trust in the Conservative Party",
+      "Madaxweynuhu wuxuu jeediyey khudbad ku saabsan sida loo dhisi doono kalsoonida Xisbiga",
     date: "16/1/2025",
     image: "/HSM2.jpg",
-    link: "/news/kemi-speech-2025",
+    link: "/news/khudbadda-madaxweynaha-2025",
   },
   {
-    title: "UPD FORCE VOTE ON NATIONAL INSURANCE",
+    title: "UPD OO CODSI U GUDBISAY DIB U EEGIS CASHUURTA QARANKA",
     excerpt:
-      "We Conservatives strongly believe in supporting the victims of this appalling abuse and deserve justice.",
+      "Waxaan aaminsan nahay in la taageero dhibbanayaasha xadgudubka naxdinta leh iyo in ay helaan caddaalad.",
     date: "9/12/2025",
     image: "/NEWS-3.jpg",
-    link: "/news/national-insurance",
+    link: "/news/dib-u-eegista-cashuurta",
   },
   {
-    title: "NEW ECONOMIC PLAN UNVEILED",
+    title: "QORSHAHA CUSUB EE DHAQAALAHA OO LA SHAACIYEY",
     excerpt:
-      "UPD Party announces comprehensive economic strategy to boost growth and reduce inflation",
+      "Xisbiga UPD ayaa ku dhawaaqay istaraatiijiyad dhammeystiran oo dhaqaale oo lagu xoojinayo koritaanka iyo yareenayo sicir bararka",
     date: "20/2/2025",
     image: "/NEWS-2.jpg",
-    link: "/news/economic-plan",
+    link: "/news/qorshaha-dhaqaalaha",
   },
   {
-    title: "EDUCATION REFORM: BACK TO BASICS",
+    title: "DARYEELKA CAAFIMAADKA: HORUMARINTA ADEEGYADA CAAFIMAAD",
     excerpt:
-      "Our new education policy focuses on core skills and preparing students for the jobs of tomorrow",
+      "Siyaasaddeena cusub ee caafimaadka waxay diiradda saaraysaa kor u qaadista tayada adeegyada caafimaad ee dalka oo dhan",
     date: "3/3/2025",
     image: "/NEWS-7.jpg",
-    link: "/news/education-reform",
+    link: "/news/horumarinta-caafimaadka",
   },
   {
-    title: "CLIMATE ACTION: GREEN ENERGY INITIATIVE",
+    title: "WAXBARASHADA: MAALGELINTA MUSTAQBALKA",
     excerpt:
-      "UPD Party commits to ambitious renewable energy targets and green job creation",
+      "UPD waxay ballan qaadaysaa inay kor u qaaddo miisaaniyadda waxbarashada si loo hubiyo in dhallinyarada Soomaaliyeed ay helaan waxbarasho tayo sare leh.",
     date: "15/3/2025",
     image: "/News3.jpg",
-    link: "/news/green-initiative",
+    link: "/news/maalgelinta-waxbarashada",
   },
 ];
 
