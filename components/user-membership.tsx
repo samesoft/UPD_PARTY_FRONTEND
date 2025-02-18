@@ -97,14 +97,13 @@ export default function UserMembershipPage() {
         district_id: 0,
         age_group_id: 0,
         edu_level_id: 0,
-        party_role_id: 0,
+        party_role_id: 1,
         gender: "",
         state_id: 0,
     });
 
     const fetchDistrictsByState = async (stateId: number) => {
         try {
-            console.log(">>>>>>>HELLO WORLD >>>>>>>>");
             const response = await axios.get(`/district/districtByState/${stateId}`);
             setDistrictOptions({ data: response.data.data });
             console.log("Districts fetched:", response.data.data);
