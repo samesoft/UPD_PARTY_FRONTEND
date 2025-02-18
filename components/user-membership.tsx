@@ -100,6 +100,7 @@ export default function UserMembershipPage() {
         party_role_id: 1,
         gender: "",
         state_id: 0,
+        role_id: 2
     });
 
     const fetchDistrictsByState = async (stateId: number) => {
