@@ -372,42 +372,6 @@ export default function DonateForm() {
               className="bg-gray-50"
             />
           </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="address">Address</Label>
-            <Textarea id="address" />
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="zipCode">ZIP code</Label>
-            <Input id="zipCode" />
-          </div>
-        </div>
-
-        {/* Email Updates */}
-        <div className="space-y-4">
-          <h3 className="text-lg font-semibold">
-            Would you like to hear from us?
-          </h3>
-          <p className="text-sm text-gray-600">
-            We'd like to keep you updated on our campaigns, policies, appeals
-            and opportunities to get involved - in addition to contact regarding
-            donations. You can unsubscribe at any time.
-          </p>
-          <div className="flex gap-4">
-            <Button
-              variant={emailUpdates ? "default" : "outline"}
-              onClick={() => setEmailUpdates(true)}
-            >
-              Yes
-            </Button>
-            <Button
-              variant={!emailUpdates ? "default" : "outline"}
-              onClick={() => setEmailUpdates(false)}
-            >
-              No
-            </Button>
-          </div>
         </div>
 
         {/* Privacy Policy */}
