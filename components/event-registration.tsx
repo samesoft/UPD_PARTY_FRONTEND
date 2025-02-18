@@ -127,6 +127,8 @@ export default function EventRegistration() {
     // Handle add event
     const handleAdd = async () => {
         setIsAddingEvent(true);
+        const memberId = localStorage.getItem('member_id');
+        const created_by_member_id = memberId ? parseInt(memberId) : 0;
         try {
             const response = await axios.post('/events', {
                 title: newEvent.title,
@@ -134,7 +136,7 @@ export default function EventRegistration() {
                 location: newEvent.location,
                 start_time: newEvent.start_time,
                 end_time: newEvent.end_time,
-                created_by_member_id: 8,
+                created_by_member_id: created_by_member_id,
                 district_id: newEvent.district_id
             });
 
@@ -147,7 +149,7 @@ export default function EventRegistration() {
                     location: "",
                     start_time: "",
                     end_time: "",
-                    created_by_member_id: 0,
+                    created_by_member_id: created_by_member_id,
                     district: "",
                     district_id: 0
                 });
