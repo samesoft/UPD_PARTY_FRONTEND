@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -38,6 +38,17 @@ const frequencies = [
   { value: "annually", label: "Annually" },
 ];
 
+// Add these interfaces at the top of the file
+interface DistrictOption {
+    district_id: number;
+    district: string;
+    regionid?: number;
+}
+
+interface ApiResponse {
+    data: DistrictOption[];
+}
+
 export default function DonateForm() {
   const [donationType, setDonationType] = useState<"one-time" | "recurring">(
     "one-time"
@@ -52,6 +63,12 @@ export default function DonateForm() {
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [showErrorModal, setShowErrorModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [stateOptions, setStateOptions] = useState<{ stateid: number; state: string }[]>([]);
+  const [districtOptions, setDistrictOptions] = useState<ApiResponse>({
+    data: [],
+  });
+  const [selectedState, setSelectedState] = useState<number | null>(null);
+  const [selectedDistrict, setSelectedDistrict] = useState<string>("");
 
   // Calculate next payment date when component mounts
   const today = new Date();
@@ -60,6 +77,29 @@ export default function DonateForm() {
     day: "2-digit",
     year: "numeric",
   });
+
+  useEffect(() => {
+    const fetchStates = async () => {
+      try {
+        const response = await axios.get('/state');
+        setStateOptions(response.data.data);
+      } catch (error) {
+        console.error('Error fetching states:', error);
+      }
+    };
+
+    fetchStates();
+  }, []);
+
+  const fetchDistrictsByState = async (stateId: number) => {
+    try {
+      const response = await axios.get(`/district/districtByState/${stateId}`);
+      setDistrictOptions({ data: response.data.data });
+      console.log("Districts fetched:", response.data.data);
+    } catch (error) {
+      console.error('Error fetching districts:', error);
+    }
+  };
 
   const handleDonation = async () => {
     setIsProcessing(true);
@@ -265,7 +305,7 @@ export default function DonateForm() {
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
+            <Label htmlFor="email">Email (Optional)</Label>
             <Input id="email" type="email" />
           </div>
 
@@ -282,19 +322,65 @@ export default function DonateForm() {
           </div>
 
           <div className="space-y-2">
+            <Label htmlFor="state">State</Label>
+            <select
+              id="state"
+              className="w-full h-10 px-3 border rounded-md"
+              onChange={(e) => {
+                const stateId = Number(e.target.value);
+                setSelectedState(stateId);
+                if (stateId) {
+                  fetchDistrictsByState(stateId);
+                }
+              }}
+              value={selectedState || ""}
+            >
+              <option value="">Select State</option>
+              {stateOptions.map(option => (
+                <option key={option.stateid} value={option.stateid}>
+                  {option.state}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="district">District</Label>
+            <select
+              id="district"
+              className="w-full h-10 px-3 border rounded-md"
+              onChange={(e) => {
+                setSelectedDistrict(e.target.value);
+              }}
+              value={selectedDistrict}
+            >
+              <option value="">Select District</option>
+              {districtOptions.data?.map(option => (
+                <option key={option.district_id} value={option.district}>
+                  {option.district}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          <div className="space-y-2">
+            <Label htmlFor="city">City</Label>
+            <Input 
+              id="city" 
+              value={selectedDistrict}
+              disabled
+              className="bg-gray-50"
+            />
+          </div>
+
+          <div className="space-y-2">
             <Label htmlFor="address">Address</Label>
             <Textarea id="address" />
           </div>
 
-          <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label htmlFor="city">City</Label>
-              <Input id="city" />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="zipCode">ZIP code</Label>
-              <Input id="zipCode" />
-            </div>
+          <div className="space-y-2">
+            <Label htmlFor="zipCode">ZIP code</Label>
+            <Input id="zipCode" />
           </div>
         </div>
 
