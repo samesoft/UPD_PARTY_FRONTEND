@@ -188,11 +188,11 @@ export default function UserMembershipPage() {
 
     return (
         <div className="min-h-screen bg-gradient-to-br from-primary-50 via-white to-primary-50">
-            {/* Success Modal */}
+            {/* Success Modal - Made responsive */}
             {showSuccess && (
-                <div className="fixed inset-0 flex items-center justify-center z-50">
+                <div className="fixed inset-0 flex items-center justify-center z-50 p-4">
                     <div className="absolute inset-0 bg-black opacity-50"></div>
-                    <div className="bg-white rounded-lg p-8 shadow-xl z-10 max-w-md w-full mx-4">
+                    <div className="bg-white rounded-lg p-4 sm:p-8 shadow-xl z-10 max-w-md w-full mx-4">
                         <div className="text-center">
                             <div className="mx-auto flex items-center justify-center h-12 w-12 rounded-full bg-green-100 mb-4">
                                 <svg className="h-6 w-6 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -214,18 +214,18 @@ export default function UserMembershipPage() {
                 </div>
             )}
 
-            <div className="max-w-[1200px] mx-auto px-4 py-16 sm:px-6 lg:px-8">
+            <div className="max-w-[1200px] mx-auto px-4 py-8 sm:py-12 lg:py-16">
                 {/* Header Section */}
                 <motion.div
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="text-center mb-16"
+                    className="text-center mb-8 sm:mb-12 lg:mb-16"
                 >
-                    <h1 className="text-4xl font-bold text-gray-900 mb-4">
+                    <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-gray-900 mb-3 sm:mb-4">
                         Welcome to{" "}
                         <span className="text-primary-600">Union Peace & Dev</span>
                     </h1>
-                    <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                    <p className="text-base sm:text-lg text-gray-600 max-w-2xl mx-auto px-4">
                         Complete your profile to join our community and start participating
                         in events
                     </p>
@@ -235,34 +235,34 @@ export default function UserMembershipPage() {
                 <motion.div
                     initial={{ opacity: 0, y: 20 }}
                     animate={{ opacity: 1, y: 0 }}
-                    className="bg-white rounded-2xl shadow-xl overflow-hidden max-w-5xl mx-auto"
+                    className="bg-white rounded-lg sm:rounded-xl lg:rounded-2xl shadow-xl overflow-hidden max-w-5xl mx-auto"
                 >
                     {/* Progress Steps */}
-                    <div className="bg-gradient-to-r from-primary-500 to-primary-600 p-6 text-white">
+                    <div className="bg-gradient-to-r from-primary-500 to-primary-600 p-4 sm:p-6 text-white">
                         <div className="flex justify-between max-w-2xl mx-auto">
                             <div className="flex items-center">
-                                <div className="w-10 h-10 rounded-full bg-white text-primary-600 flex items-center justify-center font-bold">
+                                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white text-primary-600 flex items-center justify-center font-bold text-sm sm:text-base">
                                     1
                                 </div>
-                                <span className="ml-3">Personal Info</span>
+                                <span className="ml-2 sm:ml-3 hidden sm:inline">Personal Info</span>
                             </div>
                             <div className="flex items-center">
-                                <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center font-bold">
+                                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/20 flex items-center justify-center font-bold text-sm sm:text-base">
                                     2
                                 </div>
-                                <span className="ml-3">Verification</span>
+                                <span className="ml-2 sm:ml-3 hidden sm:inline">Verification</span>
                             </div>
                             <div className="flex items-center">
-                                <div className="w-10 h-10 rounded-full bg-white/20 flex items-center justify-center font-bold">
+                                <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-white/20 flex items-center justify-center font-bold text-sm sm:text-base">
                                     3
                                 </div>
-                                <span className="ml-3">Complete</span>
+                                <span className="ml-2 sm:ml-3 hidden sm:inline">Complete</span>
                             </div>
                         </div>
                     </div>
 
                     {/* Form Content */}
-                    <div className="p-8">
+                    <div className="p-4 sm:p-6 lg:p-8">
                         {error && (
                             <motion.div
                                 initial={{ opacity: 0, x: -20 }}
@@ -273,15 +273,15 @@ export default function UserMembershipPage() {
                             </motion.div>
                         )}
 
-                        <form onSubmit={handleSubmit} className="space-y-8">
+                        <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">
                             {/* Personal Information Section */}
-                            <div className="bg-gray-50 rounded-xl p-6">
-                                <h3 className="text-lg font-semibold text-gray-900 mb-6 flex items-center">
-                                    <User className="w-5 h-5 mr-2 text-primary-600" />
+                            <div className="bg-gray-50 rounded-lg sm:rounded-xl p-4 sm:p-6">
+                                <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-4 sm:mb-6 flex items-center">
+                                    <User className="w-4 h-4 sm:w-5 sm:h-5 mr-2 text-primary-600" />
                                     Personal Information
                                 </h3>
 
-                                <div className="grid grid-cols-3 gap-6">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                                     <div className="col-span-3 sm:col-span-1">
                                         <label className="block text-sm font-medium text-gray-700 mb-2">
                                             First Name
@@ -324,13 +324,13 @@ export default function UserMembershipPage() {
                             </div>
 
                             {/* Contact Information Section */}
-                            <div className="bg-gray-50 rounded-xl p-6">
-                                <h3 className="text-lg font-semibold text-gray-900 mb-6 flex items-center">
-                                    <Phone className="w-5 h-5 mr-2 text-primary-600" />
+                            <div className="bg-gray-50 rounded-lg sm:rounded-xl p-4 sm:p-6">
+                                <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-4 sm:mb-6 flex items-center">
+                                    <Phone className="w-4 h-4 sm:w-5 sm:h-5 mr-2 text-primary-600" />
                                     Contact Information
                                 </h3>
 
-                                <div className="grid grid-cols-1 gap-6">
+                                <div className="grid grid-cols-1 gap-4 sm:gap-6">
                                     <div>
                                         <label className="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
                                         <div className="relative">
@@ -380,13 +380,13 @@ export default function UserMembershipPage() {
                             </div>
 
                             {/* Additional Information Section */}
-                            <div className="bg-gray-50 rounded-xl p-6">
-                                <h3 className="text-lg font-semibold text-gray-900 mb-6 flex items-center">
-                                    <Users className="w-5 h-5 mr-2 text-primary-600" />
+                            <div className="bg-gray-50 rounded-lg sm:rounded-xl p-4 sm:p-6">
+                                <h3 className="text-base sm:text-lg font-semibold text-gray-900 mb-4 sm:mb-6 flex items-center">
+                                    <Users className="w-4 h-4 sm:w-5 sm:h-5 mr-2 text-primary-600" />
                                     Additional Information
                                 </h3>
 
-                                <div className="grid grid-cols-3 gap-6">
+                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6">
                                     {/* State Dropdown */}
                                     <div>
                                         <label className="block text-sm font-medium text-gray-700 mb-2">State</label>
@@ -539,11 +539,11 @@ export default function UserMembershipPage() {
                             </div>
 
                             {/* Submit Button */}
-                            <div className="flex justify-end">
+                            <div className="flex justify-center sm:justify-end">
                                 <button
                                     type="submit"
                                     disabled={isLoading}
-                                    className="group bg-[#2E8B57] from-primary-600 to-primary-700 text-white px-8 py-3 rounded-lg hover:from-primary-700 hover:to-primary-800 focus:outline-none focus:ring-4 focus:ring-primary-200 transition-all disabled:opacity-50 flex items-center space-x-2"
+                                    className="w-full sm:w-auto group bg-[#2E8B57] text-white px-6 sm:px-8 py-3 rounded-lg hover:bg-[#236b43] focus:outline-none focus:ring-4 focus:ring-primary-200 transition-all disabled:opacity-50 flex items-center justify-center space-x-2 text-sm sm:text-base"
                                 >
                                     {isLoading ? (
                                         <>
