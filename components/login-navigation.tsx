@@ -52,6 +52,7 @@ export default function LoginNavigation() {
         <div className="hidden md:flex items-center space-x-4 lg:space-x-8">
           {userRole === "ADMIN" && (
             <>
+<
               <button
                 onClick={() => handleLoginNavigation("/NewsPage")}
                 className="text-[#2E8B57] hover:text-secondary transition-colors"
@@ -86,38 +87,103 @@ export default function LoginNavigation() {
           )}
           {userRole === "USER" && (
             <>
-              {/* <button
-                            onClick={() => handleLoginNavigation("/event-registration")}
-                            className="text-[#2E8B57] hover:text-secondary transition-colors"
-                        >
-                            Member Registration
-                        </button> */}
-              <>
-                {/* <button
-                  onClick={() => handleLoginNavigation("/volunteer")}
-                  className="text-[#2E8B57] hover:text-secondary transition-colors"
-                >
-                  VOLUNTEER
-                </button> */}
+             
+
+              <div className="relative group">
                 <button
-                  onClick={() => handleLoginNavigation("/campaign")}
                   className="text-[#2E8B57] hover:text-secondary transition-colors"
                 >
-                  CAMPAIGN
+                  Members
                 </button>
+                <div className="absolute hidden group-hover:block bg-white shadow-lg rounded-md py-2 w-32">
+                  <button
+                    onClick={() => handleLoginNavigation("/membership-level")}
+                    className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
+                  >
+                    Member Level
+                  </button>
+                  <button
+                    onClick={() => handleLoginNavigation("/memberships")}
+                    className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
+                  >
+                    Membership
+                  </button>
+                </div>
+              </div>
+              <div className="relative group">
+
                 <button
-                  onClick={() => handleLoginNavigation("/event-selecting")}
                   className="text-[#2E8B57] hover:text-secondary transition-colors"
                 >
-                  Event Registration
+                  Settings
                 </button>
-              </>
+                <div className="absolute hidden group-hover:block bg-white shadow-lg rounded-md py-2 w-32">
+                  <button
+                    onClick={() => handleLoginNavigation("/state")}
+                    className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
+                  >
+                    State
+                  </button>
+                  <button
+                    onClick={() => handleLoginNavigation("/state")}
+                    className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
+                  >
+                    District
+                  </button>
+                </div>
+              </div>
+              <div className="relative group">
+                <button
+                  className="text-[#2E8B57] hover:text-secondary transition-colors"
+                >
+                  Events
+                </button>
+                <div className="absolute hidden group-hover:block bg-white shadow-lg rounded-md py-2 w-32">
+                  <button
+                    onClick={() => handleLoginNavigation("/event-registration")}
+                    className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
+                  >
+                    Event Registration
+                  </button>
+                </div>
+              </div>
+            </>
+          )}
+          {userRole === "USER" && (
+            <>
               <button
-                onClick={() => handleLoginNavigation("/selected-events")}
+                onClick={() => handleLoginNavigation("/volunteer")}
                 className="text-[#2E8B57] hover:text-secondary transition-colors"
               >
-                Selected Events
+                VOLUNTEER
               </button>
+              <button
+                onClick={() => handleLoginNavigation("/campaign")}
+                className="text-[#2E8B57] hover:text-secondary transition-colors"
+              >
+                CAMPAIGN
+              </button>
+              <div className="relative group">
+                <button
+                  className="text-[#2E8B57] hover:text-secondary transition-colors"
+                >
+                  Events
+                </button>
+                <div className="absolute hidden group-hover:block bg-white shadow-lg rounded-md py-2 w-32">
+                  <button
+                    onClick={() => handleLoginNavigation("/event-selecting")}
+                    className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
+                  >
+                    Event Registration
+                  </button>
+                  <button
+                    onClick={() => handleLoginNavigation("/selected-events")}
+                    className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
+                  >
+                    Selected Events
+                  </button>
+                </div>
+              </div>
               <button
                 onClick={() => handleLoginNavigation("/donate-form")}
                 className="text-[#2E8B57] hover:text-secondary transition-colors"
@@ -150,45 +216,81 @@ export default function LoginNavigation() {
         <div className="md:hidden mt-4 space-y-4">
           {userRole === "ADMIN" && (
             <>
-              <button
-                onClick={() => handleLoginNavigation("/membership-level")}
-                className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
-              >
-                Member Level
-              </button>
-              <button
-                onClick={() => handleLoginNavigation("/state")}
-                className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
-              >
-                State
-              </button>
-              <button
-                onClick={() => handleLoginNavigation("/event-registration")}
-                className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
-              >
-                Event Registration
-              </button>
-              <button
-                onClick={() => handleLoginNavigation("/selected-events")}
-                className="text-[#2E8B57] hover:text-secondary transition-colors"
-              >
-                Selected Events
-              </button>
+              <div className="px-4 py-2">
+                <div className="text-[#2E8B57] mb-2">Members</div>
+                <button
+                  onClick={() => handleLoginNavigation("/membership-level")}
+                  className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
+                >
+                  Member Level
+                </button>
+                <button
+                  onClick={() => handleLoginNavigation("/memberships")}
+                  className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
+                >
+                  Membership
+                </button>
+              </div>
+              <div className="px-4 py-2">
+                <div className="text-[#2E8B57] mb-2">Settings</div>
+                <button
+                  onClick={() => handleLoginNavigation("/state")}
+                  className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
+                >
+                  State
+                </button>
+                <button
+                  onClick={() => handleLoginNavigation("/district")}
+                  className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
+                >
+                  District
+                </button>
+              </div>
+              <div className="px-4 py-2">
+                <div className="text-[#2E8B57] mb-2">Events</div>
+                <button
+                  onClick={() => handleLoginNavigation("/event-registration")}
+                  className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
+                >
+                  Event Registration
+                </button>
+              </div>
             </>
           )}
           {userRole === "USER" && (
             <>
               <button
-                onClick={() => handleLoginNavigation("/event-selecting")}
+                onClick={() => handleLoginNavigation("/volunteer")}
                 className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
               >
-                Event Registration
+                VOLUNTEER
               </button>
               <button
-                onClick={() => handleLoginNavigation("/selected-events")}
-                className="text-[#2E8B57] hover:text-secondary transition-colors"
+                onClick={() => handleLoginNavigation("/campaign")}
+                className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
               >
-                Selected Events
+                CAMPAIGN
+              </button>
+              <div className="px-4 py-2">
+                <div className="text-[#2E8B57] mb-2">Events</div>
+                <button
+                  onClick={() => handleLoginNavigation("/event-selecting")}
+                  className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
+                >
+                  Event Registration
+                </button>
+                <button
+                  onClick={() => handleLoginNavigation("/selected-events")}
+                  className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
+                >
+                  Selected Events
+                </button>
+              </div>
+              <button
+                onClick={() => handleLoginNavigation("/donate-form")}
+                className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
+              >
+                Donate
               </button>
             </>
           )}
