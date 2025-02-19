@@ -270,11 +270,11 @@ export default function EventRegistration() {
     }, []);
 
     return (
-        <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
+        <div className="rounded-sm border border-stroke bg-white px-3 sm:px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
             {/* Top Controls */}
-            <div className="flex items-center gap-4 mb-4">
+            <div className="flex flex-col sm:flex-row items-center gap-4 mb-4">
                 <button
-                    className="bg-green-500 text-white px-6 py-2.5 rounded-lg hover:bg-green-600 transition duration-200 flex items-center gap-2 font-semibold"
+                    className="w-full sm:w-auto bg-green-500 text-white px-6 py-2.5 rounded-lg hover:bg-green-600 transition duration-200 flex items-center justify-center gap-2 font-semibold"
                     onClick={() => setShowAddModal(true)}
                 >
                     <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -297,31 +297,31 @@ export default function EventRegistration() {
                     <CircularProgress />
                 </div>
             ) : (
-                <div>
+                <div className="overflow-x-auto">
                     <table className="w-full table-auto">
                         <thead>
                             <tr className="bg-green-500 text-left">
-                                <th className="py-4 px-4 font-medium text-white">Title</th>
-                                <th className="py-4 px-4 font-medium text-white">District</th>
-                                <th className="py-4 px-4 font-medium text-white">Location</th>
-                                <th className="py-4 px-4 font-medium text-white">Start Time</th>
-                                <th className="py-4 px-4 font-medium text-white">End Time</th>
-                                <th className="py-4 px-4 font-medium text-white">Actions</th>
+                                <th className="py-4 px-2 sm:px-4 font-medium text-white">Title</th>
+                                <th className="py-4 px-2 sm:px-4 font-medium text-white">District</th>
+                                <th className="py-4 px-2 sm:px-4 font-medium text-white">Location</th>
+                                <th className="py-4 px-2 sm:px-4 font-medium text-white">Start Time</th>
+                                <th className="py-4 px-2 sm:px-4 font-medium text-white">End Time</th>
+                                <th className="py-4 px-2 sm:px-4 font-medium text-white">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             {events.map((event) => (
                                 <tr key={event.id}>
-                                    <td className="border-b py-5 px-4">{event.title}</td>
-                                    <td className="border-b py-5 px-4">{event.district}</td>
-                                    <td className="border-b py-5 px-4">{event.location}</td>
-                                    <td className="border-b py-5 px-4">
+                                    <td className="border-b py-5 px-2 sm:px-4 text-sm sm:text-base">{event.title}</td>
+                                    <td className="border-b py-5 px-2 sm:px-4 text-sm sm:text-base">{event.district}</td>
+                                    <td className="border-b py-5 px-2 sm:px-4 text-sm sm:text-base">{event.location}</td>
+                                    <td className="border-b py-5 px-2 sm:px-4 text-sm sm:text-base">
                                         {new Date(event.start_time).toLocaleString()}
                                     </td>
-                                    <td className="border-b py-5 px-4">
+                                    <td className="border-b py-5 px-2 sm:px-4 text-sm sm:text-base">
                                         {new Date(event.end_time).toLocaleString()}
                                     </td>
-                                    <td className="border-b py-5 px-4 flex gap-2">
+                                    <td className="border-b py-5 px-2 sm:px-4 flex gap-2">
                                         <button
                                             onClick={() => handleEdit(event)}
                                             className="text-green-500 hover:text-green-600 p-2 rounded-full hover:bg-green-50 transition-all"
@@ -344,8 +344,8 @@ export default function EventRegistration() {
 
             {/* Edit Modal */}
             {editingEvent && (
-                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-50">
-                    <div className="bg-white p-8 rounded-xl shadow-2xl max-w-2xl w-full transform transition-all animate-fade-in-up mx-4">
+                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-50 p-4">
+                    <div className="bg-white p-4 sm:p-8 rounded-xl shadow-2xl w-full max-w-2xl transform transition-all animate-fade-in-up">
                         <div className="flex justify-between items-center mb-8 border-b border-gray-100 pb-4">
                             <div>
                                 <h2 className="text-2xl font-bold text-green-600 mb-1">Edit Event</h2>
@@ -360,7 +360,7 @@ export default function EventRegistration() {
                                 </svg>
                             </button>
                         </div>
-                        <div className="grid grid-cols-2 gap-6">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-2">Title</label>
                                 <input
@@ -458,8 +458,8 @@ export default function EventRegistration() {
 
             {/* Add Modal */}
             {showAddModal && (
-                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-50">
-                    <div className="bg-white p-8 rounded-xl shadow-2xl max-w-2xl w-full transform transition-all animate-fade-in-up mx-4">
+                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-60 z-50 p-4">
+                    <div className="bg-white p-4 sm:p-8 rounded-xl shadow-2xl w-full max-w-2xl transform transition-all animate-fade-in-up">
                         <div className="flex justify-between items-center mb-8 border-b border-gray-100 pb-4">
                             <div>
                                 <h2 className="text-2xl font-bold text-green-600 mb-1">Add New Event</h2>
@@ -474,7 +474,7 @@ export default function EventRegistration() {
                                 </svg>
                             </button>
                         </div>
-                        <div className="grid grid-cols-2 gap-6">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-2">Title</label>
                                 <input
