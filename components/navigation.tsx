@@ -26,7 +26,7 @@ export default function Navigation() {
   };
 
   return (
-    <nav className="bg-white py-4 px-4 shadow-sm">
+    <nav className="bg-white py-2 px-4 shadow-sm">
       <div className="container mx-auto flex items-center justify-between">
         <button
           onClick={() => handleNavigation("/")}
@@ -41,12 +41,18 @@ export default function Navigation() {
               className="object-contain"
             />
           </div>
-          <span className="text-xl sm:text-2xl font-bold text-[#2E8B57]">
+          <span className="text-xl sm:text-sm font-bold text-[#2E8B57]">
             Union Peace & Dev
           </span>
         </button>
 
         <div className="hidden md:flex items-center space-x-4 lg:space-x-8">
+          <button
+            onClick={() => handleNavigation("/news")}
+            className="text-[#2E8B57] hover:text-secondary transition-colors"
+          >
+            News
+          </button>
           <button
             onClick={() => handleNavigation("/volunteer")}
             className="text-[#2E8B57] hover:text-secondary transition-colors"
