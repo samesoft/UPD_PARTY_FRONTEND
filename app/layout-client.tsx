@@ -9,40 +9,42 @@ import DashboardLayout from "@/components/dashboard";
 import LoginNavigation from "@/components/login-navigation";
 
 const DASHBOARD_ROUTES = [
-    '/dashboard',
-    '/membership-level',
-    '/state',
-    '/event-registration',
-    '/event-selecting',
-    '/selected-events',
-    '/donate-form',
-    '/memberships'
+  "/dashboard",
+  "/membership-level",
+  "/state",
+  "/event-registration",
+  "/event-selecting",
+  "/selected-events",
+  "/donate-form",
+  "/memberships",
 ];
 
 export default function LayoutClient({
-    children,
+  children,
 }: {
-    children: React.ReactNode;
+  children: React.ReactNode;
 }) {
-    const pathname = usePathname();
-    const isDashboardRoute = DASHBOARD_ROUTES.some(route => pathname.startsWith(route));
+  const pathname = usePathname();
+  const isDashboardRoute = DASHBOARD_ROUTES.some((route) =>
+    pathname.startsWith(route)
+  );
 
-    if (isDashboardRoute) {
-        return (
-            <>
-                <LoginNavigation />
-                {children}
-
-            </>
-        )
-    }
-
+  if (isDashboardRoute) {
     return (
-        <>
-            <TopBar />
-            <Navigation />
-            {children}
-            <Footer />
-        </>
+      <>
+        <Navigation />
+        {/* <LoginNavigation /> */}
+        {children}
+      </>
     );
+  }
+
+  return (
+    <>
+      <TopBar />
+      <Navigation />
+      {children}
+      <Footer />
+    </>
+  );
 }
