@@ -14,7 +14,7 @@ import {
 } from "@/components/ui/select";
 import Link from "next/link";
 import { Lock } from "lucide-react";
-import axios from '../commons/axios';
+import axios from "../commons/axios";
 import {
   Dialog,
   DialogContent,
@@ -40,13 +40,13 @@ const frequencies = [
 
 // Add these interfaces at the top of the file
 interface DistrictOption {
-    district_id: number;
-    district: string;
-    regionid?: number;
+  district_id: number;
+  district: string;
+  regionid?: number;
 }
 
 interface ApiResponse {
-    data: DistrictOption[];
+  data: DistrictOption[];
 }
 
 export default function DonateForm() {
@@ -63,12 +63,15 @@ export default function DonateForm() {
   const [showSuccessModal, setShowSuccessModal] = useState(false);
   const [showErrorModal, setShowErrorModal] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const [stateOptions, setStateOptions] = useState<{ stateid: number; state: string }[]>([]);
+  const [stateOptions, setStateOptions] = useState<
+    { stateid: number; state: string }[]
+  >([]);
   const [districtOptions, setDistrictOptions] = useState<ApiResponse>({
     data: [],
   });
   const [selectedState, setSelectedState] = useState<number | null>(null);
   const [selectedDistrict, setSelectedDistrict] = useState<string>("");
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(""); // Add state for payment method
 
   // Calculate next payment date when component mounts
   const today = new Date();
@@ -81,10 +84,10 @@ export default function DonateForm() {
   useEffect(() => {
     const fetchStates = async () => {
       try {
-        const response = await axios.get('/state');
+        const response = await axios.get("/state");
         setStateOptions(response.data.data);
       } catch (error) {
-        console.error('Error fetching states:', error);
+        console.error("Error fetching states:", error);
       }
     };
 
@@ -97,7 +100,7 @@ export default function DonateForm() {
       setDistrictOptions({ data: response.data.data });
       console.log("Districts fetched:", response.data.data);
     } catch (error) {
-      console.error('Error fetching districts:', error);
+      console.error("Error fetching districts:", error);
     }
   };
 
@@ -113,11 +116,11 @@ export default function DonateForm() {
     }
 
     try {
-      const response = await axios.get('members/payment/requestPayment', {
+      const response = await axios.get("members/payment/requestPayment", {
         params: {
           phone: phoneNumber,
-          amount: amount
-        }
+          amount: amount,
+        },
       });
 
       if (response.data.success) {
@@ -127,7 +130,9 @@ export default function DonateForm() {
         setShowErrorModal(true);
       }
     } catch (error: any) {
-      setErrorMessage(error?.response?.data?.message || "Payment processing failed");
+      setErrorMessage(
+        error?.response?.data?.message || "Payment processing failed"
+      );
       setShowErrorModal(true);
     } finally {
       setIsProcessing(false);
@@ -145,7 +150,8 @@ export default function DonateForm() {
         </DialogHeader>
         <div className="p-6 text-center space-y-4">
           <p className="text-gray-600">
-            Thank you for your generous donation! You will receive an SMS confirmation shortly.
+            Thank you for your generous donation! You will receive an SMS
+            confirmation shortly.
           </p>
           <Button
             onClick={() => setShowSuccessModal(false)}
@@ -309,8 +315,6 @@ export default function DonateForm() {
             <Input id="email" type="email" />
           </div>
 
-       
-
           <div className="space-y-2">
             <Label htmlFor="state">State</Label>
             <select
@@ -326,7 +330,7 @@ export default function DonateForm() {
               value={selectedState || ""}
             >
               <option value="">Select State</option>
-              {stateOptions.map(option => (
+              {stateOptions.map((option) => (
                 <option key={option.stateid} value={option.stateid}>
                   {option.state}
                 </option>
@@ -345,15 +349,13 @@ export default function DonateForm() {
               value={selectedDistrict}
             >
               <option value="">Select District</option>
-              {districtOptions.data?.map(option => (
+              {districtOptions.data?.map((option) => (
                 <option key={option.district_id} value={option.district}>
                   {option.district}
                 </option>
               ))}
             </select>
           </div>
-
-         
         </div>
 
         {/* Privacy Policy */}
@@ -367,25 +369,45 @@ export default function DonateForm() {
           </Link>
           .
         </p>
+        {/* Add Payment Method Selection */}
+        <div className="space-y-2">
+          <Label htmlFor="paymentMethod">Payment Method</Label>
+          <select
+            id="paymentMethod"
+            className="w-full h-10 px-3 border rounded-md"
+            onChange={(e) => setSelectedPaymentMethod(e.target.value)}
+            value={selectedPaymentMethod}
+          >
+            <option value="">Select Payment Method</option>
+            {/* Add your payment method options here */}
+            <option value="mpesa">EVC-Plus</option>
+            <option value="paypal">E-Dahab</option>
+            <option value="paypal">Premier Wallet </option>
+            <option value="paypal">Zaad Service</option>
+            <option value="paypal">SAHAL Wallet </option>
+          </select>
+        </div>
 
         {/* Add Phone Number Field */}
         <div className="space-y-2">
           <Label htmlFor="phone">Phone Number</Label>
-          <Input 
-            id="phone" 
-            type="tel" 
+          <Input
+            id="phone"
+            type="tel"
             value={phoneNumber}
             onChange={(e) => setPhoneNumber(e.target.value)}
             placeholder="e.g., 615123456"
             className="pl-8"
           />
-          <p className="text-sm text-gray-500">Enter number without country code (e.g., 615123456)</p>
+          <p className="text-sm text-gray-500">
+            Enter number without country code (e.g., 615123456)
+          </p>
         </div>
 
         {/* Update Payment Button */}
         <div>
           <h3 className="text-xl font-semibold mb-4">Payment</h3>
-          <Button 
+          <Button
             className="w-full h-12 bg-primary hover:bg-primary/90 relative"
             onClick={handleDonation}
             disabled={isProcessing}
@@ -399,7 +421,7 @@ export default function DonateForm() {
                 </div>
               </>
             ) : (
-              'Donate'
+              "Donate"
             )}
           </Button>
         </div>

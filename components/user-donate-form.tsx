@@ -86,7 +86,7 @@ export default function UserDonateForm({
   const [selectedDistrict, setSelectedDistrict] = useState<string>(
     memberData?.district_id?.toString() || ""
   );
-
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(""); // Add state for payment method
   console.log(selectedDistrict);
   // Calculate next payment date when component mounts
   const today = new Date();
@@ -408,7 +408,24 @@ export default function UserDonateForm({
           </Link>
           .
         </p>
-
+        {/* Add Payment Method Selection */}
+        <div className="space-y-2">
+          <Label htmlFor="paymentMethod">Payment Method</Label>
+          <select
+            id="paymentMethod"
+            className="w-full h-10 px-3 border rounded-md"
+            onChange={(e) => setSelectedPaymentMethod(e.target.value)}
+            value={selectedPaymentMethod}
+          >
+            <option value="">Select Payment Method</option>
+            {/* Add your payment method options here */}
+            <option value="mpesa">EVC-Plus</option>
+            <option value="paypal">E-Dahab</option>
+            <option value="paypal">Premier Wallet </option>
+            <option value="paypal">Zaad Service</option>
+            <option value="paypal">SAHAL Wallet </option>
+          </select>
+        </div>
         {/* Add Phone Number Field */}
         <div className="space-y-2">
           <Label htmlFor="phone">Phone Number</Label>
