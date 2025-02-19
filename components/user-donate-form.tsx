@@ -343,7 +343,7 @@ export default function UserDonateForm({
             <Label htmlFor="state">State</Label>
             <select
               id="state"
-              
+              disabled={!!selectedState}
               className="w-full h-10 px-3 border rounded-md"
               onChange={(e) => {
                 const stateId = Number(e.target.value);
@@ -363,7 +363,7 @@ export default function UserDonateForm({
             </select>
           </div>
 
-          <div className="space-y-2">
+          {/* <div className="space-y-2">
             <Label htmlFor="district">District</Label>
             <select
               id="district"
@@ -380,7 +380,7 @@ export default function UserDonateForm({
                 </option>
               ))}
             </select>
-          </div>
+          </div> */}
         </div>
 
         {/* Privacy Policy */}

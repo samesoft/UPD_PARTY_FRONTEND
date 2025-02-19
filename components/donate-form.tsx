@@ -309,17 +309,7 @@ export default function DonateForm() {
             <Input id="email" type="email" />
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="country">Country</Label>
-            <select
-              id="country"
-              className="w-full h-10 px-3 border rounded-md"
-              defaultValue="US"
-            >
-              <option value="US">🇺🇸 United States</option>
-              {/* Add other countries as needed */}
-            </select>
-          </div>
+       
 
           <div className="space-y-2">
             <Label htmlFor="state">State</Label>
@@ -363,15 +353,7 @@ export default function DonateForm() {
             </select>
           </div>
 
-          <div className="space-y-2">
-            <Label htmlFor="city">City</Label>
-            <Input 
-              id="city" 
-              value={selectedDistrict}
-              disabled
-              className="bg-gray-50"
-            />
-          </div>
+         
         </div>
 
         {/* Privacy Policy */}
