@@ -156,4 +156,23 @@
 .prose blockquote {
   @apply border-l-4 border-primary pl-4 italic my-6 text-gray-600;
 }
+.nav-item {
+  @apply text-primary hover:text-secondary transition-colors;
+}
+
+/* Responsive styles for mobile menu */
+@media (max-width: 768px) {
+  .nav-item,
+  .dropdown-menu {
+    @apply block w-full text-left px-4 py-2;
+  }
+
+  .dropdown-menu {
+    @apply mt-2;
+  }
+
+  button[role="menuitem"] {
+    @apply w-full text-left;
+  }
+}
 
