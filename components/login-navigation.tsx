@@ -93,12 +93,12 @@ export default function LoginNavigation() {
                             Member Registration
                         </button> */}
               <>
-                <button
+                {/* <button
                   onClick={() => handleLoginNavigation("/volunteer")}
                   className="text-[#2E8B57] hover:text-secondary transition-colors"
                 >
                   VOLUNTEER
-                </button>
+                </button> */}
                 <button
                   onClick={() => handleLoginNavigation("/campaign")}
                   className="text-[#2E8B57] hover:text-secondary transition-colors"

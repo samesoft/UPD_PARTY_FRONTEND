@@ -56,12 +56,12 @@ export default function Navigation() {
             >
               News
             </button>
-            <button
+            {/* <button
               onClick={() => handleNavigation("/volunteer")}
               className="nav-item"
             >
               Volunteer
-            </button>
+            </button> */}
             <button
               onClick={() => handleNavigation("/campaign")}
               className="nav-item"
@@ -81,7 +81,7 @@ export default function Navigation() {
               Donate
             </button>
 
-            <DropdownMenu>
+            {/* <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" className="ml-2">
                   More <ChevronDown className="ml-1 h-4 w-4" />
@@ -112,7 +112,7 @@ export default function Navigation() {
                   States
                 </DropdownMenuItem>
               </DropdownMenuContent>
-            </DropdownMenu>
+            </DropdownMenu> */}
             <Button onClick={handleSignOut} className={buttonStyle}>
               Sign Out
             </Button>
@@ -127,12 +127,12 @@ export default function Navigation() {
             >
               News
             </button>
-            <button
+            {/* <button
               onClick={() => handleNavigation("/volunteer")}
               className="nav-item"
             >
               Volunteer
-            </button>
+            </button> */}
             <button
               onClick={() => handleNavigation("/campaign")}
               className="nav-item"
@@ -146,7 +146,7 @@ export default function Navigation() {
               Donate
             </button>
 
-            <DropdownMenu>
+            {/* <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="outline" className="ml-2">
                   More <ChevronDown className="ml-1 h-4 w-4" />
@@ -164,7 +164,7 @@ export default function Navigation() {
                   Event Registration
                 </DropdownMenuItem>
               </DropdownMenuContent>
-            </DropdownMenu>
+            </DropdownMenu> */}
             <Button onClick={handleSignOut} className={buttonStyle}>
               Sign Out
             </Button>
@@ -173,12 +173,12 @@ export default function Navigation() {
       default:
         return (
           <>
-            <button
+            {/* <button
               onClick={() => handleNavigation("/volunteer")}
               className="nav-item"
             >
               Volunteer
-            </button>
+            </button> */}
             <button
               onClick={() => handleNavigation("/campaign")}
               className="nav-item"
