@@ -52,6 +52,43 @@ export default function LoginNavigation() {
         <div className="hidden md:flex items-center space-x-4 lg:space-x-8">
           {userRole === "ADMIN" && (
             <>
+<
+              <button
+                onClick={() => handleLoginNavigation("/NewsPage")}
+                className="text-[#2E8B57] hover:text-secondary transition-colors"
+              >
+                News
+              </button>
+              <button
+                onClick={() => handleLoginNavigation("/membership-level")}
+                className="text-[#2E8B57] hover:text-secondary transition-colors"
+              >
+                Member Level
+              </button>
+              <button
+                onClick={() => handleLoginNavigation("/state")}
+                className="text-[#2E8B57] hover:text-secondary transition-colors"
+              >
+                Stats
+              </button>
+              <button
+                onClick={() => handleLoginNavigation("/memberships")}
+                className="text-[#2E8B57] hover:text-secondary transition-colors"
+              >
+                Members
+              </button>
+              <button
+                onClick={() => handleLoginNavigation("/event-registration")}
+                className="text-[#2E8B57] hover:text-secondary transition-colors"
+              >
+                Event Registration
+              </button>
+            </>
+          )}
+          {userRole === "USER" && (
+            <>
+             
+
               <div className="relative group">
                 <button
                   className="text-[#2E8B57] hover:text-secondary transition-colors"
@@ -74,6 +111,7 @@ export default function LoginNavigation() {
                 </div>
               </div>
               <div className="relative group">
+
                 <button
                   className="text-[#2E8B57] hover:text-secondary transition-colors"
                 >
