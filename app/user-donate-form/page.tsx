@@ -8,16 +8,19 @@ import { useEffect, useState } from "react";
 
 export default function DonatesFormPage() {
   const [memberData, setMemberData] = useState<IMember>({} as IMember);
-  const memberId = localStorage.getItem("member_id");
   const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    (async () => {
-      setLoading(true);
-      const response = await axiosInstance.get(`/members/${memberId}`);
-      setMemberData(response.data as IMember);
-      setLoading(false);
-    })();
+    if (window.localStorage != undefined) {
+      (async () => {
+        const memberId = localStorage.getItem("member_id");
+
+        setLoading(true);
+        const response = await axiosInstance.get(`/members/${memberId}`);
+        setMemberData(response.data as IMember);
+        setLoading(false);
+      })();
+    }
   }, []);
 
   console.log(memberData);
