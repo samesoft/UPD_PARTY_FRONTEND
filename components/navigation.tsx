@@ -4,9 +4,11 @@ import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
+import { useIsAuthenticated } from "@/hooks/use-is-authenticated";
 
 export default function Navigation() {
   const router = useRouter();
+  const { isAuthenticated } = useIsAuthenticated();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   const handleNavigation = (path: string) => {
@@ -16,6 +18,12 @@ export default function Navigation() {
 
   const buttonStyle =
     "bg-[#2E8B57] text-white border-2 border-[#2E8B57] hover:bg-white hover:text-[#2E8B57] transition-colors";
+
+  const handleSignOut = () => {
+    localStorage.removeItem("userRole"); // Clear role on sign out
+    localStorage.removeItem("token");
+    router.push("/sign-in");
+  };
 
   return (
     <nav className="bg-white py-4 px-4 shadow-sm">
@@ -34,7 +42,7 @@ export default function Navigation() {
             />
           </div>
           <span className="text-xl sm:text-2xl font-bold text-[#2E8B57]">
-            Union Peace&Dev
+            Union Peace & Dev
           </span>
         </button>
 
@@ -43,32 +51,67 @@ export default function Navigation() {
             onClick={() => handleNavigation("/volunteer")}
             className="text-[#2E8B57] hover:text-secondary transition-colors"
           >
-            VOLUNTEER
+            Volunteer
           </button>
           <button
             onClick={() => handleNavigation("/campaign")}
             className="text-[#2E8B57] hover:text-secondary transition-colors"
           >
-            CAMPAIGN
+            Campaign
           </button>
-          <Button
-            onClick={() => handleNavigation("/create-account")}
-            className={buttonStyle}
-          >
-            Create Account
-          </Button>
-          <Button
-            onClick={() => handleNavigation("/donate")}
-            className={buttonStyle}
-          >
-            Donate →
-          </Button>
-          <Button
-            onClick={() => handleNavigation("/sign-in")}
-            className={buttonStyle}
-          >
-            Sign In →
-          </Button>
+
+          {!isAuthenticated ? (
+            <div className="space-x-4">
+              <Button
+                onClick={() => handleNavigation("/create-account")}
+                className={buttonStyle}
+              >
+                Create Account
+              </Button>
+              <Button
+                onClick={() => handleNavigation("/donate")}
+                className={buttonStyle}
+              >
+                Donate →
+              </Button>
+              <Button
+                onClick={() => handleNavigation("/sign-in")}
+                className={buttonStyle}
+              >
+                Sign In →
+              </Button>
+            </div>
+          ) : (
+            <div className="space-x-4">
+              <button
+                onClick={() => handleNavigation("/event-selecting")}
+                className="text-[#2E8B57] hover:text-secondary transition-colors"
+              >
+                Event Registration
+              </button>
+
+              <Button
+                onClick={() => handleNavigation("/selected-events")}
+                className={buttonStyle}
+              >
+                Selected Events
+              </Button>
+
+              <Button
+                onClick={() => handleNavigation("/user-donate-form")}
+                className={buttonStyle}
+              >
+                Donate →
+              </Button>
+
+              <Button
+                onClick={handleSignOut}
+                className="bg-white text-[#2E8B57] border-2 border-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
+              >
+                Sign Out
+              </Button>
+            </div>
+          )}
         </div>
 
         <button
