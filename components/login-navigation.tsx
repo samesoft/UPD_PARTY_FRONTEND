@@ -87,7 +87,7 @@ export default function LoginNavigation() {
                     State
                   </button>
                   <button
-                    onClick={() => handleLoginNavigation("/state")}
+                    onClick={() => handleLoginNavigation("/district")}
                     className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
                   >
                     District

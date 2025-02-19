@@ -118,13 +118,13 @@ export default function MembershipPage() {
 
     const fetchDistrictsByState = async (stateId: number) => {
         try {
-          const response = await axios.get(`/district/districtByState/${stateId}`);
-          setDistrictOptions(response.data.data);
+            const response = await axios.get(`/district/districtByState/${stateId}`);
+            setDistrictOptions(response.data.data);
         } catch (error) {
-          console.error('Error fetching districts:', error);
+            console.error('Error fetching districts:', error);
         }
-      };
-      
+    };
+
 
     // Fetch dropdown options when the component mounts
     useEffect(() => {
@@ -216,6 +216,7 @@ export default function MembershipPage() {
         setLoadingDeleteId(deletingMemberId);
         try {
             const response = await axios.delete(`/members/${deletingMemberId}`);
+            console.log(response);
             if (response.status === 200) {
                 fetchMembers(pagination.page);
                 alert('Member deleted successfully');
@@ -513,11 +514,10 @@ export default function MembershipPage() {
                         .map((pageNumber) => (
                             <button
                                 key={pageNumber}
-                                className={`px-3 py-2 rounded text-xs sm:text-sm ${
-                                    pagination.page === pageNumber
+                                className={`px-3 py-2 rounded text-xs sm:text-sm ${pagination.page === pageNumber
                                         ? 'bg-green-600 text-white'
                                         : 'bg-green-500 text-white hover:bg-green-600'
-                                }`}
+                                    }`}
                                 onClick={() => handlePageChange(pageNumber)}
                             >
                                 {pageNumber}
@@ -1067,11 +1067,11 @@ export default function MembershipPage() {
             {showStatePopup && selectedStateInfo && (
                 <div className="fixed inset-0 z-50 overflow-y-auto md:overflow-hidden">
                     <div className="flex min-h-screen items-end justify-center md:items-center p-0 md:p-4">
-                        <div 
-                            className="fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity" 
+                        <div
+                            className="fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity"
                             onClick={() => setShowStatePopup(false)}
                         ></div>
-                        
+
                         <div className="relative w-full md:max-w-lg transform bg-white 
                             rounded-t-2xl md:rounded-2xl shadow-xl transition-all scale-in-center
                             h-[90vh] md:h-auto overflow-y-auto
@@ -1088,7 +1088,7 @@ export default function MembershipPage() {
                                     <h2 className="text-xl sm:text-2xl font-bold text-green-600">
                                         {selectedStateInfo.state}
                                     </h2>
-                                    <button 
+                                    <button
                                         onClick={() => setShowStatePopup(false)}
                                         className="rounded-full p-2 hover:bg-gray-100 transition-colors"
                                         aria-label="Close modal"
