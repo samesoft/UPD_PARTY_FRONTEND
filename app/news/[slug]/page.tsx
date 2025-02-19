@@ -18,7 +18,7 @@ function getArticle(slug: string) {
       
       <h2>1. Nidaamka Socdaalka oo La Fududeeyo</h2>
       <p>
-        UPD waxay ballan-qaadaysaa inay si weyn u fududayso nidaamka codsiga fiisaha iyo deganaanshaha, iyada oo la adeegsanayo tignoolajiyada casriga ah si loo yareeyo waqtiga sugitaanka iyo caqabadaha kale ee ay la kulmaan codsadayaasha.
+        Xisbiga UPD waxay ballan-qaadaysaa inay si weyn u fududayso nidaamka codsiga fiisaha iyo deganaanshaha, iyada oo la adeegsanayo tignoolajiyada casriga ah si loo yareeyo waqtiga sugitaanka iyo caqabadaha kale ee ay la kulmaan codsadayaasha.
       </p>
       
       <h2>2. Isdhexgalka Bulshada</h2>
@@ -28,7 +28,7 @@ function getArticle(slug: string) {
       
       <h2>3. Ilaalinta Xuquuqda Aadanaha</h2>
       <p>
-        UPD waxay si adag u taageeraysaa ilaalinta xuquuqda aadanaha ee dhammaan soo-galootiga iyo qaxootiga, iyadoo hubinaysa in nidaamka socdaalku waafaqsan yahay heshiisyada caalamiga ah ee xuquuqda aadanaha.
+        Xisbiga UPD waxay si adag u taageeraysaa ilaalinta xuquuqda aadanaha ee dhammaan soo-galootiga iyo qaxootiga, iyadoo hubinaysa in nidaamka socdaalku waafaqsan yahay heshiisyada caalamiga ah ee xuquuqda aadanaha.
       </p>
       
       <h2>4. La Dagaallanka Tahriibka</h2>
@@ -38,11 +38,11 @@ function getArticle(slug: string) {
       
       <h2>5. Iskaashiga Caalamiga ah</h2>
       <p>
-        UPD waxay ballan-qaadaysaa inay sii xoojiso iskaashiga caalamiga ah ee ku aaddan maareynta socdaalka, gaar ahaan la-shaqeynta wadamada deriska ah iyo hay'adaha caalamiga ah si loo hubiyo hab isku-duuban oo lagu maareeyo arrimaha socdaalka.
+        Xisbiga UPD waxay ballan-qaadaysaa inay sii xoojiso iskaashiga caalamiga ah ee ku aaddan maareynta socdaalka, gaar ahaan la-shaqeynta wadamada deriska ah iyo hay'adaha caalamiga ah si loo hubiyo hab isku-duuban oo lagu maareeyo arrimaha socdaalka.
       </p>
       
       <p>
-        Ugu dambeyntii, qorshahan cusub ee UPD wuxuu muujinayaa sida xisbiga diiradda u saarayo sidii loo dhisi lahaa nidaam socdaal oo cadaalad ah, waxtar leh, oo waafaqsan baahiyaha dalka iyo qiyamka aadaninimada. Tani waa tallaabo muhiim ah oo ku wajahan dib u soo celinta kalsoonida dadka Soomaaliyeed ee xisbiga iyo dowladda.
+        Ugu dambeyntii, qorshahan cusub ee Xisbiga UPD wuxuu muujinayaa sida xisbiga diiradda u saarayo sidii loo dhisi lahaa nidaam socdaal oo cadaalad ah, waxtar leh, oo waafaqsan baahiyaha dalka iyo qiyamka aadaninimada. Tani waa tallaabo muhiim ah oo ku wajahan dib u soo celinta kalsoonida dadka Soomaaliyeed ee xisbiga iyo dowladda.
       </p>
     `,
   };

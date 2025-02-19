@@ -21,7 +21,7 @@ const newsItems = [
     link: "/news/khudbadda-madaxweynaha-2025",
   },
   {
-    title: "UPD OO CODSI U GUDBISAY DIB U EEGIS CASHUURTA QARANKA",
+    title: "Xisbiga UPD OO CODSI U GUDBISAY DIB U EEGIS CASHUURTA QARANKA",
     excerpt:
       "Waxaan aaminsan nahay in la taageero dhibbanayaasha xadgudubka naxdinta leh iyo in ay helaan caddaalad.",
     date: "9/12/2025",
@@ -47,7 +47,7 @@ const newsItems = [
   {
     title: "WAXBARASHADA: MAALGELINTA MUSTAQBALKA",
     excerpt:
-      "UPD waxay ballan qaadaysaa inay kor u qaaddo miisaaniyadda waxbarashada si loo hubiyo in dhallinyarada Soomaaliyeed ay helaan waxbarasho tayo sare leh.",
+      " Xisbiga UPD waxay ballan qaadaysaa inay kor u qaaddo miisaaniyadda waxbarashada si loo hubiyo in dhallinyarada Soomaaliyeed ay helaan waxbarasho tayo sare leh.",
     date: "15/3/2025",
     image: "/News3.jpg",
     link: "/news/maalgelinta-waxbarashada",
