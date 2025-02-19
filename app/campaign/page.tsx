@@ -1,6 +1,7 @@
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+
 import {
   Card,
   CardContent,
@@ -106,6 +107,7 @@ export default function Campaign() {
               ))}
             </div>
           </div>
+          
         </section>
 
         <section id="candidates" className="py-16 bg-accent">

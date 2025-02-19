@@ -62,6 +62,7 @@ export default function UserDonateForm({
   const [names, setNames] = useState({
     firstName: memberData?.first_name || "",
     lastName: memberData?.last_name || "",
+    middleName: memberData?.middle_name || "",
   });
   const [selectedAmount, setSelectedAmount] = useState<number | "other">(50);
   const [customAmount, setCustomAmount] = useState("");
@@ -85,7 +86,7 @@ export default function UserDonateForm({
   const [selectedDistrict, setSelectedDistrict] = useState<string>(
     memberData?.district_id?.toString() || ""
   );
-
+  const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(""); // Add state for payment method
   console.log(selectedDistrict);
   // Calculate next payment date when component mounts
   const today = new Date();
@@ -325,6 +326,19 @@ export default function UserDonateForm({
               />
             </div>
             <div className="space-y-2">
+              <Label htmlFor="lastName">Middle name</Label>
+              <Input
+                id="lastName"
+                value={names.middleName}
+                disabled={names?.middleName?.length > 0}
+                onChange={(e) =>
+                  setNames((prev) => {
+                    return { ...prev, lastName: e.target.value };
+                  })
+                }
+              />
+            </div>
+            <div className="space-y-2">
               <Label htmlFor="lastName">Last name</Label>
               <Input
                 id="lastName"
@@ -343,7 +357,7 @@ export default function UserDonateForm({
             <Label htmlFor="state">State</Label>
             <select
               id="state"
-              
+              disabled={!!selectedState}
               className="w-full h-10 px-3 border rounded-md"
               onChange={(e) => {
                 const stateId = Number(e.target.value);
@@ -363,7 +377,7 @@ export default function UserDonateForm({
             </select>
           </div>
 
-          <div className="space-y-2">
+          {/* <div className="space-y-2">
             <Label htmlFor="district">District</Label>
             <select
               id="district"
@@ -380,7 +394,7 @@ export default function UserDonateForm({
                 </option>
               ))}
             </select>
-          </div>
+          </div> */}
         </div>
 
         {/* Privacy Policy */}
@@ -394,7 +408,24 @@ export default function UserDonateForm({
           </Link>
           .
         </p>
-
+        {/* Add Payment Method Selection */}
+        <div className="space-y-2">
+          <Label htmlFor="paymentMethod">Payment Method</Label>
+          <select
+            id="paymentMethod"
+            className="w-full h-10 px-3 border rounded-md"
+            onChange={(e) => setSelectedPaymentMethod(e.target.value)}
+            value={selectedPaymentMethod}
+          >
+            <option value="">Select Payment Method</option>
+            {/* Add your payment method options here */}
+            <option value="mpesa">EVC-Plus</option>
+            <option value="paypal">E-Dahab</option>
+            <option value="paypal">Premier Wallet </option>
+            <option value="paypal">Zaad Service</option>
+            <option value="paypal">SAHAL Wallet </option>
+          </select>
+        </div>
         {/* Add Phone Number Field */}
         <div className="space-y-2">
           <Label htmlFor="phone">Phone Number</Label>

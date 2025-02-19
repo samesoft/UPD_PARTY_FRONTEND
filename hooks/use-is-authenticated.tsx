@@ -6,16 +6,16 @@ export function useIsAuthenticated() {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    if (window.localStorage !== undefined) {
+      const token = localStorage.getItem("token");
 
-    console.log(token);
-
-    if (token && token != "") {
-      setIsAuthenticated(true);
-    } else {
-      setIsAuthenticated(false);
+      if (token && token != "") {
+        setIsAuthenticated(true);
+      } else {
+        setIsAuthenticated(false);
+      }
     }
-  }, [localStorage.getItem("token")]);
+  }, []);
 
   return { isAuthenticated };
 }
