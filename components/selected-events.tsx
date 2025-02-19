@@ -55,7 +55,7 @@ export default function SelectedEvents() {
                 .replace("image/png", "image/octet-stream");
             const downloadLink = document.createElement("a");
             downloadLink.href = pngUrl;
-            downloadLink.download = `event-${selectedEvent?.id}-qr.png`;
+            downloadLink.download = `event-${selectedEvent?.id}-${localStorage.getItem('member_id')}-qr.png`;
             document.body.appendChild(downloadLink);
             downloadLink.click();
             document.body.removeChild(downloadLink);
@@ -177,10 +177,7 @@ export default function SelectedEvents() {
                         <div className="flex justify-center bg-white p-6 rounded-lg">
                             <QRCodeCanvas
                                 id="qr-code"
-                                value={JSON.stringify({
-                                    member_id: localStorage.getItem('member_id'),
-                                    event_id: selectedEvent.id
-                                })}
+                                value={`${selectedEvent.id}/${localStorage.getItem('member_id')}`}
                                 size={300}
                                 level="H"
                                 includeMargin={true}
@@ -208,7 +205,7 @@ export default function SelectedEvents() {
                                         const canvas = document.getElementById('qr-code') as HTMLCanvasElement;
                                         const blob = await new Promise<Blob | null>(resolve => canvas.toBlob(resolve, 'image/png'));
                                         if (blob) {
-                                            const file = new File([blob], `event-${selectedEvent.id}-qr.png`, { type: 'image/png' });
+                                            const file = new File([blob], `event-${selectedEvent.id}-${localStorage.getItem('member_id')}-qr.png`, { type: 'image/png' });
                                             const shareData = {
                                                 title: `QR Code for ${selectedEvent.title}`,
                                                 text: 'Here is your event QR code',
@@ -217,7 +214,6 @@ export default function SelectedEvents() {
                                             if (navigator.share && navigator.canShare(shareData)) {
                                                 await navigator.share(shareData);
                                             } else {
-                                                // Fallback for browsers that don't support sharing files
                                                 await navigator.share({
                                                     title: `QR Code for ${selectedEvent.title}`,
                                                     text: 'Here is your event QR code'

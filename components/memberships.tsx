@@ -112,15 +112,19 @@ export default function MembershipPage() {
     const [stateOptions, setStateOptions] = useState<StateOption[]>([]);
     const [selectedState, setSelectedState] = useState<number | null>(null);
 
+    // Add new state for the state popup
+    const [showStatePopup, setShowStatePopup] = useState<boolean>(false);
+    const [selectedStateInfo, setSelectedStateInfo] = useState<StateOption | null>(null);
+
     const fetchDistrictsByState = async (stateId: number) => {
         try {
-          const response = await axios.get(`/district/districtByState/${stateId}`);
-          setDistrictOptions(response.data.data);
+            const response = await axios.get(`/district/districtByState/${stateId}`);
+            setDistrictOptions(response.data.data);
         } catch (error) {
-          console.error('Error fetching districts:', error);
+            console.error('Error fetching districts:', error);
         }
-      };
-      
+    };
+
 
     // Fetch dropdown options when the component mounts
     useEffect(() => {
@@ -212,6 +216,7 @@ export default function MembershipPage() {
         setLoadingDeleteId(deletingMemberId);
         try {
             const response = await axios.delete(`/members/${deletingMemberId}`);
+            console.log(response);
             if (response.status === 200) {
                 fetchMembers(pagination.page);
                 alert('Member deleted successfully');
@@ -354,98 +359,118 @@ export default function MembershipPage() {
         fetchData();
     }, [pagination.page, pagination.limit]);
 
+    // Add this function to handle state click
+    const handleStateClick = (stateId: number) => {
+        const stateInfo = stateOptions.find(state => state.stateid === stateId);
+        if (stateInfo) {
+            setSelectedStateInfo(stateInfo);
+            setShowStatePopup(true);
+        }
+    };
+
     return (
-        <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
-            {/* Top Controls with horizontal gap */}
+        <div className="rounded-sm border border-stroke bg-white px-2 sm:px-5 pt-4 sm:pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
+            {/* Top Controls */}
             <div className="flex items-center gap-4 mb-4">
                 <button
-                    className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition duration-200"
+                    className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition duration-200 whitespace-nowrap"
                     onClick={() => setShowAddModal(true)}
                 >
                     Ku Dar Xubin
                 </button>
-                {/* <input
-                    type="text"
-                    placeholder="Search by Name"
-                    value={searchName}
-                    onChange={(e) => setSearchName(e.target.value)}
-                    className="w-1/3 rounded border border-gray-300 py-2 px-4 focus:border-green-500 focus:outline-none"
-                /> */}
             </div>
 
             {/* Table */}
             {isLoading ? (
-                <div className="flex justify-center items-center">
+                <div className="flex justify-center items-center min-h-[200px]">
                     <CircularProgress style={{ color: '#22c55e' }} />
                 </div>
             ) : (
-                <div>
-                    <table className="w-full table-auto">
+                <div className="overflow-x-auto">
+                    <table className="w-full table-auto whitespace-nowrap">
                         <thead>
                             <tr className="bg-green-500 text-left">
                                 <th className="py-4 px-4 font-medium text-white">Name</th>
                                 <th className="py-4 px-4 font-medium text-white">Email</th>
                                 <th className="py-4 px-4 font-medium text-white">Party Role</th>
                                 <th className="py-4 px-4 font-medium text-white">Mobile</th>
-                                <th className="py-4 px-4 font-medium text-white">Actions</th>
+                                <th className="py-4 px-4 font-medium text-white w-20">Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             {members && members.length > 0 ? (
                                 members.map((member) => (
                                     <tr key={member.member_id} className="hover:bg-gray-50">
-                                        <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                                            {editingMember?.member_id === member.member_id ? (
-                                                <input
-                                                    type="text"
-                                                    value={editingMember.first_name + " " + editingMember.last_name}
-                                                    onChange={(e) => {
-                                                        const [first, ...rest] = e.target.value.split(" ");
-                                                        const last = rest.join(" ");
-                                                        setEditingMember({ ...editingMember, first_name: first, last_name: last });
-                                                    }}
-                                                    className="w-full border rounded py-1 px-2 focus:border-green-500 focus:outline-none"
-                                                />
-                                            ) : (
-                                                member.first_name + " " + member.last_name
-                                            )}
-                                        </td>
-                                        <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">{member.email}</td>
-                                        <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">{member.party_role}</td>
-                                        <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">{member.mobile}</td>
-                                        <td className="border-b border-[#eee] py-6 px-4 dark:border-strokedark flex gap-2">
-                                            {editingMember?.member_id === member.member_id ? (
-                                                <button
-                                                    className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600"
-                                                    onClick={handleUpdate}
-                                                    disabled={isUpdating}
-                                                >
-                                                    {isUpdating ? 'Saving...' : 'Save'}
-                                                </button>
-                                            ) : (
-                                                <>
-                                                    <button
-                                                        onClick={() => handleEdit(member)}
-                                                        className="text-green-500 hover:text-green-600"
-                                                    >
-                                                        <FaEdit size={20} />
-                                                    </button>
-                                                    <button
-                                                        onClick={() => {
-                                                            setDeletingMemberId(member.member_id);
-                                                            setShowDeleteModal(true);
+                                        <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">
+                                            <div className="max-w-[150px] truncate">
+                                                {editingMember?.member_id === member.member_id ? (
+                                                    <input
+                                                        type="text"
+                                                        value={editingMember.first_name + " " + editingMember.last_name}
+                                                        onChange={(e) => {
+                                                            const [first, ...rest] = e.target.value.split(" ");
+                                                            const last = rest.join(" ");
+                                                            setEditingMember({ ...editingMember, first_name: first, last_name: last });
                                                         }}
-                                                        disabled={loadingDeleteId === member.member_id}
-                                                        className="text-red-500 hover:text-red-600"
+                                                        className="w-full border rounded py-1 px-2"
+                                                    />
+                                                ) : (
+                                                    <span title={member.first_name + " " + member.last_name}>
+                                                        {member.first_name + " " + member.last_name}
+                                                    </span>
+                                                )}
+                                            </div>
+                                        </td>
+                                        <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">
+                                            <div className="max-w-[130px] truncate" title={member.email}>
+                                                {member.email}
+                                            </div>
+                                        </td>
+                                        <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">
+                                            <div className="max-w-[150px] truncate" title={member.party_role}>
+                                                {member.party_role}
+                                            </div>
+                                        </td>
+                                        <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">
+                                            <div className="max-w-[120px] truncate" title={member.mobile}>
+                                                {member.mobile}
+                                            </div>
+                                        </td>
+                                        <td className="border-b border-[#eee] py-4 px-4 dark:border-strokedark">
+                                            <div className="flex items-center gap-2">
+                                                {editingMember?.member_id === member.member_id ? (
+                                                    <button
+                                                        className="bg-green-500 text-white px-3 py-1 rounded hover:bg-green-600 whitespace-nowrap"
+                                                        onClick={handleUpdate}
+                                                        disabled={isUpdating}
                                                     >
-                                                        {loadingDeleteId === member.member_id ? (
-                                                            <CircularProgress size={20} style={{ color: '#22c55e' }} />
-                                                        ) : (
-                                                            <FaTrash size={20} />
-                                                        )}
+                                                        {isUpdating ? 'Saving...' : 'Save'}
                                                     </button>
-                                                </>
-                                            )}
+                                                ) : (
+                                                    <>
+                                                        <button
+                                                            onClick={() => handleEdit(member)}
+                                                            className="text-green-500 hover:text-green-600"
+                                                        >
+                                                            <FaEdit className="w-5 h-5" />
+                                                        </button>
+                                                        <button
+                                                            onClick={() => {
+                                                                setDeletingMemberId(member.member_id);
+                                                                setShowDeleteModal(true);
+                                                            }}
+                                                            disabled={loadingDeleteId === member.member_id}
+                                                            className="text-red-500 hover:text-red-600"
+                                                        >
+                                                            {loadingDeleteId === member.member_id ? (
+                                                                <CircularProgress size={20} style={{ color: '#22c55e' }} />
+                                                            ) : (
+                                                                <FaTrash className="w-5 h-5" />
+                                                            )}
+                                                        </button>
+                                                    </>
+                                                )}
+                                            </div>
                                         </td>
                                     </tr>
                                 ))
@@ -516,8 +541,6 @@ export default function MembershipPage() {
                             Xiga
                         </button>
                     </div>
-                </div>
-            )}
 
             {/* Edit Modal - Three-column layout */}
             {editingMember && (
@@ -1038,7 +1061,152 @@ export default function MembershipPage() {
                     </div>
                 </div>
             )}
+
+            {showStatePopup && selectedStateInfo && (
+                <div className="fixed inset-0 z-50 overflow-y-auto md:overflow-hidden">
+                    <div className="flex min-h-screen items-end justify-center md:items-center p-0 md:p-4">
+                        <div
+                            className="fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity"
+                            onClick={() => setShowStatePopup(false)}
+                        ></div>
+
+                        <div className="relative w-full md:max-w-lg transform bg-white 
+                            rounded-t-2xl md:rounded-2xl shadow-xl transition-all scale-in-center
+                            h-[90vh] md:h-auto overflow-y-auto
+                            p-4 md:p-6"
+                        >
+                            {/* Mobile Pull Bar */}
+                            <div className="md:hidden w-full flex justify-center mb-2">
+                                <div className="w-12 h-1.5 bg-gray-300 rounded-full"></div>
+                            </div>
+
+                            {/* Header */}
+                            <div className="sticky top-0 bg-white mb-6 pb-4 border-b">
+                                <div className="flex items-center justify-between">
+                                    <h2 className="text-xl sm:text-2xl font-bold text-green-600">
+                                        {selectedStateInfo.state}
+                                    </h2>
+                                    <button
+                                        onClick={() => setShowStatePopup(false)}
+                                        className="rounded-full p-2 hover:bg-gray-100 transition-colors"
+                                        aria-label="Close modal"
+                                    >
+                                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                        </svg>
+                                    </button>
+                                </div>
+                                <p className="text-gray-600 mt-1 text-sm sm:text-base">State Information</p>
+                            </div>
+
+                            {/* Content */}
+                            <div className="space-y-6">
+                                {/* State Statistics */}
+                                <div className="grid grid-cols-2 gap-3 sm:gap-4">
+                                    <div className="bg-gray-50 p-3 sm:p-4 rounded-lg">
+                                        <div className="text-xs sm:text-sm text-gray-500">Total Members</div>
+                                        <div className="text-lg sm:text-2xl font-semibold text-green-600">
+                                            {selectedStateInfo.total_count}
+                                        </div>
+                                    </div>
+                                    <div className="bg-gray-50 p-3 sm:p-4 rounded-lg">
+                                        <div className="text-xs sm:text-sm text-gray-500">Active Members</div>
+                                        <div className="text-lg sm:text-2xl font-semibold text-green-600">
+                                            {selectedStateInfo.total_count}
+                                        </div>
+                                    </div>
+                                </div>
+
+                                {/* Additional Information */}
+                                <div className="space-y-3">
+                                    <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                                        <span className="text-sm text-gray-600">Status</span>
+                                        <span className="px-2.5 py-1 bg-green-100 text-green-700 rounded-full text-xs sm:text-sm">
+                                            Active
+                                        </span>
+                                    </div>
+                                    <div className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
+                                        <span className="text-sm text-gray-600">Last Updated</span>
+                                        <span className="text-sm text-gray-700">Today</span>
+                                    </div>
+                                </div>
+
+                                {/* More Details Section */}
+                                <div className="bg-gray-50 rounded-lg p-4 space-y-3">
+                                    <h3 className="font-semibold text-gray-700">Additional Details</h3>
+                                    <div className="space-y-2">
+                                        <div className="flex justify-between text-sm">
+                                            <span className="text-gray-600">Region Code</span>
+                                            <span className="text-gray-700">ETH-{selectedStateInfo.stateid}</span>
+                                        </div>
+                                        <div className="flex justify-between text-sm">
+                                            <span className="text-gray-600">Districts</span>
+                                            <span className="text-gray-700">12</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            {/* Footer - Fixed at bottom on mobile */}
+                            <div className="sticky bottom-0 bg-white pt-4 mt-6 border-t">
+                                <div className="flex gap-3">
+                                    <button
+                                        className="flex-1 px-4 py-3 text-sm border border-gray-300 rounded-lg 
+                                            hover:bg-gray-50 transition-colors"
+                                        onClick={() => setShowStatePopup(false)}
+                                    >
+                                        Close
+                                    </button>
+                                    <button
+                                        className="flex-1 px-4 py-3 text-sm bg-green-500 text-white rounded-lg 
+                                            hover:bg-green-600 transition-colors"
+                                        onClick={() => {
+                                            // Add any action you want here
+                                            setShowStatePopup(false);
+                                        }}
+                                    >
+                                        View Details
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
         </div>
     );
 }
+
+// Add these styles to your CSS
+const styles = `
+@keyframes scale-in-center {
+    0% {
+        transform: scale(0.95);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.scale-in-center {
+    animation: scale-in-center 0.2s ease-out both;
+}
+
+@media (max-width: 768px) {
+    .scale-in-center {
+        animation: slide-up 0.3s ease-out both;
+    }
+}
+
+@keyframes slide-up {
+    0% {
+        transform: translateY(100%);
+    }
+    100% {
+        transform: translateY(0);
+    }
+}
+`;
 

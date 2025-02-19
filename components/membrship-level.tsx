@@ -178,111 +178,107 @@ const MembershipLevelFormElements = () => {
   };
 
   return (
-    <div className="rounded-sm border border-stroke bg-white px-5 pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
+    <div className="rounded-sm border border-stroke bg-white px-2 sm:px-5 pt-4 sm:pt-6 pb-2.5 shadow-default dark:border-strokedark dark:bg-boxdark sm:px-7.5 xl:pb-1">
       {/* Top Controls */}
-      <div className="flex justify-between items-center mb-4">
+      <div className="flex flex-col sm:flex-row justify-between items-center gap-4 mb-6">
         <button
-          className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition duration-200"
+          className="w-full sm:w-auto bg-green-500 text-white px-6 py-3 rounded-lg hover:bg-green-600 transition duration-200 text-sm sm:text-base font-medium"
           onClick={() => setShowAddModal(true)}
         >
           Add Membership Level
         </button>
-        {/* <input
-          type="text"
-          placeholder="Search by Name"
-          value={searchName}
-          onChange={(e) => setSearchName(e.target.value)}
-          className="w-1/3 rounded border border-gray-300 py-2 px-4"
-        /> */}
       </div>
 
       {/* Table */}
       {isLoading ? (
-        <div className="flex justify-center items-center">
+        <div className="flex justify-center items-center min-h-[200px]">
           <CircularProgress />
         </div>
       ) : (
-        <div>
-          <table className="w-full table-auto">
+        <div className="overflow-x-auto -mx-2 sm:mx-0">
+          <table className="w-full table-auto min-w-[600px]">
             <thead>
               <tr className="bg-green-500 text-left border-b border-[#eee] dark:border-strokedark">
-                <th className="py-4 px-4 font-medium text-white">Name</th>
-                <th className="py-4 px-4 font-medium text-white">Description</th>
-                <th className="py-4 px-4 font-medium text-white">Fee Amount</th>
-                <th className="py-4 px-4 font-medium text-white">Actions</th>
+                <th className="py-4 px-3 sm:px-4 font-medium text-white text-sm sm:text-base whitespace-nowrap">Name</th>
+                <th className="py-4 px-3 sm:px-4 font-medium text-white text-sm sm:text-base">Description</th>
+                <th className="py-4 px-3 sm:px-4 font-medium text-white text-sm sm:text-base whitespace-nowrap">Fee Amount</th>
+                <th className="py-4 px-3 sm:px-4 font-medium text-white text-sm sm:text-base w-[100px]">Actions</th>
               </tr>
             </thead>
             <tbody>
               {membershipLevels.map((level) => (
-                <tr key={level.id}>
-                  <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                <tr key={level.id} className="hover:bg-gray-50 dark:hover:bg-gray-900">
+                  <td className="border-b border-[#eee] py-4 px-3 sm:px-4 dark:border-strokedark text-sm sm:text-base">
                     {editingMembershipLevel?.id === level.id ? (
                       <input
                         type="text"
                         value={editingMembershipLevel.name}
                         onChange={(e) => handleEditInputChange(e, 'name')}
-                        className="w-full border rounded py-1 px-2"
+                        className="w-full border rounded py-2 px-3 text-sm"
                       />
                     ) : (
-                      level.name
+                      <span className="line-clamp-2">{level.name}</span>
                     )}
                   </td>
-                  <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                  <td className="border-b border-[#eee] py-4 px-3 sm:px-4 dark:border-strokedark text-sm sm:text-base">
                     {editingMembershipLevel?.id === level.id ? (
                       <input
                         type="text"
                         value={editingMembershipLevel.description}
                         onChange={(e) => handleEditInputChange(e, 'description')}
-                        className="w-full border rounded py-1 px-2"
+                        className="w-full border rounded py-2 px-3 text-sm"
                       />
                     ) : (
-                      level.description
+                      <span className="line-clamp-2">{level.description}</span>
                     )}
                   </td>
-                  <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
+                  <td className="border-b border-[#eee] py-4 px-3 sm:px-4 dark:border-strokedark text-sm sm:text-base">
                     {editingMembershipLevel?.id === level.id ? (
                       <input
                         type="number"
                         value={editingMembershipLevel.fee_amount}
                         onChange={(e) => handleEditInputChange(e, 'fee_amount')}
-                        className="w-full border rounded py-1 px-2"
+                        className="w-full border rounded py-2 px-3 text-sm"
                       />
                     ) : (
                       level.fee_amount
                     )}
                   </td>
-                  <td className="border-b border-[#eee] py-6 px-4 dark:border-strokedark flex gap-2">
-                    {editingMembershipLevel?.id === level.id ? (
-                      <button
-                        className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition duration-200"
-                        onClick={handleUpdate}
-                        disabled={isUpdating}
-                      >
-                        {isUpdating ? 'Saving...' : 'Save'}
-                      </button>
-                    ) : (
-                      <>
-                        <button 
-                          onClick={() => handleEdit(level)} 
-                          className="text-green-500 hover:text-green-600 transition duration-200"
-                        >
-                          <FaEdit />
-                        </button>
+                  <td className="border-b border-[#eee] py-4 px-3 sm:px-4 dark:border-strokedark">
+                    <div className="flex items-center gap-3">
+                      {editingMembershipLevel?.id === level.id ? (
                         <button
-                          onClick={() => {
-                            setDeletingMembershipId(level.id);
-                            setShowDeleteModal(true);
-                          }}
-                          disabled={loadingDeleteId === level.id}
+                          className="bg-green-500 text-white px-3 py-1.5 rounded text-sm font-medium hover:bg-green-600 transition duration-200 w-full"
+                          onClick={handleUpdate}
+                          disabled={isUpdating}
                         >
-                          {loadingDeleteId === level.id ? (
-                            <CircularProgress size={20} />
-                          ) : (
-                            <FaTrash />
-                          )}
+                          {isUpdating ? 'Saving...' : 'Save'}
                         </button>
-                      </>
-                    )}
+                      ) : (
+                        <>
+                          <button 
+                            onClick={() => handleEdit(level)} 
+                            className="text-green-500 hover:text-green-600 transition duration-200 p-1"
+                          >
+                            <FaEdit size={18} />
+                          </button>
+                          <button
+                            onClick={() => {
+                              setDeletingMembershipId(level.id);
+                              setShowDeleteModal(true);
+                            }}
+                            disabled={loadingDeleteId === level.id}
+                            className="text-red-500 hover:text-red-600 transition duration-200 p-1"
+                          >
+                            {loadingDeleteId === level.id ? (
+                              <CircularProgress size={18} />
+                            ) : (
+                              <FaTrash size={18} />
+                            )}
+                          </button>
+                        </>
+                      )}
+                    </div>
                   </td>
                 </tr>
               ))}
@@ -293,47 +289,49 @@ const MembershipLevelFormElements = () => {
 
       {/* Edit Modal */}
       {editingMembershipLevel && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-6 rounded shadow-lg max-w-lg w-full space-y-4">
-            <h2 className="text-lg font-bold mb-2">Edit Membership Level</h2>
-            <div className="grid grid-cols-2 gap-4">
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 p-3 z-50">
+          <div className="bg-white p-4 sm:p-6 rounded-lg shadow-lg w-full max-w-lg m-3">
+            <h2 className="text-xl font-bold mb-4">Edit Membership Level</h2>
+            <div className="space-y-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium mb-1.5">Name</label>
+                  <input
+                    type="text"
+                    className="w-full border rounded-lg py-2 px-3 text-sm focus:outline-none focus:border-green-500"
+                    value={editingMembershipLevel.name}
+                    onChange={(e) => handleEditInputChange(e, 'name')}
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-1.5">Fee Amount</label>
+                  <input
+                    type="number"
+                    className="w-full border rounded-lg py-2 px-3 text-sm focus:outline-none focus:border-green-500"
+                    value={editingMembershipLevel.fee_amount}
+                    onChange={(e) => handleEditInputChange(e, 'fee_amount')}
+                  />
+                </div>
+              </div>
               <div>
-                <label className="block mb-1">Name</label>
+                <label className="block text-sm font-medium mb-1.5">Description</label>
                 <input
                   type="text"
-                  className="border rounded w-full py-2 px-3"
-                  value={editingMembershipLevel.name}
-                  onChange={(e) => handleEditInputChange(e, 'name')}
-                />
-              </div>
-              <div>
-                <label className="block mb-1">Fee Amount</label>
-                <input
-                  type="number"
-                  className="border rounded w-full py-2 px-3"
-                  value={editingMembershipLevel.fee_amount}
-                  onChange={(e) => handleEditInputChange(e, 'fee_amount')}
+                  className="w-full border rounded-lg py-2 px-3 text-sm focus:outline-none focus:border-green-500"
+                  value={editingMembershipLevel.description}
+                  onChange={(e) => handleEditInputChange(e, 'description')}
                 />
               </div>
             </div>
-            <div className="mb-4">
-              <label className="block mb-1">Description</label>
-              <input
-                type="text"
-                className="border rounded w-full py-2 px-3"
-                value={editingMembershipLevel.description}
-                onChange={(e) => handleEditInputChange(e, 'description')}
-              />
-            </div>
-            <div className="flex justify-end space-x-2">
+            <div className="flex justify-end gap-3 mt-6">
               <button
-                className="bg-gray-300 px-4 py-2 rounded"
+                className="px-4 py-2 text-sm font-medium rounded-lg bg-gray-100 hover:bg-gray-200 transition duration-200"
                 onClick={() => setEditingMembershipLevel(null)}
               >
                 Cancel
               </button>
               <button
-                className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition duration-200"
+                className="px-4 py-2 text-sm font-medium rounded-lg bg-green-500 text-white hover:bg-green-600 transition duration-200"
                 onClick={handleUpdate}
                 disabled={isUpdating}
               >
@@ -346,48 +344,50 @@ const MembershipLevelFormElements = () => {
 
       {/* Add Modal */}
       {showAddModal && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-6 rounded shadow-lg max-w-lg w-full space-y-4">
-            <h2 className="text-lg font-bold mb-2">Add Membership Level</h2>
-            <div className="grid grid-cols-2 gap-4">
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 p-3 z-50">
+          <div className="bg-white p-4 sm:p-6 rounded-lg shadow-lg w-full max-w-lg m-3">
+            <h2 className="text-xl font-bold mb-4">Add Membership Level</h2>
+            <div className="space-y-4">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div>
+                  <label className="block text-sm font-medium mb-1.5">Name</label>
+                  <input
+                    type="text"
+                    className="w-full border rounded-lg py-2 px-3 text-sm focus:outline-none focus:border-green-500"
+                    value={newMembershipLevel.name}
+                    onChange={(e) => handleNewInputChange(e, 'name')}
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium mb-1.5">Fee Amount</label>
+                  <input
+                    type="number"
+                    className="w-full border rounded-lg py-2 px-3 text-sm focus:outline-none focus:border-green-500"
+                    value={newMembershipLevel.fee_amount}
+                    onChange={(e) => handleNewInputChange(e, 'fee_amount')}
+                  />
+                </div>
+              </div>
               <div>
-                <label className="block mb-1">Name</label>
+                <label className="block text-sm font-medium mb-1.5">Description</label>
                 <input
                   type="text"
-                  className="border rounded w-full py-2 px-3"
-                  value={newMembershipLevel.name}
-                  onChange={(e) => handleNewInputChange(e, 'name')}
-                />
-              </div>
-              <div>
-                <label className="block mb-1">Fee Amount</label>
-                <input
-                  type="number"
-                  className="border rounded w-full py-2 px-3"
-                  value={newMembershipLevel.fee_amount}
-                  onChange={(e) => handleNewInputChange(e, 'fee_amount')}
+                  className="w-full border rounded-lg py-2 px-3 text-sm focus:outline-none focus:border-green-500"
+                  value={newMembershipLevel.description}
+                  onChange={(e) => handleNewInputChange(e, 'description')}
                 />
               </div>
             </div>
-            <div className="mb-4">
-              <label className="block mb-1">Description</label>
-              <input
-                type="text"
-                className="border rounded w-full py-2 px-3"
-                value={newMembershipLevel.description}
-                onChange={(e) => handleNewInputChange(e, 'description')}
-              />
-            </div>
-            <div className="flex justify-end space-x-2">
+            <div className="flex justify-end gap-3 mt-6">
               <button
-                className="bg-gray-300 px-4 py-2 rounded"
+                className="px-4 py-2 text-sm font-medium rounded-lg bg-gray-100 hover:bg-gray-200 transition duration-200"
                 onClick={() => setShowAddModal(false)}
                 disabled={isAdding}
               >
                 Cancel
               </button>
               <button
-                className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition duration-200"
+                className="px-4 py-2 text-sm font-medium rounded-lg bg-green-500 text-white hover:bg-green-600 transition duration-200"
                 onClick={handleAdd}
                 disabled={isAdding}
               >
@@ -400,13 +400,13 @@ const MembershipLevelFormElements = () => {
 
       {/* Delete Confirmation Modal */}
       {showDeleteModal && (
-        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
-          <div className="bg-white p-6 rounded shadow-lg max-w-md w-full space-y-4">
-            <h2 className="text-lg font-bold">Are you sure?</h2>
-            <p>Do you really want to delete this membership level?</p>
-            <div className="flex justify-end space-x-2">
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 p-3 z-50">
+          <div className="bg-white p-4 sm:p-6 rounded-lg shadow-lg w-full max-w-md m-3">
+            <h2 className="text-xl font-bold mb-2">Are you sure?</h2>
+            <p className="text-gray-600 mb-4">Do you really want to delete this membership level?</p>
+            <div className="flex justify-end gap-3">
               <button
-                className="bg-gray-300 px-4 py-2 rounded"
+                className="px-4 py-2 text-sm font-medium rounded-lg bg-gray-100 hover:bg-gray-200 transition duration-200"
                 onClick={() => {
                   setShowDeleteModal(false);
                   setDeletingMembershipId(null);
@@ -415,7 +415,7 @@ const MembershipLevelFormElements = () => {
                 Cancel
               </button>
               <button
-                className="bg-red-500 text-white px-4 py-2 rounded"
+                className="px-4 py-2 text-sm font-medium rounded-lg bg-red-500 text-white hover:bg-red-600 transition duration-200"
                 onClick={confirmDelete}
                 disabled={loadingDeleteId !== null}
               >

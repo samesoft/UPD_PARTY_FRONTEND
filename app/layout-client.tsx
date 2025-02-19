@@ -32,8 +32,8 @@ export default function LayoutClient({
   if (isDashboardRoute) {
     return (
       <>
-        <Navigation />
-        {/* <LoginNavigation /> */}
+        {/* <Navigation /> */}
+        <LoginNavigation />
         {children}
       </>
     );
