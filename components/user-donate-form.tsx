@@ -62,6 +62,7 @@ export default function UserDonateForm({
   const [names, setNames] = useState({
     firstName: memberData?.first_name || "",
     lastName: memberData?.last_name || "",
+    middleName: memberData?.middle_name || "",
   });
   const [selectedAmount, setSelectedAmount] = useState<number | "other">(50);
   const [customAmount, setCustomAmount] = useState("");
@@ -320,6 +321,19 @@ export default function UserDonateForm({
                 onChange={(e) =>
                   setNames((prev) => {
                     return { ...prev, firstName: e.target.value };
+                  })
+                }
+              />
+            </div>
+            <div className="space-y-2">
+              <Label htmlFor="lastName">Middle name</Label>
+              <Input
+                id="lastName"
+                value={names.middleName}
+                disabled={names?.middleName?.length > 0}
+                onChange={(e) =>
+                  setNames((prev) => {
+                    return { ...prev, lastName: e.target.value };
                   })
                 }
               />
