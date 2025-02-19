@@ -53,6 +53,12 @@ export default function LoginNavigation() {
           {userRole === "ADMIN" && (
             <>
               <button
+                onClick={() => handleLoginNavigation("/NewsPage")}
+                className="text-[#2E8B57] hover:text-secondary transition-colors"
+              >
+                News
+              </button>
+              <button
                 onClick={() => handleLoginNavigation("/membership-level")}
                 className="text-[#2E8B57] hover:text-secondary transition-colors"
               >
