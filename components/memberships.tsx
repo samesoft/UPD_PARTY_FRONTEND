@@ -362,7 +362,7 @@ export default function MembershipPage() {
                     className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition duration-200"
                     onClick={() => setShowAddModal(true)}
                 >
-                    Add Member
+                    Ku Dar Xubin
                 </button>
                 {/* <input
                     type="text"
@@ -452,7 +452,7 @@ export default function MembershipPage() {
                             ) : (
                                 <tr>
                                     <td colSpan={5} className="text-center py-4">
-                                        No members found
+                                        Xubno lama helin
                                     </td>
                                 </tr>
                             )}
@@ -466,7 +466,7 @@ export default function MembershipPage() {
                             disabled={pagination.page === 1}
                             onClick={() => handlePageChange(pagination.page - 1)}
                         >
-                            Prev
+                            Hore
                         </button>
                         <div className="flex space-x-2">
                             {pagination.totalPages > 5 && pagination.page > 3 && (
@@ -513,7 +513,7 @@ export default function MembershipPage() {
                             disabled={pagination.page === pagination.totalPages}
                             onClick={() => handlePageChange(pagination.page + 1)}
                         >
-                            Next
+                            Xiga
                         </button>
                     </div>
                 </div>
@@ -526,14 +526,14 @@ export default function MembershipPage() {
                         <div className="fixed inset-0 bg-black opacity-30"></div>
                         <div className="relative w-full max-w-7xl rounded-xl bg-white p-8 shadow-lg">
                             <div className="mb-6">
-                                <h2 className="text-2xl font-bold text-green-600">Edit Member</h2>
-                                <p className="text-gray-600 mt-1">Update member information</p>
+                                <h2 className="text-2xl font-bold text-green-600">Tafatir Xubin</h2>
+                                <p className="text-gray-600 mt-1">Cusboonaysii macluumaadka xubinta</p>
                             </div>
 
                             {/* Edit Modal fields */}
                             <div className="grid grid-cols-3 gap-6">
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">First Name</label>
+                                    <label className="block text-sm font-medium text-gray-700 mb-2">Magaca Koowaad</label>
                                     <input
                                         type="text"
                                         name="first_name"
@@ -543,7 +543,7 @@ export default function MembershipPage() {
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
+                                    <label className="block text-sm font-medium text-gray-700 mb-2">Magac Saddexaad</label>
                                     <input
                                         type="text"
                                         name="last_name"
@@ -553,7 +553,7 @@ export default function MembershipPage() {
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">Middle Name</label>
+                                    <label className="block text-sm font-medium text-gray-700 mb-2">Magaca Labaad</label>
                                     <input
                                         type="text"
                                         name="middle_name"
@@ -563,91 +563,91 @@ export default function MembershipPage() {
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">State</label>
+                                    <label className="block text-sm font-medium text-gray-700 mb-2">Maamul Goboleed</label>
                                     <select
                                         name="state_id"
                                         value={editingMember.state_id}
                                         onChange={(e) => handleEditInputChange(e, 'state_id')}
                                         className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all"
                                     >
-                                        <option value="">Select State</option>
+                                        <option value="">Dooro Maamul Goboleed</option>
                                         {stateOptions.map(option => (
                                             <option key={option.stateid} value={option.stateid}>{option.state}</option>
                                         ))}
                                     </select>
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">District</label>
+                                    <label className="block text-sm font-medium text-gray-700 mb-2">Degmada</label>
                                     <select
                                         name="district_id"
                                         value={editingMember.district_id}
                                         onChange={(e) => handleEditInputChange(e, 'district_id')}
                                         className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all"
                                     >
-                                        <option value="">Select District</option>
+                                        <option value="">Dooro Degmada</option>
                                         {districtOptions.map(option => (
                                             <option key={option.district_id} value={option.district_id}>{option.district}</option>
                                         ))}
                                     </select>
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">Member Level</label>
+                                    <label className="block text-sm font-medium text-gray-700 mb-2">Heerka Xubinimo</label>
                                     <select
                                         name="memb_level_id"
                                         value={editingMember.memb_level_id}
                                         onChange={(e) => handleEditInputChange(e, 'memb_level_id')}
                                         className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all"
                                     >
-                                        <option value="">Select Level</option>
+                                        <option value="">Dooro Heerka Xubinimo</option>
                                         {membLevelsOptions.map(option => (
                                             <option key={option.id} value={option.id}>{option.name}</option>
                                         ))}
                                     </select>
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">Age Group</label>
+                                    <label className="block text-sm font-medium text-gray-700 mb-2">Da'da</label>
                                     <select
                                         name="age_group_id"
                                         value={editingMember.age_group_id}
                                         onChange={(e) => handleEditInputChange(e, 'age_group_id')}
                                         className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all"
                                     >
-                                        <option value="">Select Age Group</option>
+                                        <option value="">Dooro Da'da</option>
                                         {ageGroupOptions.map(option => (
                                             <option key={option.id} value={option.id}>{option.age_group}</option>
                                         ))}
                                     </select>
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">Education Level</label>
+                                    <label className="block text-sm font-medium text-gray-700 mb-2">Heer Waxbarasho</label>
                                     <select
                                         name="edu_level_id"
                                         value={editingMember.edu_level_id}
                                         onChange={(e) => handleEditInputChange(e, 'edu_level_id')}
                                         className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all"
                                     >
-                                        <option value="">Select Education Level</option>
+                                        <option value="">Dooro Heer Waxbarasho</option>
                                         {eduLevelOptions.map(option => (
                                             <option key={option.edu_level_id} value={option.edu_level_id}>{option.educ_level}</option>
                                         ))}
                                     </select>
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">Party Role</label>
+                                    <label className="block text-sm font-medium text-gray-700 mb-2">Doorka Xisbiga</label>
                                     <select
                                         name="party_role_id"
                                         value={editingMember.party_role_id}
                                         onChange={(e) => handleEditInputChange(e, 'party_role_id')}
                                         className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all"
                                     >
-                                        <option value="">Select Party Role</option>
+                                        <option value="">Dooro Doorka Xisbiga</option>
                                         {partyRoleOptions.map(option => (
                                             <option key={option.party_role_id} value={option.party_role_id}>{option.party_role}</option>
                                         ))}
                                     </select>
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                                    <label className="block text-sm font-medium text-gray-700 mb-2">Lambarka Sirta</label>
                                     <div className="relative">
                                         <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
                                             <span className="text-gray-500 text-lg font-medium">🔒</span>
@@ -662,13 +662,13 @@ export default function MembershipPage() {
                                             onChange={(e) => handleEditInputChange(e, 'password_hash')}
                                         />
                                     </div>
-                                    <p className="mt-1 text-sm text-gray-500">Must be at least 8 characters long</p>
+                                    <p className="mt-1 text-sm text-gray-500">Waa in ay ugu yaraan 8 xaraf tahay</p>
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
+                                    <label className="block text-sm font-medium text-gray-700 mb-2">Lambarka Telefoonka</label>
                                     <div className="relative">
                                         <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
-                                            <span className="text-gray-500 text-lg font-medium">+251</span>
+                                            <span className="text-gray-500 text-lg font-medium">+252</span>
                                         </div>
                                         <input
                                             type="tel"
@@ -687,7 +687,7 @@ export default function MembershipPage() {
                                             }}
                                         />
                                     </div>
-                                    <p className="mt-1 text-sm text-gray-500">Enter 9 digits after +251</p>
+                                    <p className="mt-1 text-sm text-gray-500">Gali 9 lambar ka dib +252</p>
                                 </div>
                                 <div>
                                     <label className="block text-sm font-medium text-gray-700 mb-2">Email</label>
@@ -701,7 +701,7 @@ export default function MembershipPage() {
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">Gender</label>
+                                    <label className="block text-sm font-medium text-gray-700 mb-2">Jinsiga</label>
                                     <div className="flex space-x-4">
                                         <label className="inline-flex items-center">
                                             <input
@@ -712,7 +712,7 @@ export default function MembershipPage() {
                                                 onChange={(e) => handleEditInputChange(e, 'gender')}
                                                 className="form-radio text-green-500"
                                             />
-                                            <span className="ml-2">Male</span>
+                                            <span className="ml-2">Lab</span>
                                         </label>
                                         <label className="inline-flex items-center">
                                             <input
@@ -723,7 +723,7 @@ export default function MembershipPage() {
                                                 onChange={(e) => handleEditInputChange(e, 'gender')}
                                                 className="form-radio text-green-500"
                                             />
-                                            <span className="ml-2">Female</span>
+                                            <span className="ml-2">Dhedig</span>
                                         </label>
                                     </div>
                                 </div>
@@ -734,7 +734,7 @@ export default function MembershipPage() {
                                     className="px-6 py-2.5 rounded-lg border-2 border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors"
                                     onClick={() => setEditingMember(null)}
                                 >
-                                    Cancel
+                                    Jooji
                                 </button>
                                 <button
                                     className="px-6 py-2.5 rounded-lg bg-green-500 text-white hover:bg-green-600 transition-colors"
@@ -744,7 +744,7 @@ export default function MembershipPage() {
                                     {isUpdating ? (
                                         <CircularProgress size={20} color="inherit" />
                                     ) : (
-                                        'Save Changes'
+                                        'Keydi Isbeddelada'
                                     )}
                                 </button>
                             </div>
@@ -760,15 +760,15 @@ export default function MembershipPage() {
                         <div className="fixed inset-0 bg-black opacity-30"></div>
                         <div className="relative w-full max-w-7xl rounded-xl bg-white p-8 shadow-lg">
                             <div className="mb-6">
-                                <h2 className="text-2xl font-bold text-green-600">Add New Member</h2>
-                                <p className="text-gray-600 mt-1">Enter member details below</p>
+                                <h2 className="text-2xl font-bold text-green-600">Ku Dar Xubin Cusub</h2>
+                                <p className="text-gray-600 mt-1">Gali faahfaahinta xubinta hoos</p>
                             </div>
 
                             {/* All fields in a 3-column grid */}
                             <div className="grid grid-cols-3 gap-6">
                                 {/* Personal Information */}
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">First Name</label>
+                                    <label className="block text-sm font-medium text-gray-700 mb-2">Magaca Kowaad</label>
                                     <input
                                         type="text"
                                         name="first_name"
@@ -779,7 +779,7 @@ export default function MembershipPage() {
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">Last Name</label>
+                                    <label className="block text-sm font-medium text-gray-700 mb-2">Magaca Saddexaad</label>
                                     <input
                                         type="text"
                                         name="last_name"
@@ -790,7 +790,7 @@ export default function MembershipPage() {
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">Middle Name</label>
+                                    <label className="block text-sm font-medium text-gray-700 mb-2">Magaca Labaad</label>
                                     <input
                                         type="text"
                                         name="middle_name"
@@ -800,7 +800,7 @@ export default function MembershipPage() {
                                     />
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">State</label>
+                                    <label className="block text-sm font-medium text-gray-700 mb-2">Maamul Goboleed</label>
                                     <select
                                         name="state_id"
                                         required
@@ -808,7 +808,7 @@ export default function MembershipPage() {
                                         value={newMember.state_id}
                                         onChange={handleNewInputChange}
                                     >
-                                        <option value="">Select State</option>
+                                        <option value="">Dooro Maamul Goboleed</option>
                                         {stateOptions.map(option => (
                                             <option key={option.stateid} value={option.stateid}>
                                                 {option.state}
@@ -817,7 +817,7 @@ export default function MembershipPage() {
                                     </select>
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">District</label>
+                                    <label className="block text-sm font-medium text-gray-700 mb-2">Degmada</label>
                                     <select
                                         name="district_id"
                                         required
@@ -825,7 +825,7 @@ export default function MembershipPage() {
                                         value={newMember.district_id}
                                         onChange={handleNewInputChange}
                                     >
-                                        <option value="">Select District</option>
+                                        <option value="">Dooro Degmada</option>
                                         {districtOptions.map(option => (
                                             <option key={option.district_id} value={option.district_id}>
                                                 {option.district}
@@ -834,7 +834,7 @@ export default function MembershipPage() {
                                     </select>
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">Member Level</label>
+                                    <label className="block text-sm font-medium text-gray-700 mb-2">Doorka Xubinimo</label>
                                     <select
                                         name="memb_level_id"
                                         required
@@ -851,7 +851,7 @@ export default function MembershipPage() {
                                     </select>
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">Age Group</label>
+                                    <label className="block text-sm font-medium text-gray-700 mb-2">Da'da</label>
                                     <select
                                         name="age_group_id"
                                         required
@@ -859,7 +859,7 @@ export default function MembershipPage() {
                                         value={newMember.age_group_id}
                                         onChange={handleNewInputChange}
                                     >
-                                        <option value="">Select Age Group</option>
+                                        <option value="">Dooro Da'da</option>
                                         {ageGroupOptions.map(option => (
                                             <option key={option.id} value={option.id}>
                                                 {option.age_group}
@@ -868,7 +868,7 @@ export default function MembershipPage() {
                                     </select>
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">Education Level</label>
+                                    <label className="block text-sm font-medium text-gray-700 mb-2">Heerka Waxbarasho</label>
                                     <select
                                         name="edu_level_id"
                                         required
@@ -876,7 +876,7 @@ export default function MembershipPage() {
                                         value={newMember.edu_level_id}
                                         onChange={handleNewInputChange}
                                     >
-                                        <option value="">Select Education Level</option>
+                                        <option value="">Dooro Heer Waxbarasho</option>
                                         {eduLevelOptions.map(option => (
                                             <option key={option.edu_level_id} value={option.edu_level_id}>
                                                 {option.educ_level}
@@ -885,7 +885,7 @@ export default function MembershipPage() {
                                     </select>
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">Party Role</label>
+                                    <label className="block text-sm font-medium text-gray-700 mb-2">Doorka Xisbiga</label>
                                     <select
                                         name="party_role_id"
                                         required
@@ -893,7 +893,7 @@ export default function MembershipPage() {
                                         value={newMember.party_role_id}
                                         onChange={handleNewInputChange}
                                     >
-                                        <option value="">Select Party Role</option>
+                                        <option value="">Dooro Doorka Xisbiga</option>
                                         {partyRoleOptions.map(option => (
                                             <option key={option.party_role_id} value={option.party_role_id}>
                                                 {option.party_role}
@@ -902,7 +902,7 @@ export default function MembershipPage() {
                                     </select>
                                 </div>
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">Gender</label>
+                                    <label className="block text-sm font-medium text-gray-700 mb-2">Jinsiga</label>
                                     <div className="flex space-x-4">
                                         <label className="inline-flex items-center">
                                             <input
@@ -913,7 +913,7 @@ export default function MembershipPage() {
                                                 onChange={handleNewInputChange}
                                                 className="form-radio text-green-500"
                                             />
-                                            <span className="ml-2">Male</span>
+                                            <span className="ml-2">Lab</span>
                                         </label>
                                         <label className="inline-flex items-center">
                                             <input
@@ -924,13 +924,13 @@ export default function MembershipPage() {
                                                 onChange={handleNewInputChange}
                                                 className="form-radio text-green-500"
                                             />
-                                            <span className="ml-2">Female</span>
+                                            <span className="ml-2">Dhedig</span>
                                         </label>
                                     </div>
                                 </div>
                                 {/* Password field */}
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">Password</label>
+                                    <label className="block text-sm font-medium text-gray-700 mb-2">Lambar sirta</label>
                                     <div className="relative">
                                         <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
                                             <span className="text-gray-500 text-lg font-medium">🔒</span>
@@ -945,14 +945,14 @@ export default function MembershipPage() {
                                             onChange={handleNewInputChange}
                                         />
                                     </div>
-                                    <p className="mt-1 text-sm text-gray-500">Must be at least 8 characters long</p>
+                                    <p className="mt-1 text-sm text-gray-500">Waa in ay ugu yaraan 8 xaraf tahay</p>
                                 </div>
                                 {/* Phone Number field */}
                                 <div>
-                                    <label className="block text-sm font-medium text-gray-700 mb-2">Phone Number</label>
+                                    <label className="block text-sm font-medium text-gray-700 mb-2">Lambarka Telefoonka</label>
                                     <div className="relative">
                                         <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
-                                            <span className="text-gray-500 text-lg font-medium">+251</span>
+                                            <span className="text-gray-500 text-lg font-medium">+252</span>
                                         </div>
                                         <input
                                             type="tel"
@@ -971,7 +971,7 @@ export default function MembershipPage() {
                                             }}
                                         />
                                     </div>
-                                    <p className="mt-1 text-sm text-gray-500">Enter 9 digits after +251</p>
+                                    <p className="mt-1 text-sm text-gray-500">Gali 9 lambar ka dib +252</p>
                                 </div>
                                 {/* Email field */}
                                 <div>
@@ -992,7 +992,7 @@ export default function MembershipPage() {
                                     className="px-6 py-2.5 rounded-lg border-2 border-gray-300 text-gray-700 hover:bg-gray-50 transition-colors"
                                     onClick={() => setShowAddModal(false)}
                                 >
-                                    Cancel
+                                    Jooji
                                 </button>
                                 <button
                                     className="px-6 py-2.5 rounded-lg bg-green-500 text-white hover:bg-green-600 transition-colors"
@@ -1002,7 +1002,7 @@ export default function MembershipPage() {
                                     {isAdding ? (
                                         <CircularProgress size={20} color="inherit" />
                                     ) : (
-                                        'Add Member'
+                                        'Ku Dar Xubin'
                                     )}
                                 </button>
                             </div>
@@ -1025,7 +1025,7 @@ export default function MembershipPage() {
                                     setDeletingMemberId(null);
                                 }}
                             >
-                                Cancel
+                                Jooji
                             </button>
                             <button
                                 className="bg-red-500 text-white px-4 py-2 rounded"
