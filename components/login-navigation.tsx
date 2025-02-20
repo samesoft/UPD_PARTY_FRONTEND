@@ -39,7 +39,7 @@ export default function LoginNavigation() {
           <div className="w-8 h-8">
             <Image
               src="/updLogo.jpg"
-              alt="Zaitical Logo"
+              alt="UPD-PARTY LOGO"
               width={45}
               height={45}
               className="object-contain"
