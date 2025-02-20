@@ -3,7 +3,8 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { useState, useEffect } from "react";
-import { Menu, X } from "lucide-react";
+import { Menu, X, User } from "lucide-react";
+import Link from "next/link";
 
 export default function LoginNavigation() {
   const router = useRouter();
@@ -58,59 +59,7 @@ export default function LoginNavigation() {
               >
                 News
               </button>
-              <button
-                onClick={() => handleLoginNavigation("/membership-level")}
-                className="text-[#2E8B57] hover:text-secondary transition-colors"
-              >
-                Member Level
-              </button>
-              <button
-                onClick={() => handleLoginNavigation("/state")}
-                className="text-[#2E8B57] hover:text-secondary transition-colors"
-              >
-                Stats
-              </button>
-              <button
-                onClick={() => handleLoginNavigation("/memberships")}
-                className="text-[#2E8B57] hover:text-secondary transition-colors"
-              >
-                Members
-              </button>
-              <button
-                onClick={() => handleLoginNavigation("/event-registration")}
-                className="text-[#2E8B57] hover:text-secondary transition-colors"
-              >
-                Event Registration
-              </button>
-            </>
-          )}
-          {userRole === "USER" && (
-            <>
-
-
               <div className="relative group">
-                <button
-                  className="text-[#2E8B57] hover:text-secondary transition-colors"
-                >
-                  Members
-                </button>
-                <div className="absolute hidden group-hover:block bg-white shadow-lg rounded-md py-2 w-32">
-                  <button
-                    onClick={() => handleLoginNavigation("/membership-level")}
-                    className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
-                  >
-                    Member Level
-                  </button>
-                  <button
-                    onClick={() => handleLoginNavigation("/memberships")}
-                    className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
-                  >
-                    Membership
-                  </button>
-                </div>
-              </div>
-              <div className="relative group">
-
                 <button
                   className="text-[#2E8B57] hover:text-secondary transition-colors"
                 >
@@ -131,13 +80,33 @@ export default function LoginNavigation() {
                   </button>
                 </div>
               </div>
+              {/* Members Dropdown */}
               <div className="relative group">
-                <button
-                  className="text-[#2E8B57] hover:text-secondary transition-colors"
-                >
+                <button className="text-[#2E8B57] hover:text-secondary transition-colors">
+                  Members
+                </button>
+                <div className="absolute hidden group-hover:block bg-white shadow-lg rounded-md py-2 w-40">
+                  <button
+                    onClick={() => handleLoginNavigation("/membership-level")}
+                    className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
+                  >
+                    Member Level
+                  </button>
+                  <button
+                    onClick={() => handleLoginNavigation("/memberships")}
+                    className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
+                  >
+                    Members List
+                  </button>
+                </div>
+              </div>
+
+              {/* Events Dropdown */}
+              <div className="relative group">
+                <button className="text-[#2E8B57] hover:text-secondary transition-colors">
                   Events
                 </button>
-                <div className="absolute hidden group-hover:block bg-white shadow-lg rounded-md py-2 w-32">
+                <div className="absolute hidden group-hover:block bg-white shadow-lg rounded-md py-2 w-40">
                   <button
                     onClick={() => handleLoginNavigation("/event-registration")}
                     className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
@@ -191,6 +160,15 @@ export default function LoginNavigation() {
               </button>
             </>
           )}
+          {userRole === "USER" && (
+            <Link
+              href="/profile"
+              className="flex items-center gap-2 px-3 py-2 rounded-lg hover:bg-gray-100 transition-all"
+            >
+              <User className="w-5 h-5 text-gray-600" />
+              <span className="text-sm font-medium">Profile</span>
+            </Link>
+          )}
           <Button
             onClick={handleSignOut}
             className="bg-white text-[#2E8B57] border-2 border-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
@@ -215,6 +193,13 @@ export default function LoginNavigation() {
         <div className="md:hidden mt-4 space-y-4">
           {userRole === "ADMIN" && (
             <>
+              <button
+                onClick={() => handleLoginNavigation("/NewsPage")}
+                className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
+              >
+                News
+              </button>
+
               <div className="px-4 py-2">
                 <div className="text-[#2E8B57] mb-2">Members</div>
                 <button
@@ -227,24 +212,10 @@ export default function LoginNavigation() {
                   onClick={() => handleLoginNavigation("/memberships")}
                   className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
                 >
-                  Membership
+                  Members List
                 </button>
               </div>
-              <div className="px-4 py-2">
-                <div className="text-[#2E8B57] mb-2">Settings</div>
-                <button
-                  onClick={() => handleLoginNavigation("/state")}
-                  className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
-                >
-                  State
-                </button>
-                <button
-                  onClick={() => handleLoginNavigation("/district")}
-                  className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
-                >
-                  District
-                </button>
-              </div>
+
               <div className="px-4 py-2">
                 <div className="text-[#2E8B57] mb-2">Events</div>
                 <button

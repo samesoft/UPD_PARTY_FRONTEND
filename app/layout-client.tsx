@@ -17,6 +17,8 @@ const DASHBOARD_ROUTES = [
   "/selected-events",
   "/donate-form",
   "/memberships",
+  "/profile",
+  '/district'
 ];
 
 export default function LayoutClient({
