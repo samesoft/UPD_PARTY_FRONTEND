@@ -19,6 +19,24 @@ export default function UserNavigation() {
   const renderNavItems = () => (
     <>
       <button
+        onClick={() => router.push("/")}
+        className="text-[#2E8B57] hover:text-secondary transition-colors"
+      >
+        Home
+      </button>
+      <button
+        onClick={() => router.push("/profile")}
+        className="text-[#2E8B57] hover:text-secondary transition-colors"
+      >
+        Profile
+      </button>
+      <button
+        onClick={() => router.push("/campaign")}
+        className="text-[#2E8B57] hover:text-secondary transition-colors"
+      >
+        Campaign
+      </button>
+      <button
         onClick={() => router.push("/event-selecting")}
         className="text-[#2E8B57] hover:text-secondary transition-colors"
       >
@@ -30,11 +48,40 @@ export default function UserNavigation() {
       >
         My Events
       </button>
+    </>
+  );
+
+  const renderMobileNavItems = () => (
+    <>
+      <button
+        onClick={() => router.push("/")}
+        className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
+      >
+        Home
+      </button>
       <button
         onClick={() => router.push("/profile")}
-        className="text-[#2E8B57] hover:text-secondary transition-colors"
+        className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
       >
         Profile
+      </button>
+      <button
+        onClick={() => router.push("/campaign")}
+        className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
+      >
+        Campaign
+      </button>
+      <button
+        onClick={() => router.push("/event-selecting")}
+        className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
+      >
+        Events
+      </button>
+      <button
+        onClick={() => router.push("/selected-events")}
+        className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
+      >
+        My Events
       </button>
     </>
   );
@@ -85,7 +132,7 @@ export default function UserNavigation() {
 
       {isMenuOpen && (
         <div className="md:hidden mt-4 space-y-4 pb-4">
-          {renderNavItems()}
+          {renderMobileNavItems()}
           <div className="px-4">
             <button
               onClick={handleSignOut}

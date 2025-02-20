@@ -24,6 +24,24 @@ export default function AdminNavigation() {
   const renderNavItems = () => (
     <>
       <button
+        onClick={() => router.push("/")}
+        className="text-[#2E8B57] hover:text-secondary transition-colors"
+      >
+        Home
+      </button>
+      <button
+        onClick={() => router.push("/campaign")}
+        className="text-[#2E8B57] hover:text-secondary transition-colors"
+      >
+        Campaign
+      </button>
+      <button
+        onClick={() => router.push("/profile")}
+        className="text-[#2E8B57] hover:text-secondary transition-colors"
+      >
+        Profile
+      </button>
+      <button
         onClick={() => handleLoginNavigation("/news")}
         className="text-[#2E8B57] hover:text-secondary transition-colors"
       >
@@ -74,6 +92,30 @@ export default function AdminNavigation() {
     </>
   );
 
+  const renderMobileNavItems = () => (
+    <>
+      <button
+        onClick={() => router.push("/")}
+        className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
+      >
+        Home
+      </button>
+      <button
+        onClick={() => router.push("/campaign")}
+        className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
+      >
+        Campaign
+      </button>
+      <button
+        onClick={() => router.push("/profile")}
+        className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
+      >
+        Profile
+      </button>
+      {/* ... existing mobile nav items ... */}
+    </>
+  );
+
   return (
     <nav className="bg-background py-2 px-4 shadow-sm">
       <div className="container mx-auto flex items-center justify-between">
@@ -113,7 +155,7 @@ export default function AdminNavigation() {
 
       {isMenuOpen && (
         <div className="md:hidden mt-4 space-y-4 pb-4">
-          {renderNavItems()}
+          {renderMobileNavItems()}
         </div>
       )}
     </nav>
