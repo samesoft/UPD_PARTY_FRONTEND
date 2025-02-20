@@ -5,9 +5,11 @@ import Image from "next/image";
 import { useState, useEffect } from "react";
 import { Menu, X, User } from "lucide-react";
 import Link from "next/link";
+import { useAuth } from "@/contexts/auth-context";
 
 export default function LoginNavigation() {
   const router = useRouter();
+  const { setIsAuthenticated } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [userRole, setUserRole] = useState<string>(""); // 'ADMIN' or 'USER'
 
@@ -28,8 +30,9 @@ export default function LoginNavigation() {
   };
 
   const handleSignOut = () => {
-    localStorage.removeItem("userRole"); // Clear role on sign out
-    router.push("/sign-in");
+    localStorage.clear();
+    setIsAuthenticated(false); // This will trigger the layout to update
+    router.push('/');
   };
 
   return (
@@ -54,7 +57,7 @@ export default function LoginNavigation() {
           {userRole === "ADMIN" && (
             <>
               <button
-                onClick={() => handleLoginNavigation("/NewsPage")}
+                onClick={() => handleLoginNavigation("/news")}
                 className="text-[#2E8B57] hover:text-secondary transition-colors"
               >
                 News

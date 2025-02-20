@@ -1,218 +1,103 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
-import { Menu, X, ChevronDown } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
+import { Menu, X } from "lucide-react";
 
 export default function Navigation() {
   const router = useRouter();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const [authStatus, setAuthStatus] = useState<"guest" | "user" | "admin">(
-    "guest"
+
+  const renderNavItems = () => (
+    <>
+      <button
+        onClick={() => router.push("/")}
+        className="text-[#2E8B57] hover:text-secondary transition-colors"
+      >
+        Home
+      </button>
+      <button
+        onClick={() => router.push("/news")}
+        className="text-[#2E8B57] hover:text-secondary transition-colors"
+      >
+        News
+      </button>
+      <button
+        onClick={() => router.push("/campaign")}
+        className="text-[#2E8B57] hover:text-secondary transition-colors"
+      >
+        Campaign
+      </button>
+      <button
+        onClick={() => router.push("/donate")}
+        className="text-[#2E8B57] hover:text-secondary transition-colors"
+      >
+        Donate
+      </button>
+      <button
+        onClick={() => router.push("/create-account")}
+        className="px-4 py-2 rounded-md border-2 border-[#2E8B57] text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
+      >
+        Create Account
+      </button>
+      <button
+        onClick={() => router.push("/sign-in")}
+        className="px-4 py-2 rounded-md bg-[#2E8B57] text-white hover:bg-[#236B43] transition-colors"
+      >
+        Sign In
+      </button>
+    </>
   );
 
-  useEffect(() => {
-    const token = localStorage.getItem("token");
-    const userRole = localStorage.getItem("userRole");
-
-    if (token) {
-      setAuthStatus(userRole === "ADMIN" ? "admin" : "user");
-    } else {
-      setAuthStatus("guest");
-    }
-  }, []);
-
-  const handleNavigation = (path: string) => {
-    router.push(path);
-    setIsMenuOpen(false);
-  };
-
-  const handleSignOut = () => {
-    localStorage.removeItem("userRole");
-    localStorage.removeItem("token");
-    setAuthStatus("guest");
-    router.push("/sign-in");
-  };
-
-  const buttonStyle =
-    "bg-primary text-primary-foreground hover:bg-primary/90 transition-colors";
-
-  const renderNavItems = () => {
-    switch (authStatus) {
-      case "admin":
-        return (
-          <>
-            <button
-              onClick={() => handleNavigation("/news")}
-              className="nav-item"
-            >
-              News
-            </button>
-            {/* <button
-              onClick={() => handleNavigation("/volunteer")}
-              className="nav-item"
-            >
-              Volunteer
-            </button> */}
-            <button
-              onClick={() => handleNavigation("/campaign")}
-              className="nav-item"
-            >
-              Campaign
-            </button>
-            <button
-              onClick={() => handleNavigation("/create-account")}
-              className="nav-item"
-            >
-              Create Account
-            </button>
-            <button
-              onClick={() => handleNavigation("/user-donate-form")}
-              className="nav-item"
-            >
-              Donate
-            </button>
-
-            {/* <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline" className="ml-2">
-                  More <ChevronDown className="ml-1 h-4 w-4" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuItem
-                  onSelect={() => handleNavigation("/memberships")}
-                >
-                  Members
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  onSelect={() => handleNavigation("/membership-level")}
-                >
-                  Members Level
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  onSelect={() => handleNavigation("/event-selecting")}
-                >
-                  Events
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  onSelect={() => handleNavigation("/event-registration")}
-                >
-                  Event Registration
-                </DropdownMenuItem>
-                <DropdownMenuItem onSelect={() => handleNavigation("/state")}>
-                  States
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu> */}
-            <Button onClick={handleSignOut} className={buttonStyle}>
-              Sign Out
-            </Button>
-          </>
-        );
-      case "user":
-        return (
-          <>
-            <button
-              onClick={() => handleNavigation("/news")}
-              className="nav-item"
-            >
-              News
-            </button>
-            {/* <button
-              onClick={() => handleNavigation("/volunteer")}
-              className="nav-item"
-            >
-              Volunteer
-            </button> */}
-            <button
-              onClick={() => handleNavigation("/campaign")}
-              className="nav-item"
-            >
-              Campaign
-            </button>
-            <button
-              onClick={() => handleNavigation("/user-donate-form")}
-              className="nav-item"
-            >
-              Donate
-            </button>
-
-            {/* <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline" className="ml-2">
-                  More <ChevronDown className="ml-1 h-4 w-4" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent>
-                <DropdownMenuItem
-                  onSelect={() => handleNavigation("/event-selecting")}
-                >
-                  Events
-                </DropdownMenuItem>
-                <DropdownMenuItem
-                  onSelect={() => handleNavigation("/event-registration")}
-                >
-                  Event Registration
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu> */}
-            <Button onClick={handleSignOut} className={buttonStyle}>
-              Sign Out
-            </Button>
-          </>
-        );
-      default:
-        return (
-          <>
-            {/* <button
-              onClick={() => handleNavigation("/volunteer")}
-              className="nav-item"
-            >
-              Volunteer
-            </button> */}
-            <button
-              onClick={() => handleNavigation("/campaign")}
-              className="nav-item"
-            >
-              Campaign
-            </button>
-            <Button
-              onClick={() => handleNavigation("/create-account")}
-              className={buttonStyle}
-            >
-              Create Account
-            </Button>
-            <Button
-              onClick={() => handleNavigation("/donate")}
-              className={buttonStyle}
-            >
-              Donate
-            </Button>
-            <Button
-              onClick={() => handleNavigation("/sign-in")}
-              className={buttonStyle}
-            >
-              Sign In
-            </Button>
-          </>
-        );
-    }
-  };
+  const renderMobileNavItems = () => (
+    <>
+      <button
+        onClick={() => router.push("/")}
+        className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
+      >
+        Home
+      </button>
+      <button
+        onClick={() => router.push("/news")}
+        className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
+      >
+        News
+      </button>
+      <button
+        onClick={() => router.push("/campaign")}
+        className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
+      >
+        Campaign
+      </button>
+      <button
+        onClick={() => router.push("/donate")}
+        className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
+      >
+        Donate
+      </button>
+      <div className="px-4 pt-2 space-y-2">
+        <button
+          onClick={() => router.push("/register")}
+          className="w-full px-4 py-2 rounded-md border-2 border-[#2E8B57] text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
+        >
+          Create Account
+        </button>
+        <button
+          onClick={() => router.push("/sign-in")}
+          className="w-full px-4 py-2 rounded-md bg-[#2E8B57] text-white hover:bg-[#236B43] transition-colors"
+        >
+          Sign In
+        </button>
+      </div>
+    </>
+  );
 
   return (
     <nav className="bg-background py-2 px-4 shadow-sm">
       <div className="container mx-auto flex items-center justify-between">
         <button
-          onClick={() => handleNavigation("/")}
+          onClick={() => router.push("/")}
           className="flex items-center space-x-2"
         >
           <div className="w-8 h-8">
@@ -246,7 +131,9 @@ export default function Navigation() {
       </div>
 
       {isMenuOpen && (
-        <div className="md:hidden mt-4 space-y-4 pb-4">{renderNavItems()}</div>
+        <div className="md:hidden mt-4 space-y-4 pb-4">
+          {renderMobileNavItems()}
+        </div>
       )}
     </nav>
   );
