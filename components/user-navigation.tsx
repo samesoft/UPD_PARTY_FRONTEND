@@ -31,6 +31,12 @@ export default function UserNavigation() {
         Profile
       </button>
       <button
+        onClick={() => router.push("/news")}
+        className="text-[#2E8B57] hover:text-secondary transition-colors"
+      >
+        News
+      </button>
+      <button
         onClick={() => router.push("/campaign")}
         className="text-[#2E8B57] hover:text-secondary transition-colors"
       >
@@ -77,6 +83,12 @@ export default function UserNavigation() {
         className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
       >
         Campaign
+      </button>
+      <button
+        onClick={() => router.push("/news")}
+        className="text-[#2E8B57] hover:text-secondary transition-colors"
+      >
+        News
       </button>
       <button
         onClick={() => router.push("/event-selecting")}

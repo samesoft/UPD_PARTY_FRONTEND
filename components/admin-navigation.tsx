@@ -120,7 +120,7 @@ export default function AdminNavigation() {
     <nav className="bg-background py-2 px-4 shadow-sm">
       <div className="container mx-auto flex items-center justify-between">
         <button
-          onClick={() => handleLoginNavigation("/")}
+          onClick={() => handleLoginNavigation("/dashboard")}
           className="flex items-center space-x-2"
         >
           <div className="w-8 h-8">

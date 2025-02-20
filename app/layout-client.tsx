@@ -12,6 +12,8 @@ import AdminNavigation from "@/components/admin-navigation";
 import UserNavigation from "@/components/user-navigation";
 
 const DASHBOARD_ROUTES = [
+  "/user-dashboard",
+  "/admin-dashboard",
   "/dashboard",
   "/membership-level",
   "/state",
@@ -49,11 +51,22 @@ function LayoutContent({ children }: { children: React.ReactNode }) {
   // Handle navigation protection
   const handleNavigation = () => {
     const token = localStorage.getItem('token');
+    const role = localStorage.getItem('userRole');
+    
     if (!token && DASHBOARD_ROUTES.includes(pathname)) {
       window.history.pushState(null, '', '/sign-in');
       router.replace('/sign-in');
       return false;
     }
+
+    // Redirect to role-specific dashboard if accessing generic /dashboard
+    if (pathname === '/dashboard' && token) {
+      const dashboardPath = role === 'ADMIN' ? '/dashboard' : '/';
+      window.history.pushState(null, '', dashboardPath);
+      router.replace(dashboardPath);
+      return false;
+    }
+
     return true;
   };
 
