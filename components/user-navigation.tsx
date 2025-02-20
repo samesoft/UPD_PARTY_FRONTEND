@@ -36,18 +36,25 @@ export default function UserNavigation() {
       >
         Campaign
       </button>
-      <button
-        onClick={() => router.push("/event-selecting")}
-        className="text-[#2E8B57] hover:text-secondary transition-colors"
-      >
-        Events
-      </button>
-      <button
-        onClick={() => router.push("/selected-events")}
-        className="text-[#2E8B57] hover:text-secondary transition-colors"
-      >
-        My Events
-      </button>
+      <div className="relative group">
+        <button className="text-[#2E8B57] hover:text-secondary transition-colors">
+          Events
+        </button>
+        <div className="absolute hidden group-hover:block bg-white shadow-lg rounded-md py-2 w-40 z-50">
+          <button
+            onClick={() => router.push("/event-selecting")}
+            className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
+          >
+            Events
+          </button>
+          <button
+            onClick={() => router.push("/selected-events")}
+            className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
+          >
+            My Events
+          </button>
+        </div>
+      </div>
     </>
   );
 

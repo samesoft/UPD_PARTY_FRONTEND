@@ -52,7 +52,7 @@ export default function AdminNavigation() {
         <button className="text-[#2E8B57] hover:text-secondary transition-colors">
           Members
         </button>
-        <div className="absolute hidden group-hover:block bg-white shadow-lg rounded-md py-2 w-40">
+        <div className="absolute hidden group-hover:block bg-white shadow-lg rounded-md py-2 w-40 z-50">
           <button
             onClick={() => handleLoginNavigation("/membership-level")}
             className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
@@ -72,7 +72,7 @@ export default function AdminNavigation() {
         <button className="text-[#2E8B57] hover:text-secondary transition-colors">
           Events
         </button>
-        <div className="absolute hidden group-hover:block bg-white shadow-lg rounded-md py-2 w-40">
+        <div className="absolute hidden group-hover:block bg-white shadow-lg rounded-md py-2 w-40 z-50">
           <button
             onClick={() => handleLoginNavigation("/event-registration")}
             className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
