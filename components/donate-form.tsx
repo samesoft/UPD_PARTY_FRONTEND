@@ -451,8 +451,7 @@ export default function DonateForm() {
             value={phoneNumber}
             onChange={(e) => setPhoneNumber(e.target.value)}
             placeholder="e.g., 615123456"
-            className={`pl-8 ${isLoggedIn ? "bg-gray-100" : ""}`}
-            disabled={isLoggedIn}
+            className="pl-8"
           />
           <p className="text-sm text-gray-500">
             Enter number without country code (e.g., 615123456)

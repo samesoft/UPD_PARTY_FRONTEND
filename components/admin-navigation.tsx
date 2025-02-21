@@ -83,6 +83,13 @@ export default function AdminNavigation() {
       </div>
 
       <button
+        onClick={() => handleLoginNavigation("/donate")}
+        className="text-[#2E8B57] hover:text-secondary transition-colors"
+      >
+        Donate
+      </button>
+
+      <button
         onClick={handleSignOut}
         className="flex items-center space-x-2 px-4 py-2 rounded-md bg-red-500 text-white hover:bg-red-600 transition-colors"
       >
@@ -112,7 +119,12 @@ export default function AdminNavigation() {
       >
         Profile
       </button>
-      {/* ... existing mobile nav items ... */}
+      <button
+        onClick={() => handleLoginNavigation("/donate")}
+        className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
+      >
+        Donate
+      </button>
     </>
   );
 
