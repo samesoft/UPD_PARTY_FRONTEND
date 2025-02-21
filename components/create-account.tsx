@@ -197,7 +197,7 @@ const CreateAccount: React.FC = () => {
                       {isLoading ? (
                         <CircularProgress size={28} color="inherit" />
                       ) : (
-                        "Send Verification Code"
+                        "Dir Koodhka Xaqiijinta"
                       )}
                     </button>
                   </form>
