@@ -42,6 +42,12 @@ export default function UserNavigation() {
       >
         Campaign
       </button>
+      <button
+        onClick={() => router.push("/donate")}
+        className="text-[#2E8B57] hover:text-secondary transition-colors"
+      >
+        Donate
+      </button>
       <div className="relative group">
         <button className="text-[#2E8B57] hover:text-secondary transition-colors">
           Events
@@ -101,6 +107,12 @@ export default function UserNavigation() {
         className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
       >
         My Events
+      </button>
+      <button
+        onClick={() => router.push("/donate")}
+        className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
+      >
+        Donate
       </button>
     </>
   );

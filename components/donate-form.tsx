@@ -70,8 +70,11 @@ export default function DonateForm() {
     data: [],
   });
   const [selectedState, setSelectedState] = useState<number | null>(null);
-  const [selectedDistrict, setSelectedDistrict] = useState<string>("");
+  const [selectedDistrict, setSelectedDistrict] = useState<number | null>(null);
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(""); // Add state for payment method
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [email, setEmail] = useState("");
 
   // Calculate next payment date when component mounts
   const today = new Date();
@@ -92,6 +95,32 @@ export default function DonateForm() {
     };
 
     fetchStates();
+  }, []);
+
+  useEffect(() => {
+    const memberDataStr = localStorage.getItem("memberData");
+    const stateId = localStorage.getItem("state_id");
+    const districtId = localStorage.getItem("district_id");
+
+    if (memberDataStr) {
+      const memberData = JSON.parse(memberDataStr);
+      setFirstName(memberData.first_name || "");
+      setLastName(memberData.last_name || "");
+      setEmail(memberData.email || "");
+      setPhoneNumber(memberData.mobile || "");
+    }
+
+    // Set state and fetch districts if state_id exists
+    if (stateId) {
+      const stateIdNum = parseInt(stateId);
+      setSelectedState(stateIdNum);
+      fetchDistrictsByState(stateIdNum);
+    }
+
+    // Set district if district_id exists
+    if (districtId) {
+      setSelectedDistrict(parseInt(districtId));
+    }
   }, []);
 
   const fetchDistrictsByState = async (stateId: number) => {
@@ -302,17 +331,30 @@ export default function DonateForm() {
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
               <Label htmlFor="firstName">First name</Label>
-              <Input id="firstName" />
+              <Input 
+                id="firstName"
+                value={firstName}
+                onChange={(e) => setFirstName(e.target.value)}
+              />
             </div>
             <div className="space-y-2">
               <Label htmlFor="lastName">Last name</Label>
-              <Input id="lastName" />
+              <Input 
+                id="lastName"
+                value={lastName}
+                onChange={(e) => setLastName(e.target.value)}
+              />
             </div>
           </div>
 
           <div className="space-y-2">
             <Label htmlFor="email">Email (Optional)</Label>
-            <Input id="email" type="email" />
+            <Input 
+              id="email" 
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+            />
           </div>
 
           <div className="space-y-2">
@@ -326,6 +368,7 @@ export default function DonateForm() {
                 if (stateId) {
                   fetchDistrictsByState(stateId);
                 }
+                setSelectedDistrict(null); // Reset district when state changes
               }}
               value={selectedState || ""}
             >
@@ -344,13 +387,13 @@ export default function DonateForm() {
               id="district"
               className="w-full h-10 px-3 border rounded-md"
               onChange={(e) => {
-                setSelectedDistrict(e.target.value);
+                setSelectedDistrict(Number(e.target.value));
               }}
-              value={selectedDistrict}
+              value={selectedDistrict || ""}
             >
               <option value="">Select District</option>
               {districtOptions.data?.map((option) => (
-                <option key={option.district_id} value={option.district}>
+                <option key={option.district_id} value={option.district_id}>
                   {option.district}
                 </option>
               ))}
