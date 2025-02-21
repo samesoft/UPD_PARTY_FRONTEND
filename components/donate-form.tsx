@@ -75,6 +75,7 @@ export default function DonateForm() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
 
   // Calculate next payment date when component mounts
   const today = new Date();
@@ -103,6 +104,7 @@ export default function DonateForm() {
     const districtId = localStorage.getItem("district_id");
 
     if (memberDataStr) {
+      setIsLoggedIn(true);
       const memberData = JSON.parse(memberDataStr);
       setFirstName(memberData.first_name || "");
       setLastName(memberData.last_name || "");
@@ -335,6 +337,8 @@ export default function DonateForm() {
                 id="firstName"
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
+                disabled={isLoggedIn}
+                className={isLoggedIn ? "bg-gray-100" : ""}
               />
             </div>
             <div className="space-y-2">
@@ -343,17 +347,22 @@ export default function DonateForm() {
                 id="lastName"
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
+                disabled={isLoggedIn}
+                className={isLoggedIn ? "bg-gray-100" : ""}
               />
             </div>
           </div>
 
           <div className="space-y-2">
-            <Label htmlFor="email">Email (Optional)</Label>
+            <Label htmlFor="email">Email</Label>
             <Input 
               id="email" 
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              placeholder="Enter your email"
+              disabled={isLoggedIn && email !== ""}
+              className={isLoggedIn && email !== "" ? "bg-gray-100" : ""}
             />
           </div>
 
@@ -368,9 +377,10 @@ export default function DonateForm() {
                 if (stateId) {
                   fetchDistrictsByState(stateId);
                 }
-                setSelectedDistrict(null); // Reset district when state changes
+                setSelectedDistrict(null);
               }}
               value={selectedState || ""}
+              disabled={isLoggedIn}
             >
               <option value="">Select State</option>
               {stateOptions.map((option) => (
@@ -390,6 +400,7 @@ export default function DonateForm() {
                 setSelectedDistrict(Number(e.target.value));
               }}
               value={selectedDistrict || ""}
+              disabled={isLoggedIn}
             >
               <option value="">Select District</option>
               {districtOptions.data?.map((option) => (
@@ -440,7 +451,8 @@ export default function DonateForm() {
             value={phoneNumber}
             onChange={(e) => setPhoneNumber(e.target.value)}
             placeholder="e.g., 615123456"
-            className="pl-8"
+            className={`pl-8 ${isLoggedIn ? "bg-gray-100" : ""}`}
+            disabled={isLoggedIn}
           />
           <p className="text-sm text-gray-500">
             Enter number without country code (e.g., 615123456)
