@@ -20,6 +20,7 @@ interface Event {
     created_by_member_id: number;
     district_id: number;
     district: String;
+    status: 'Active' | 'Cancelled' | 'Completed';
 }
 
 interface Pagination {
@@ -34,6 +35,31 @@ interface District {
     district: string;
     regionid: number;
 }
+
+// Update the status configurations with a default status
+const statusConfigs = {
+    Active: {
+        color: 'text-green-600',
+        bgColor: 'bg-green-50',
+        borderColor: 'border-green-200',
+        icon: '🟢',
+        hoverBg: 'hover:bg-green-100'
+    },
+    Cancelled: {
+        color: 'text-red-600',
+        bgColor: 'bg-red-50',
+        borderColor: 'border-red-200',
+        icon: '🔴',
+        hoverBg: 'hover:bg-red-100'
+    },
+    Completed: {
+        color: 'text-blue-600',
+        bgColor: 'bg-blue-50',
+        borderColor: 'border-blue-200',
+        icon: '🔵',
+        hoverBg: 'hover:bg-blue-100'
+    }
+} as const;
 
 export default function EventRegistration() {
     const [events, setEvents] = useState<Event[]>([]);
@@ -59,10 +85,15 @@ export default function EventRegistration() {
         end_time: "",
         created_by_member_id: 0,
         district: '',
-        district_id: 0
+        district_id: 0,
+        status: 'Active'
     });
     const [districts, setDistricts] = useState<District[]>([]);
     const [isAddingEvent, setIsAddingEvent] = useState<boolean>(false);
+    const [updatingStatusId, setUpdatingStatusId] = useState<number | null>(null);
+    const [showStatusDialog, setShowStatusDialog] = useState(false);
+    const [statusUpdateState, setStatusUpdateState] = useState<'loading' | 'success' | 'error' | null>(null);
+    const [selectedStatus, setSelectedStatus] = useState<{ id: number; status: 'Active' | 'Cancelled' | 'Completed' } | null>(null);
 
     // Fetch events
     const fetchEvents = async (page: number = 1) => {
@@ -113,7 +144,7 @@ export default function EventRegistration() {
     };
 
     // Handle input change for editing
-    const handleEditInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>, field: keyof Event) => {
+    const handleEditInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>, field: keyof Event) => {
         if (editingEvent) {
             setEditingEvent({ ...editingEvent, [field]: e.target.value });
         }
@@ -151,7 +182,8 @@ export default function EventRegistration() {
                     end_time: "",
                     created_by_member_id: created_by_member_id,
                     district: "",
-                    district_id: 0
+                    district_id: 0,
+                    status: 'Active'
                 });
                 fetchEvents(pagination.page);
             } else {
@@ -249,6 +281,37 @@ export default function EventRegistration() {
         }
     };
 
+    // Update the status change handler
+    const handleStatusChange = (eventId: number, newStatus: 'Active' | 'Cancelled' | 'Completed') => {
+        setSelectedStatus({ id: eventId, status: newStatus });
+        setShowStatusDialog(true);
+        setStatusUpdateState('loading');
+        handleStatusUpdate(eventId, newStatus);
+    };
+
+    // Update the status update function
+    const handleStatusUpdate = async (eventId: number, newStatus: 'Active' | 'Cancelled' | 'Completed') => {
+        try {
+            const response = await axios.put('/events/updateStatus', { 
+                eventId, 
+                status: newStatus 
+            });
+            
+            if (response.status === 200) {
+                setEvents(prev =>
+                    prev.map(event => 
+                        event.id === eventId ? { ...event, status: newStatus } : event
+                    )
+                );
+                setStatusUpdateState('success');
+            }
+        } catch (error) {
+            console.error('Error updating status:', error);
+            setStatusUpdateState('error');
+        }
+        // Dialog will be closed by user clicking "Done" or "Try Again"
+    };
+
     useEffect(() => {
         if (searchTitle) {
             searchEvents(pagination.page);
@@ -322,6 +385,48 @@ export default function EventRegistration() {
                                         {new Date(event.end_time).toLocaleString()}
                                     </td>
                                     <td className="border-b py-5 px-2 sm:px-4 flex gap-2">
+                                        <div className="relative inline-block text-left">
+                                            <select
+                                                value={event.status}
+                                                onChange={(e) => handleStatusChange(event.id, e.target.value as 'Active' | 'Cancelled' | 'Completed')}
+                                                className={`
+                                                    appearance-none
+                                                    w-36 pl-8 pr-8 py-2
+                                                    rounded-lg border-2
+                                                    ${statusConfigs[event.status].borderColor}
+                                                    ${statusConfigs[event.status].bgColor}
+                                                    ${statusConfigs[event.status].color}
+                                                    font-medium text-sm
+                                                    cursor-pointer
+                                                    transition-all duration-200
+                                                    focus:outline-none focus:ring-2 focus:ring-offset-2 ${statusConfigs[event.status].color.replace('text', 'ring')}
+                                                    hover:shadow-sm
+                                                `}
+                                            >
+                                                {Object.entries(statusConfigs).map(([status, config]) => (
+                                                    <option key={status} value={status}>
+                                                        {status}
+                                                    </option>
+                                                ))}
+                                            </select>
+                                            
+                                            {/* Status Icon */}
+                                            <span className="absolute left-2.5 top-1/2 -translate-y-1/2 pointer-events-none text-sm">
+                                                {statusConfigs[event.status].icon}
+                                            </span>
+                                            
+                                            {/* Custom Arrow */}
+                                            <div className="absolute right-2 top-1/2 -translate-y-1/2 pointer-events-none">
+                                                <svg 
+                                                    className={`w-5 h-5 ${statusConfigs[event.status].color}`} 
+                                                    fill="none" 
+                                                    stroke="currentColor" 
+                                                    viewBox="0 0 24 24"
+                                                >
+                                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                                </svg>
+                                            </div>
+                                        </div>
                                         <button
                                             onClick={() => handleEdit(event)}
                                             className="text-green-500 hover:text-green-600 p-2 rounded-full hover:bg-green-50 transition-all"
@@ -611,6 +716,78 @@ export default function EventRegistration() {
                                 {loadingDeleteId !== null ? 'Deleting...' : 'Delete'}
                             </button>
                         </div>
+                    </div>
+                </div>
+            )}
+
+            {/* Status Dialog */}
+            {showStatusDialog && (
+                <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+                    <div className="bg-white rounded-xl shadow-2xl p-6 w-full max-w-sm mx-4 transform transition-all">
+                        {statusUpdateState === 'loading' && (
+                            <div className="text-center">
+                                <div className="w-16 h-16 border-4 border-green-500 border-t-transparent rounded-full animate-spin mx-auto"></div>
+                                <h3 className="mt-4 text-lg font-semibold text-gray-900">Updating Status</h3>
+                                <p className="mt-2 text-gray-600">Please wait while we update the event status...</p>
+                            </div>
+                        )}
+                        
+                        {statusUpdateState === 'success' && (
+                            <div className="text-center">
+                                <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto">
+                                    <svg className="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                    </svg>
+                                </div>
+                                <h3 className="mt-4 text-lg font-semibold text-gray-900">Status Updated</h3>
+                                <p className="mt-2 text-gray-600">The event status has been successfully updated.</p>
+                                <button
+                                    onClick={() => {
+                                        setShowStatusDialog(false);
+                                        setStatusUpdateState(null);
+                                        setSelectedStatus(null);
+                                    }}
+                                    className="mt-6 w-full py-2 px-4 bg-green-500 text-white rounded-lg hover:bg-green-600 transition-colors"
+                                >
+                                    Done
+                                </button>
+                            </div>
+                        )}
+                        
+                        {statusUpdateState === 'error' && (
+                            <div className="text-center">
+                                <div className="w-16 h-16 bg-red-100 rounded-full flex items-center justify-center mx-auto">
+                                    <svg className="w-8 h-8 text-red-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                                    </svg>
+                                </div>
+                                <h3 className="mt-4 text-lg font-semibold text-gray-900">Update Failed</h3>
+                                <p className="mt-2 text-gray-600">Failed to update the event status. Please try again.</p>
+                                <div className="mt-6 flex gap-3">
+                                    <button
+                                        onClick={() => {
+                                            setShowStatusDialog(false);
+                                            setStatusUpdateState(null);
+                                            setSelectedStatus(null);
+                                        }}
+                                        className="flex-1 py-2 px-4 bg-gray-100 text-gray-700 rounded-lg hover:bg-gray-200 transition-colors"
+                                    >
+                                        Cancel
+                                    </button>
+                                    <button
+                                        onClick={() => {
+                                            setStatusUpdateState('loading');
+                                            if (selectedStatus) {
+                                                handleStatusUpdate(selectedStatus.id, selectedStatus.status);
+                                            }
+                                        }}
+                                        className="flex-1 py-2 px-4 bg-red-500 text-white rounded-lg hover:bg-red-600 transition-colors"
+                                    >
+                                        Try Again
+                                    </button>
+                                </div>
+                            </div>
+                        )}
                     </div>
                 </div>
             )}
