@@ -18,7 +18,7 @@ const CreateAccount: React.FC = () => {
   const handlePhoneSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!phone || phone.length < 9) {
-      setError("Please enter a valid Somali phone number");
+      setError("Fadlan geli nambarka taleefanka Soomaali ee saxda ah.");
       return;
     }
     setError("");
@@ -33,7 +33,10 @@ const CreateAccount: React.FC = () => {
         setStep('otp');
       }
     } catch (err: any) {
-      setError(err.response?.data?.error || "Failed to send OTP. Please try again.");
+      setError(
+        err.response?.data?.error ||
+          "Fariinta OTP ayaa ku guuldareysatay in la diro. Fadlan isku day mar kale."
+      );
     } finally {
       setIsLoading(false);
     }
@@ -65,7 +68,7 @@ const CreateAccount: React.FC = () => {
     e.preventDefault();
     const otp = otpValues.join('');
     if (otp.length !== 6) {
-      setError("Please enter a 6-digit OTP");
+      setError("Fadlan geli 6-lambar oo OTP ah.");
       return;
     }
     setError("");
@@ -82,7 +85,9 @@ const CreateAccount: React.FC = () => {
         router.push('/user-membership');
       }
     } catch (err: any) {
-      setError(err.response?.data?.error || "Failed to verify OTP");
+      setError(
+        err.response?.data?.error || "Ku guuldareysatay in la xaqiijiyo OTP."
+      );
     } finally {
       setIsLoading(false);
     }
@@ -95,10 +100,10 @@ const CreateAccount: React.FC = () => {
           {/* Logo or Brand Section */}
           <div className="text-center mb-12">
             <h1 className="text-4xl md:text-5xl font-bold text-green-700 mb-4">
-              Welcome to Union Peace&Dev
+              Ku soo dhowow Xisbiga Midowga Nabadda & Horumarka
             </h1>
             <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-              Join our community by creating your account
+              Ku biir bulshadaheena adoo abuuraya akoonkaaga.
             </p>
           </div>
 
@@ -108,19 +113,31 @@ const CreateAccount: React.FC = () => {
             <div className="bg-green-50 px-8 py-4 border-b border-green-100">
               <div className="flex items-center justify-center space-x-4">
                 <div className="flex items-center">
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center ${step === 'phone' ? 'bg-green-600 text-white' : 'bg-green-600 text-white'
-                    }`}>
+                  <div
+                    className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                      step === "phone"
+                        ? "bg-green-600 text-white"
+                        : "bg-green-600 text-white"
+                    }`}
+                  >
                     1
                   </div>
-                  <div className="ml-2 text-sm font-medium text-gray-700">Phone Number</div>
+                  <div className="ml-2 text-sm font-medium text-gray-700">
+                    Taleefan Lambarka
+                  </div>
                 </div>
                 <div className="w-16 h-0.5 bg-green-200"></div>
                 <div className="flex items-center">
-                  <div className={`w-8 h-8 rounded-full flex items-center justify-center ${step === 'otp' ? 'bg-green-600 text-white' : 'bg-gray-200'
-                    }`}>
+                  <div
+                    className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                      step === "otp" ? "bg-green-600 text-white" : "bg-gray-200"
+                    }`}
+                  >
                     2
                   </div>
-                  <div className="ml-2 text-sm font-medium text-gray-700">Verification</div>
+                  <div className="ml-2 text-sm font-medium text-gray-700">
+                    Hubinta
+                  </div>
                 </div>
               </div>
             </div>
@@ -130,29 +147,35 @@ const CreateAccount: React.FC = () => {
               <div className="max-w-md mx-auto">
                 <div className="mb-10 text-center">
                   <h2 className="text-3xl font-bold text-gray-800 mb-4">
-                    {step === 'phone' ? 'Enter Your Phone Number' : 'Verify Your Number'}
+                    {step === "phone"
+                      ? "Geli Lambarkaaga Taleefanka"
+                      : "Xaqiiji Lambarkaaga"}
                   </h2>
                   <p className="text-gray-600 text-lg">
-                    {step === 'phone'
-                      ? "We'll send you a verification code to get started"
-                      : `We've sent a 6-digit code to ${phone}`}
+                    {step === "phone"
+                      ? "Waxaan ku soo diraynaa koodh xaqiijin ah si aad u bilowdo."
+                      : `Waxaan kuu soo dirnay koodh 6-lambar ah ee ${phone}`}
                   </p>
                 </div>
 
-                {step === 'phone' ? (
+                {step === "phone" ? (
                   <form onSubmit={handlePhoneSubmit} className="space-y-8">
                     <div className="relative">
                       <label className="block text-gray-700 text-sm font-medium mb-2">
-                        Phone Number
+                        Taleefan Lambarka
                       </label>
                       <div className="relative">
                         <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
-                          <span className="text-gray-500 text-lg font-medium">+252</span>
+                          <span className="text-gray-500 text-lg font-medium">
+                            +252
+                          </span>
                         </div>
                         <input
                           type="tel"
                           value={phone}
-                          onChange={(e) => setPhone(e.target.value.replace(/\D/g, ''))}
+                          onChange={(e) =>
+                            setPhone(e.target.value.replace(/\D/g, ""))
+                          }
                           placeholder="61 234 5678"
                           className="w-full pl-20 pr-4 py-4 text-lg border-2 border-green-200 rounded-xl focus:border-green-500 focus:ring-4 focus:ring-green-100 transition-all"
                           maxLength={9}
@@ -174,7 +197,7 @@ const CreateAccount: React.FC = () => {
                       {isLoading ? (
                         <CircularProgress size={28} color="inherit" />
                       ) : (
-                        "Send Verification Code"
+                        "Dir Koodhka Xaqiijinta"
                       )}
                     </button>
                   </form>
@@ -182,7 +205,7 @@ const CreateAccount: React.FC = () => {
                   <form onSubmit={handleOtpSubmit} className="space-y-8">
                     <div>
                       <label className="block text-gray-700 text-sm font-medium mb-4">
-                        Enter Verification Code
+                        Geli Koodhka Hubinta
                       </label>
                       <div className="flex justify-between space-x-3">
                         {otpValues.map((digit, index) => (
@@ -192,7 +215,9 @@ const CreateAccount: React.FC = () => {
                             value={digit}
                             onChange={(e) => handleOtpChange(e, index)}
                             onKeyDown={(e) => handleKeyDown(e, index)}
-                            ref={el => { inputsRef.current[index] = el; }}
+                            ref={(el) => {
+                              inputsRef.current[index] = el;
+                            }}
                             className="w-14 h-16 text-center text-2xl font-bold border-2 border-green-200 rounded-xl focus:border-green-500 focus:ring-4 focus:ring-green-100 transition-all"
                             maxLength={1}
                           />
@@ -221,10 +246,10 @@ const CreateAccount: React.FC = () => {
 
                       <button
                         type="button"
-                        onClick={() => setStep('phone')}
+                        onClick={() => setStep("phone")}
                         className="w-full py-4 bg-white text-green-600 text-lg font-medium border-2 border-green-200 rounded-xl hover:bg-green-50 focus:ring-4 focus:ring-green-200 transition-all"
                       >
-                        Back to Phone Number
+                        Ku laabo Lambarka Taleefanka
                       </button>
                     </div>
                   </form>
@@ -236,7 +261,7 @@ const CreateAccount: React.FC = () => {
           {/* Footer Section */}
           <div className="mt-8 text-center">
             <p className="text-gray-600">
-              Need help? Contact our support team
+              "U ubaahan tahay caawimaad? La xiriir kooxdayada taageerada.
             </p>
           </div>
         </div>
