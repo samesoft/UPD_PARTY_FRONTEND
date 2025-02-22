@@ -84,9 +84,9 @@ export default function NewsArticle({ params }: { params: { slug: string } }) {
         />
 
         <div className="mt-12 border-t border-gray-200 pt-8">
-          <Button>
-            <Link href="/news">Ku laabo Wararka</Link>
-          </Button>
+          <Link href="/news">
+            <Button>Ku laabo Wararka</Button>
+          </Link>
         </div>
       </div>
     </article>
