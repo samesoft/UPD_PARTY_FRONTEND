@@ -89,12 +89,11 @@ export default function NewsPage() {
           ))}
         </div>
         <div className="text-center mt-12">
-          <Button
-            asChild
-            className="px-8 py-3 bg-primary text-white font-semibold hover:bg-primary/90 transition-colors"
-          >
-            <Link href="/">Back to Home</Link>
-          </Button>
+          <Link href="/">
+            <Button className="px-8 py-3 bg-primary text-white font-semibold hover:bg-primary/90 transition-colors">
+              Back to Home
+            </Button>
+          </Link>
         </div>
       </main>
     </div>
