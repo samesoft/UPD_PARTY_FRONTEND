@@ -3,7 +3,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import axios from '../commons/axios';
+import axios from "../commons/axios";
 import { ArrowRight, Phone, Lock } from "lucide-react";
 
 export default function SignInPage() {
@@ -22,34 +22,43 @@ export default function SignInPage() {
     try {
       const response = await axios.post("/members/login", {
         mobile,
-        password_hash
+        password_hash,
       });
 
-      const { token, member, role_name, member_id, district_id, state_id } = response.data;
+      const { token, member, role_name, member_id, district_id, state_id } =
+        response.data;
       console.log(response.data);
       localStorage.setItem("token", token);
-      localStorage.setItem("userRole", role_name === 'Admin' ? 'ADMIN' : 'USER');
+      localStorage.setItem(
+        "userRole",
+        role_name === "Admin" ? "ADMIN" : "USER"
+      );
       localStorage.setItem("member_id", member_id.toString());
       localStorage.setItem("state_id", state_id.toString());
       localStorage.setItem("district_id", district_id.toString());
-      // Save the entire member object
-      localStorage.setItem("memberData", JSON.stringify({
-        first_name: member.first_name,
-        last_name: member.last_name,
-        email: member.email,
-        password_hash: member.password_hash,
-        party_role: member.party_role,
-        middle_name: member.middle_name,
-        mobile: member.mobile,
-        gender: member.gender,
-        profile_photo_url: member.profile_photo_url,
-        device_token: member.device_token,
-        role_name: member.role_name
-      }));
+      localStorage.setItem(
+        "memberData",
+        JSON.stringify({
+          id: member_id,
+          first_name: member.first_name,
+          last_name: member.last_name,
+          email: member.email,
+          password_hash: member.password_hash,
+          party_role: member.party_role,
+          middle_name: member.middle_name,
+          mobile: member.mobile,
+          gender: member.gender,
+          profile_photo_url: member.profile_photo_url,
+          device_token: member.device_token,
+          role_name: member.role_name,
+        })
+      );
 
       router.replace("/dashboard");
     } catch (err: any) {
-      setError(err.response?.data?.error || "Invalid mobile number or password");
+      setError(
+        err.response?.data?.error || "Invalid mobile number or password"
+      );
     } finally {
       setLoading(false);
     }
@@ -127,7 +136,10 @@ export default function SignInPage() {
                 type="checkbox"
                 className="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded"
               />
-              <label htmlFor="remember-me" className="ml-2 block text-sm text-gray-900">
+              <label
+                htmlFor="remember-me"
+                className="ml-2 block text-sm text-gray-900"
+              >
                 Remember me
               </label>
             </div>
@@ -169,14 +181,10 @@ export default function SignInPage() {
           </div>
 
           <div className="mt-6 grid grid-cols-2 gap-3">
-            <button
-              className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-lg shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
-            >
+            <button className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-lg shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
               Google
             </button>
-            <button
-              className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-lg shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50"
-            >
+            <button className="w-full inline-flex justify-center py-2 px-4 border border-gray-300 rounded-lg shadow-sm bg-white text-sm font-medium text-gray-500 hover:bg-gray-50">
               Facebook
             </button>
           </div>
