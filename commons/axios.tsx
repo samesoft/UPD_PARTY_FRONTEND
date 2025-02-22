@@ -2,8 +2,7 @@ import axios from "axios";
 
 // Create an Axios instance
 const axiosInstance = axios.create({
-  // baseURL: 'https://upd-party-backend.samesoft.app/api',
-  baseURL: "http://localhost:3200/api",
+  baseURL: process.env.NEXT_PUBLIC_API_URL,
   headers: {
     "Content-Type": "application/json",
   },
