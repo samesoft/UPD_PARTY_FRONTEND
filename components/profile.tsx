@@ -4,27 +4,26 @@ import { useEffect, useState } from "react";
 import { Camera, Mail, Phone, User, MapPin, Calendar } from "lucide-react";
 import Link from "next/link";
 import { EditProfilePage } from "./edit-profile";
-
-interface MemberData {
-  first_name: string;
-  last_name: string;
-  email: string;
-  middle_name: string;
-  mobile: string;
-  gender: string;
-  profile_photo_url: string | null;
-  role_name: string;
-}
+import axiosInstance from "@/commons/axios";
+import { get } from "lodash";
+import { MemberData } from "@/types/member";
 
 export default function ProfilePage() {
   const [memberData, setMemberData] = useState<MemberData | null>(null);
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const data = localStorage.getItem("memberData");
-    if (data) {
-      setMemberData(JSON.parse(data));
-    }
+    (async () => {
+      const res = await axiosInstance.get(
+        `/members/${localStorage.getItem("member_id")}`
+      );
+      if (res.status === 200) {
+        const data = res.data;
+        const memberData = get(data, "data", {});
+        setMemberData(memberData);
+        localStorage.setItem("memberData", JSON.stringify(memberData));
+      }
+    })();
   }, []);
 
   if (!memberData) return <div>Loading...</div>;
@@ -42,7 +41,10 @@ export default function ProfilePage() {
                 <div className="w-32 h-32 rounded-full border-4 border-white overflow-hidden bg-gray-50 shadow-inner">
                   {memberData.profile_photo_url ? (
                     <img
-                      src={memberData.profile_photo_url}
+                      src={`${process.env.NEXT_PUBLIC_API_URL?.replace(
+                        "/api",
+                        ""
+                      )}${memberData.profile_photo_url}`}
                       alt="Profile"
                       className="w-full h-full object-cover"
                     />
@@ -152,7 +154,11 @@ export default function ProfilePage() {
         </div>
       </div>
 
-      <EditProfilePage open={open} onClose={() => setOpen(!open)} />
+      <EditProfilePage
+        data={memberData}
+        open={open}
+        onClose={() => setOpen(!open)}
+      />
     </div>
   );
 }

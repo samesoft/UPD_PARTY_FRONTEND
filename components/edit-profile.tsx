@@ -15,20 +15,10 @@ import { FormWrapper } from "./widgets/form-wrapper";
 import { Form } from "./ui/form";
 import { Button } from "./ui/button";
 import axiosInstance from "@/commons/axios";
-
-interface MemberData {
-  first_name: string;
-  last_name: string;
-  email: string;
-  middle_name: string;
-  mobile: string;
-  gender: string;
-  profile_photo_url: string | null;
-  role_name: string;
-}
+import { MemberData } from "@/types/member";
 
 const editProfileSchema = z.object({
-  id: z.string().optional(),
+  member_id: z.string().optional(),
   first_name: z.string().optional(),
   last_name: z.string().optional(),
   middle_name: z.string().optional(),
@@ -40,49 +30,33 @@ export type EditProfileType = z.infer<typeof editProfileSchema>;
 
 export function EditProfilePage({
   open,
+  data,
   onClose,
 }: {
   open: boolean;
+  data: MemberData;
   onClose: () => void;
 }) {
-  const [memberData, setMemberData] = useState<MemberData | null>(null);
   const [loading, setLoading] = useState(false);
 
   const form = useForm<EditProfileType>({
     defaultValues: {
-      id: "",
-      first_name: get(memberData?.first_name, ""),
-      middle_name: get(memberData?.middle_name, ""),
-      last_name: get(memberData?.last_name, ""),
-      email: get(memberData?.email, ""),
-      mobile: get(memberData?.mobile, ""),
+      member_id: data?.member_id.toString() || "",
+      first_name: data?.first_name ?? "",
+      middle_name: data?.middle_name ?? "",
+      last_name: data?.last_name ?? "",
+      email: data?.email ?? "",
+      mobile: data?.mobile ?? "",
     },
   });
-
-  useEffect(() => {
-    const data = localStorage.getItem("memberData");
-    if (data) {
-      setMemberData(JSON.parse(data));
-
-      const member = JSON.parse(data) as EditProfileType;
-      if (member) {
-        form.setValue("id", member.id);
-        form.setValue("first_name", member.first_name);
-        form.setValue("middle_name", member.middle_name);
-        form.setValue("last_name", member.last_name);
-        form.setValue("email", member.email);
-        form.setValue("mobile", member.mobile);
-      }
-    }
-  }, []);
-
-  if (!memberData) return <div>Loading...</div>;
 
   const onSubmit = async (values: EditProfileType) => {
     try {
       setLoading(true);
-      const response = await axiosInstance.put(`/members/${values.id}`, values);
-      console.log(response);
+      const response = await axiosInstance.put(
+        `/members/${values.member_id}`,
+        values
+      );
       onClose();
     } catch (error) {
       console.error(error);
