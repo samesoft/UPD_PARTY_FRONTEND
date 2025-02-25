@@ -6,51 +6,50 @@ import SignUpBanner from "./sign-up-banner";
 const mainNavLinks = [
   { name: "Conference", href: "/campaign" },
   { name: "News", href: "/news" },
-  { name: "Volunteer", href: "/volunteer" },
+  { name: "Campaign", href: "/campaign" },
   { name: "Join", href: "/join" },
   { name: "Sign Up", href: "/sign-up" },
-  { name: "Candidates", href: "/campaign" },
   { name: "Donate", href: "/donate" },
 ];
 
-const footerColumns = [
-  {
-    links: [
-      { name: "Register to Vote", href: "#" },
-      { name: "Renew your Membership", href: "#" },
-      { name: "Party Organisation", href: "#" },
-      { name: "Equal Opportunities", href: "#" },
-      { name: "Young Members", href: "#" },
-    ],
-  },
-  {
-    links: [
-      { name: "Women", href: "#" },
-      { name: "Shop", href: "#" },
-      { name: "Lottery", href: "#" },
-      { name: "Policy Forum", href: "#" },
-      { name: "Transparency", href: "#" },
-    ],
-  },
-  {
-    links: [
-      { name: "Member Governance", href: "#" },
-      { name: "Safeguarding", href: "#" },
-      { name: "Privacy Notice", href: "#" },
-      { name: "Terms of Use", href: "#" },
-      { name: "Cookies", href: "#" },
-    ],
-  },
-  {
-    links: [
-      { name: "Parliamentary Diversity Data", href: "#" },
-      { name: "Gender Pay Statistics", href: "#" },
-      { name: "Work for Us", href: "#" },
-      { name: "Contact Us", href: "#" },
-      { name: "Old Site", href: "#" },
-    ],
-  },
-];
+// const footerColumns = [
+//   {
+//     links: [
+//       { name: "Register to Vote", href: "#" },
+//       { name: "Renew your Membership", href: "#" },
+//       { name: "Party Organisation", href: "#" },
+//       { name: "Equal Opportunities", href: "#" },
+//       { name: "Young Members", href: "#" },
+//     ],
+//   },
+//   {
+//     links: [
+//       { name: "Women", href: "#" },
+//       { name: "Shop", href: "#" },
+//       { name: "Lottery", href: "#" },
+//       { name: "Policy Forum", href: "#" },
+//       { name: "Transparency", href: "#" },
+//     ],
+//   },
+//   {
+//     links: [
+//       { name: "Member Governance", href: "#" },
+//       { name: "Safeguarding", href: "#" },
+//       { name: "Privacy Notice", href: "#" },
+//       { name: "Terms of Use", href: "#" },
+//       { name: "Cookies", href: "#" },
+//     ],
+//   },
+//   {
+//     links: [
+//       { name: "Parliamentary Diversity Data", href: "#" },
+//       { name: "Gender Pay Statistics", href: "#" },
+//       { name: "Work for Us", href: "#" },
+//       { name: "Contact Us", href: "#" },
+//       { name: "Old Site", href: "#" },
+//     ],
+//   },
+// ];
 
 const socialLinks = [
   { name: "Facebook", icon: Facebook, href: "https://facebook.com" },
@@ -122,7 +121,7 @@ export default function Footer() {
             </ul>
           ))}
         </div> */}
-        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-8 py-6 pl-8  ">
+        {/* <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 gap-8 py-6 pl-8  ">
           {footerColumns.map((column, columnIndex) => (
             <ul key={columnIndex} className="space-y-4">
               {column.links.map((link) => (
@@ -137,7 +136,7 @@ export default function Footer() {
               ))}
             </ul>
           ))}
-        </div>
+        </div> */}
 
         <div className="text-center text-sm space-y-2 pt-12">
           <p>© 2025 The Party.</p>
