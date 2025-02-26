@@ -63,9 +63,7 @@ export default function LoginNavigation() {
                 News
               </button>
               <div className="relative group">
-                <button
-                  className="text-[#2E8B57] hover:text-secondary transition-colors"
-                >
+                <button className="text-[#2E8B57] hover:text-secondary transition-colors">
                   Settings
                 </button>
                 <div className="absolute hidden group-hover:block bg-white shadow-lg rounded-md py-2 w-32">
@@ -73,13 +71,19 @@ export default function LoginNavigation() {
                     onClick={() => handleLoginNavigation("/state")}
                     className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
                   >
-                    State
+                    Add State
                   </button>
                   <button
                     onClick={() => handleLoginNavigation("/district")}
                     className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
                   >
-                    District
+                    Add District
+                  </button>
+                  <button
+                    onClick={() => handleLoginNavigation("/region")}
+                    className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
+                  >
+                    Add Region
                   </button>
                 </div>
               </div>
@@ -135,9 +139,7 @@ export default function LoginNavigation() {
                 CAMPAIGN
               </button>
               <div className="relative group">
-                <button
-                  className="text-[#2E8B57] hover:text-secondary transition-colors"
-                >
+                <button className="text-[#2E8B57] hover:text-secondary transition-colors">
                   Events
                 </button>
                 <div className="absolute hidden group-hover:block bg-white shadow-lg rounded-md py-2 w-32">
