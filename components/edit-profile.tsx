@@ -1,6 +1,5 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import {
   Dialog,
   DialogContent,
@@ -10,12 +9,13 @@ import {
 } from "./ui/dialog";
 import { useForm } from "react-hook-form";
 import z from "zod";
-import { get } from "lodash";
+// import { get } from "lodash";
 import { FormWrapper } from "./widgets/form-wrapper";
 import { Form } from "./ui/form";
 import { Button } from "./ui/button";
-import axiosInstance from "@/commons/axios";
+// import axiosInstance from "@/commons/axios";
 import { MemberData } from "@/types/member";
+import { useAuthStore } from "@/models";
 
 const editProfileSchema = z.object({
   member_id: z.string().optional(),
@@ -37,8 +37,7 @@ export function EditProfilePage({
   data: MemberData;
   onClose: () => void;
 }) {
-  const [loading, setLoading] = useState(false);
-
+  const { editProfile, loading } = useAuthStore();
   const form = useForm<EditProfileType>({
     defaultValues: {
       member_id: data?.member_id.toString() || "",
@@ -52,16 +51,10 @@ export function EditProfilePage({
 
   const onSubmit = async (values: EditProfileType) => {
     try {
-      setLoading(true);
-      const response = await axiosInstance.put(
-        `/members/${values.member_id}`,
-        values
-      );
+      editProfile(values);
       onClose();
     } catch (error) {
       console.error(error);
-    } finally {
-      setLoading(false);
     }
   };
 

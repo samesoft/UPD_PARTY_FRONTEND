@@ -1,32 +1,14 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Camera, Mail, Phone, User, MapPin, Calendar } from "lucide-react";
-import Link from "next/link";
 import { EditProfilePage } from "./edit-profile";
-import axiosInstance from "@/commons/axios";
-import { get } from "lodash";
 import { MemberData } from "@/types/member";
+import { useAuthStore } from "@/models";
 
 export default function ProfilePage() {
-  const [memberData, setMemberData] = useState<MemberData | null>(null);
   const [open, setOpen] = useState(false);
-
-  useEffect(() => {
-    (async () => {
-      const res = await axiosInstance.get(
-        `/members/${localStorage.getItem("member_id")}`
-      );
-      if (res.status === 200) {
-        const data = res.data;
-        const memberData = get(data, "data", {});
-        setMemberData(memberData);
-        localStorage.setItem("memberData", JSON.stringify(memberData));
-      }
-    })();
-  }, []);
-
-  if (!memberData) return <div>Loading...</div>;
+  const { profile: memberData } = useAuthStore();
 
   return (
     <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
@@ -39,12 +21,12 @@ export default function ProfilePage() {
               {/* Profile Photo */}
               <div className="-mt-16 relative">
                 <div className="w-32 h-32 rounded-full border-4 border-white overflow-hidden bg-gray-50 shadow-inner">
-                  {memberData.profile_photo_url ? (
+                  {memberData?.profile_photo_url ? (
                     <img
                       src={`${process.env.NEXT_PUBLIC_API_URL?.replace(
                         "/api",
                         ""
-                      )}${memberData.profile_photo_url}`}
+                      )}${memberData?.profile_photo_url}`}
                       alt="Profile"
                       className="w-full h-full object-cover"
                     />
@@ -74,9 +56,9 @@ export default function ProfilePage() {
               {/* Name and Role */}
               <div className="mt-6 sm:mt-0 sm:ml-6 text-center sm:text-left">
                 <h1 className="text-2xl font-bold text-gray-900">
-                  {`${memberData.first_name} ${memberData.middle_name} ${memberData.last_name}`.trim()}
+                  {`${memberData?.first_name} ${memberData?.middle_name} ${memberData?.last_name}`.trim()}
                 </h1>
-                <p className="text-gray-500">{memberData.role_name}</p>
+                <p className="text-gray-500">{memberData?.role_name}</p>
               </div>
             </div>
           </div>
@@ -99,7 +81,7 @@ export default function ProfilePage() {
                 <div>
                   <p className="text-sm text-gray-500">Email</p>
                   <p className="text-gray-900">
-                    {memberData.email || "Not provided"}
+                    {memberData?.email || "Not provided"}
                   </p>
                 </div>
               </div>
@@ -110,7 +92,7 @@ export default function ProfilePage() {
                 </div>
                 <div>
                   <p className="text-sm text-gray-500">Mobile</p>
-                  <p className="text-gray-900">{memberData.mobile}</p>
+                  <p className="text-gray-900">{memberData?.mobile}</p>
                 </div>
               </div>
 
@@ -120,7 +102,7 @@ export default function ProfilePage() {
                 </div>
                 <div>
                   <p className="text-sm text-gray-500">Gender</p>
-                  <p className="text-gray-900">{memberData.gender}</p>
+                  <p className="text-gray-900">{memberData?.gender}</p>
                 </div>
               </div>
             </div>
@@ -133,7 +115,7 @@ export default function ProfilePage() {
                 </div>
                 <div>
                   <p className="text-sm text-gray-500">Role</p>
-                  <p className="text-gray-900">{memberData.role_name}</p>
+                  <p className="text-gray-900">{memberData?.role_name}</p>
                 </div>
               </div>
             </div>
@@ -155,7 +137,7 @@ export default function ProfilePage() {
       </div>
 
       <EditProfilePage
-        data={memberData}
+        data={memberData ?? ({} as MemberData)}
         open={open}
         onClose={() => setOpen(!open)}
       />
