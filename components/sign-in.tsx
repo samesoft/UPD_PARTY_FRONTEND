@@ -3,56 +3,59 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import axios from "../commons/axios";
+// import axios from "../commons/axios";
 import { ArrowRight, Phone, Lock } from "lucide-react";
+import { useAuthStore } from "@/models";
 
 export default function SignInPage() {
   const [mobile, setMobile] = useState("");
   const [password_hash, setPasswordHash] = useState("");
-  const [loading, setLoading] = useState(false);
+  // const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
-
+  const { loading, login } = useAuthStore();
   const router = useRouter();
 
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    setLoading(true);
+    // setLoading(true);
     setError("");
 
     try {
-      const response = await axios.post("/members/login", {
-        mobile,
-        password_hash,
-      });
+      await login(mobile, password_hash);
 
-      const { token, member, role_name, member_id, district_id, state_id } =
-        response.data;
-      console.log(response.data);
-      localStorage.setItem("token", token);
-      localStorage.setItem(
-        "userRole",
-        role_name === "Admin" ? "ADMIN" : "USER"
-      );
-      localStorage.setItem("member_id", member_id.toString());
-      localStorage.setItem("state_id", state_id.toString());
-      localStorage.setItem("district_id", district_id.toString());
-      localStorage.setItem(
-        "memberData",
-        JSON.stringify({
-          id: member_id,
-          first_name: member.first_name,
-          last_name: member.last_name,
-          email: member.email,
-          password_hash: member.password_hash,
-          party_role: member.party_role,
-          middle_name: member.middle_name,
-          mobile: member.mobile,
-          gender: member.gender,
-          profile_photo_url: member.profile_photo_url,
-          device_token: member.device_token,
-          role_name: member.role_name,
-        })
-      );
+      // const response = await axios.post("/members/login", {
+      //   mobile,
+      //   password_hash,
+      // });
+
+      // const { token, member, role_name, member_id, district_id, state_id } =
+      //   response.data;
+      // console.log(response.data);
+      // localStorage.setItem("token", token);
+      // localStorage.setItem(
+      //   "userRole",
+      //   role_name === "Admin" ? "ADMIN" : "USER"
+      // );
+      // localStorage.setItem("member_id", member_id.toString());
+      // localStorage.setItem("state_id", state_id.toString());
+      // localStorage.setItem("district_id", district_id.toString());
+      // localStorage.setItem(
+      //   "memberData",
+      //   JSON.stringify({
+      //     id: member_id,
+      //     first_name: member.first_name,
+      //     last_name: member.last_name,
+      //     email: member.email,
+      //     password_hash: member.password_hash,
+      //     party_role: member.party_role,
+      //     middle_name: member.middle_name,
+      //     mobile: member.mobile,
+      //     gender: member.gender,
+      //     profile_photo_url: member.profile_photo_url,
+      //     device_token: member.device_token,
+      //     role_name: member.role_name,
+      //   })
+      // );
 
       router.replace("/dashboard");
     } catch (err: any) {
@@ -60,7 +63,7 @@ export default function SignInPage() {
         err.response?.data?.error || "Invalid mobile number or password"
       );
     } finally {
-      setLoading(false);
+      // setLoading(false);
     }
   };
 

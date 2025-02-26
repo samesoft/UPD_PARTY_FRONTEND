@@ -38,9 +38,6 @@
 //   );
 // }
 
-
-
-
 "use client";
 
 import HeroSection from "@/components/hero-section";
@@ -55,7 +52,7 @@ export default function Home() {
     <main className="min-h-screen">
       <HeroSection />
       <CampaignPage />
-     
+
       <LatestNews />
       <JoinSection />
       <ScrollingText />
