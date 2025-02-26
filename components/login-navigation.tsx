@@ -32,7 +32,7 @@ export default function LoginNavigation() {
   const handleSignOut = () => {
     localStorage.clear();
     setIsAuthenticated(false); // This will trigger the layout to update
-    router.push('/');
+    router.push("/");
   };
 
   return (

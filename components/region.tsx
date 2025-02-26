@@ -1,47 +1,19 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import CircularProgress from "@mui/material/CircularProgress";
 import { FaEdit, FaTrash } from "react-icons/fa";
-import axios from "../commons/axios";
 import { useUtilityStore } from "@/models";
 import { Region } from "@/types/utilities";
 
-interface DistrictItem {
-  district_id: number;
-  district: string;
-  stateid: number;
-}
+const RegionFormElements = () => {
+  const { regions, loading, states, createRegion, deleteRegion, updateRegion } =
+    useUtilityStore();
 
-interface Pagination {
-  total: number;
-  page: number;
-  limit: number;
-  totalPages: number;
-}
-
-interface StateOption {
-  stateid: number;
-  state: string;
-}
-
-const DistrictsFormElements = () => {
-  const { getRegionsByState } = useUtilityStore();
-
-  const [districts, setDistricts] = useState<DistrictItem[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
   const [loadingDeleteId, setLoadingDeleteId] = useState<number | null>(null);
-  const [pagination, setPagination] = useState<Pagination>({
-    total: 0,
-    page: 1,
-    limit: 10,
-    totalPages: 1,
-  });
-  const [editingDistrict, setEditingDistrict] = useState<DistrictItem | null>(
-    null
-  );
+
+  const [editingDistrict, setEditingDistrict] = useState<Region | null>(null);
   const [isUpdating, setIsUpdating] = useState(false);
-  const [searchName, setSearchName] = useState("");
   const [showAddModal, setShowAddModal] = useState(false);
   const [isAdding, setIsAdding] = useState(false);
   const [newDistrict, setNewDistrict] = useState<{
@@ -57,124 +29,42 @@ const DistrictsFormElements = () => {
   const [deletingDistrictId, setDeletingDistrictId] = useState<number | null>(
     null
   );
-  const [stateOptions, setStateOptions] = useState<StateOption[]>([]);
-  const [regions, setRegions] = useState<Region[]>([]);
 
-  useEffect(() => {
-    if (searchName) {
-      // If you implement search functionality
-      // searchDistricts(pagination.page);
-    } else {
-      fetchDistricts(pagination.page);
-    }
-  }, [pagination.page, searchName]);
-
-  useEffect(() => {
-    fetchStates();
-  }, []);
-
-  // Fetch all districts
-  const fetchDistricts = async (page: number = 1) => {
-    setIsLoading(true);
-    try {
-      const response = await axios.get(`/district`);
-      const { data: fetchedDistricts, pagination: paginationData } =
-        response.data;
-      setDistricts(fetchedDistricts);
-      setPagination({
-        total: paginationData.totalRecords,
-        page: paginationData.currentPage,
-        limit: paginationData.limit,
-        totalPages: paginationData.totalPages,
-      });
-    } catch (error) {
-      console.error("Error fetching districts:", error);
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const fetchStates = async () => {
-    try {
-      const response = await axios.get("/state");
-      setStateOptions(response.data.data);
-    } catch (error) {
-      console.error("Error fetching states:", error);
-    }
-  };
-
-  const handleEdit = (district: DistrictItem) => {
+  const handleEdit = (district: Region) => {
     setEditingDistrict(district);
   };
 
   const handleUpdate = async () => {
     if (!editingDistrict) return;
     setIsUpdating(true);
-    try {
-      const response = await axios.put(
-        `/district/${editingDistrict.district_id}`,
-        editingDistrict
-      );
-      if (response.status === 200) {
-        setDistricts((prev) =>
-          prev.map((d) =>
-            d.district_id === editingDistrict.district_id ? editingDistrict : d
-          )
-        );
-        setEditingDistrict(null);
-      }
-    } catch (error) {
-      console.error("Error updating district:", error);
-    } finally {
-      setIsUpdating(false);
-    }
+    updateRegion(editingDistrict);
+    setEditingDistrict(null);
+    setIsUpdating(false);
   };
 
   const handleAdd = async () => {
     if (!newDistrict.stateid || !newDistrict.new_district) {
-      alert("Please select a state and enter district name");
+      alert("Please select a state and enter Region Name");
       return;
     }
 
     setIsAdding(true);
-    try {
-      const response = await axios.post("/district", {
-        district: newDistrict.new_district,
-        stateid: newDistrict.stateid,
-        regionid: newDistrict.regionId,
-      });
 
-      if (response.status === 201) {
-        alert("District added successfully");
-        setShowAddModal(false);
-        setNewDistrict({ new_district: "", stateid: 0, regionId: 0 });
-        fetchDistricts();
-      }
-    } catch (error) {
-      console.error("Error adding district:", error);
-      alert("Failed to add district");
-    } finally {
-      setIsAdding(false);
-    }
+    createRegion({
+      region: newDistrict.new_district,
+      stateid: newDistrict.stateid,
+    });
+
+    setShowAddModal(false);
+    // setNewDistrict({ new_district: "", stateid: 0, regionId: 0 });
+    setIsAdding(false);
   };
 
   const handleDelete = async (districtId: number) => {
     setLoadingDeleteId(districtId);
-    try {
-      const response = await axios.delete(`/district/${districtId}`);
-      if (response.status === 200) {
-        setDistricts((prev) =>
-          prev.filter((d) => d.district_id !== districtId)
-        );
-        setShowDeleteModal(false);
-      }
-    } catch (error) {
-      console.error("Error deleting district:", error);
-      alert("Failed to delete district");
-    } finally {
-      setLoadingDeleteId(null);
-      setDeletingDistrictId(null);
-    }
+    deleteRegion(districtId);
+    setDeletingDistrictId(null);
+    setShowDeleteModal(false);
   };
 
   return (
@@ -185,12 +75,12 @@ const DistrictsFormElements = () => {
           className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition duration-200"
           onClick={() => setShowAddModal(true)}
         >
-          Add District
+          Add Region
         </button>
       </div>
 
       {/* Table */}
-      {isLoading ? (
+      {loading ? (
         <div className="flex justify-center items-center">
           <CircularProgress />
         </div>
@@ -200,35 +90,35 @@ const DistrictsFormElements = () => {
             <thead>
               <tr className="bg-green-500 text-left border-b border-[#eee] dark:border-strokedark">
                 <th className="py-4 px-4 font-medium text-white">
-                  District Name
+                  Region Name
                 </th>
                 <th className="py-4 px-4 font-medium text-white">Actions</th>
               </tr>
             </thead>
             <tbody>
-              {districts.map((districtItem) => (
-                <tr key={districtItem.district_id}>
+              {regions.map((districtItem) => (
+                <tr key={districtItem.regionid}>
                   <td className="border-b border-[#eee] py-5 px-4 dark:border-strokedark">
-                    {editingDistrict?.district_id ===
-                    districtItem.district_id ? (
+                    {editingDistrict?.regionid &&
+                    editingDistrict?.regionid === districtItem.regionid ? (
                       <input
                         type="text"
-                        value={editingDistrict.district}
+                        value={editingDistrict?.region}
                         onChange={(e) =>
                           setEditingDistrict({
                             ...editingDistrict,
-                            district: e.target.value,
+                            region: e.target.value,
                           })
                         }
                         className="w-full border rounded py-1 px-2"
                       />
                     ) : (
-                      districtItem.district
+                      districtItem.region
                     )}
                   </td>
                   <td className="border-b border-[#eee] py-6 px-4 dark:border-strokedark flex gap-2">
-                    {editingDistrict?.district_id ===
-                    districtItem.district_id ? (
+                    {editingDistrict?.regionid &&
+                    editingDistrict?.regionid === districtItem.regionid ? (
                       <button
                         className="bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition duration-200"
                         onClick={handleUpdate}
@@ -246,15 +136,15 @@ const DistrictsFormElements = () => {
                         </button>
                         <button
                           onClick={() => {
-                            setDeletingDistrictId(districtItem.district_id);
+                            setDeletingDistrictId(
+                              Number(districtItem?.regionid)
+                            );
                             setShowDeleteModal(true);
                           }}
                           className="text-red-500 hover:text-red-600 transition duration-200"
-                          disabled={
-                            loadingDeleteId === districtItem.district_id
-                          }
+                          disabled={loadingDeleteId === districtItem.regionid}
                         >
-                          {loadingDeleteId === districtItem.district_id ? (
+                          {loadingDeleteId === districtItem.regionid ? (
                             <CircularProgress size={20} />
                           ) : (
                             <FaTrash />
@@ -277,11 +167,9 @@ const DistrictsFormElements = () => {
             <div className="relative w-full max-w-md rounded-xl bg-white p-8 shadow-lg">
               <div className="mb-6">
                 <h2 className="text-2xl font-bold text-green-600">
-                  Add New District
+                  Add New Region
                 </h2>
-                <p className="text-gray-600 mt-1">
-                  Enter district details below
-                </p>
+                <p className="text-gray-600 mt-1">Enter region details below</p>
               </div>
 
               <div className="space-y-6">
@@ -299,17 +187,10 @@ const DistrictsFormElements = () => {
                         ...newDistrict,
                         stateid: Number(e.target.value),
                       });
-                      getRegionsByState(Number(e.target.value))
-                        .then((res) => {
-                          setRegions(res);
-                        })
-                        .catch(() => {
-                          setRegions([]);
-                        });
                     }}
                   >
                     <option value="">Select State</option>
-                    {stateOptions.map((option) => (
+                    {states.map((option) => (
                       <option key={option.stateid} value={option.stateid}>
                         {option.state}
                       </option>
@@ -317,52 +198,23 @@ const DistrictsFormElements = () => {
                   </select>
                 </div>
 
-                {regions.length > 0 && (
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      Region
-                    </label>
-                    <select
-                      name="region"
-                      required
-                      className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all"
-                      value={newDistrict.regionId}
-                      onChange={(e) => {
-                        setNewDistrict({
-                          ...newDistrict,
-                          regionId: Number(e.target.value),
-                        });
-                      }}
-                    >
-                      <option value="">Select Region</option>
-                      {regions.map((option) => (
-                        <option key={option.regionid} value={option.regionid}>
-                          {option.region}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
-                )}
-
-                {regions.length > 0 && (
-                  <div>
-                    <label className="block text-sm font-medium text-gray-700 mb-2">
-                      District Name
-                    </label>
-                    <input
-                      type="text"
-                      required
-                      className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all"
-                      value={newDistrict.new_district}
-                      onChange={(e) =>
-                        setNewDistrict({
-                          ...newDistrict,
-                          new_district: e.target.value,
-                        })
-                      }
-                    />
-                  </div>
-                )}
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-2">
+                    Region Name
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all"
+                    value={newDistrict.new_district}
+                    onChange={(e) =>
+                      setNewDistrict({
+                        ...newDistrict,
+                        new_district: e.target.value,
+                      })
+                    }
+                  />
+                </div>
               </div>
 
               <div className="mt-8 flex justify-end gap-4">
@@ -441,4 +293,4 @@ const DistrictsFormElements = () => {
   );
 };
 
-export default DistrictsFormElements;
+export default RegionFormElements;

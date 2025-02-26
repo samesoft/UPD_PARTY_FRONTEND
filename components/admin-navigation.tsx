@@ -17,8 +17,8 @@ export default function AdminNavigation() {
   const handleSignOut = () => {
     localStorage.clear();
     setIsAuthenticated(false);
-    window.history.pushState(null, '', '/sign-in');
-    router.replace('/');
+    window.history.pushState(null, "", "/sign-in");
+    router.replace("/");
   };
 
   const renderNavItems = () => (
@@ -47,7 +47,33 @@ export default function AdminNavigation() {
       >
         News
       </button>
-      
+
+      <div className="relative group">
+        <button className="text-[#2E8B57] hover:text-secondary transition-colors">
+          Utilities
+        </button>
+        <div className="absolute hidden group-hover:block bg-white shadow-lg rounded-md py-2 w-40 z-50">
+          <button
+            onClick={() => handleLoginNavigation("/state")}
+            className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
+          >
+            Add State
+          </button>
+          <button
+            onClick={() => handleLoginNavigation("/district")}
+            className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
+          >
+            Add District
+          </button>
+          <button
+            onClick={() => handleLoginNavigation("/region")}
+            className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
+          >
+            Add Region
+          </button>
+        </div>
+      </div>
+
       <div className="relative group">
         <button className="text-[#2E8B57] hover:text-secondary transition-colors">
           Members
@@ -172,4 +198,4 @@ export default function AdminNavigation() {
       )}
     </nav>
   );
-} 
+}
