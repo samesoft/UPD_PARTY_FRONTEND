@@ -4,7 +4,10 @@ import React, { useEffect, useState } from "react";
 import CircularProgress from "@mui/material/CircularProgress";
 import { FaEdit, FaTrash } from "react-icons/fa";
 import axios from "../commons/axios";
-import { User, Phone, Users } from "lucide-react";
+import { User, Phone, Users, Eye, EyeOff } from "lucide-react";
+import { useUtilityStore } from "@/models";
+import { Region } from "@/types/utilities";
+import { Button } from "./ui/button";
 
 interface Member {
   member_id: number;
@@ -21,6 +24,7 @@ interface Member {
   party_role_id: number;
   gender: string;
   state_id: number;
+  region_id?: number;
   password_hash: string;
 }
 
@@ -70,6 +74,10 @@ export default function MembershipPage() {
   //     return <UserMembershipPage />;
   // }
 
+  const { getRegionsByState } = useUtilityStore();
+
+  const [regions, setRegions] = useState<Region[]>([]);
+
   const [members, setMembers] = useState<Member[]>([]);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [loadingDeleteId, setLoadingDeleteId] = useState<number | null>(null);
@@ -102,6 +110,7 @@ export default function MembershipPage() {
   });
   const [showDeleteModal, setShowDeleteModal] = useState<boolean>(false);
   const [deletingMemberId, setDeletingMemberId] = useState<number | null>(null);
+  const [authPasswordHidden, setAuthPasswordHidden] = useState(true);
 
   // Dropdown options for the five fields
   const [membLevelsOptions, setMembLevelsOptions] = useState<Option[]>([]);
@@ -279,6 +288,9 @@ export default function MembershipPage() {
         district_id: 0, // Reset district when state changes
       });
       if (stateId) {
+        getRegionsByState(stateId).then((data) => {
+          setRegions(data);
+        });
         fetchDistrictsByState(stateId);
       }
     } else {
@@ -770,22 +782,40 @@ export default function MembershipPage() {
                         Lambarka Sirta
                       </label>
                       <div className="relative">
-                        <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
-                          <span className="text-gray-500 text-lg font-medium">
-                            🔒
-                          </span>
+                        <div className="relative">
+                          <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
+                            <span className="text-gray-500 text-lg font-medium">
+                              🔒
+                            </span>
+                          </div>
+                          <input
+                            type="password"
+                            name="password_hash"
+                            required
+                            placeholder="Enter password"
+                            className="w-full pl-12 pr-4 py-3 rounded-lg border-2 border-gray-200 focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all"
+                            value={editingMember.password_hash}
+                            onChange={(e) =>
+                              handleEditInputChange(e, "password_hash")
+                            }
+                          />
+
+                          <div className="absolute right-2 top-2">
+                            <Button
+                              size={"icon"}
+                              variant={"ghost"}
+                              onClick={() =>
+                                setAuthPasswordHidden(!authPasswordHidden)
+                              }
+                            >
+                              {authPasswordHidden ? (
+                                <Eye className="w-5 h-5" />
+                              ) : (
+                                <EyeOff className="w-5 h-5" />
+                              )}
+                            </Button>
+                          </div>
                         </div>
-                        <input
-                          type="password"
-                          name="password_hash"
-                          required
-                          placeholder="Enter password"
-                          className="w-full pl-12 pr-4 py-3 rounded-lg border-2 border-gray-200 focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all"
-                          value={editingMember.password_hash}
-                          onChange={(e) =>
-                            handleEditInputChange(e, "password_hash")
-                          }
-                        />
                       </div>
                       <p className="mt-1 text-sm text-gray-500">
                         Waa in ay ugu yaraan 8 xaraf tahay
@@ -965,6 +995,27 @@ export default function MembershipPage() {
                         ))}
                       </select>
                     </div>
+
+                    <div>
+                      <label className="block text-sm font-medium text-gray-700 mb-2">
+                        Gobolka
+                      </label>
+                      <select
+                        name="region_id"
+                        required
+                        className="w-full px-4 py-3 rounded-lg border-2 border-gray-200 focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all"
+                        value={newMember.region_id}
+                        onChange={handleNewInputChange}
+                      >
+                        <option value="">Dooro Gobolka</option>
+                        {regions.map((option) => (
+                          <option key={option.regionid} value={option.regionid}>
+                            {option.region}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
                         Degmada
@@ -1101,26 +1152,44 @@ export default function MembershipPage() {
                     {/* Password field */}
                     <div>
                       <label className="block text-sm font-medium text-gray-700 mb-2">
-                        Lambar sirta
+                        Lambarka Sirta
                       </label>
                       <div className="relative">
-                        <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
-                          <span className="text-gray-500 text-lg font-medium">
-                            🔒
-                          </span>
+                        <div className="relative">
+                          <div className="absolute inset-y-0 left-0 flex items-center pl-4 pointer-events-none">
+                            <span className="text-gray-500 text-lg font-medium">
+                              🔒
+                            </span>
+                          </div>
+                          <input
+                            type={authPasswordHidden ? "password" : "text"}
+                            name="password_hash"
+                            required
+                            placeholder="Enter your password"
+                            className="w-full pl-12 pr-4 py-3 rounded-lg border-2 border-gray-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-200 transition-all"
+                            value={newMember.password_hash}
+                            onChange={handleNewInputChange}
+                          />
+
+                          <div className="absolute right-2 top-2">
+                            <Button
+                              size={"icon"}
+                              variant={"ghost"}
+                              onClick={() =>
+                                setAuthPasswordHidden(!authPasswordHidden)
+                              }
+                            >
+                              {authPasswordHidden ? (
+                                <Eye className="w-5 h-5" />
+                              ) : (
+                                <EyeOff className="w-5 h-5" />
+                              )}
+                            </Button>
+                          </div>
                         </div>
-                        <input
-                          type="password"
-                          name="password_hash"
-                          required
-                          placeholder="Enter password"
-                          className="w-full pl-12 pr-4 py-3 rounded-lg border-2 border-gray-200 focus:border-green-500 focus:ring-2 focus:ring-green-200 transition-all"
-                          value={newMember.password_hash}
-                          onChange={handleNewInputChange}
-                        />
                       </div>
                       <p className="mt-1 text-sm text-gray-500">
-                        Waa in ay ugu yaraan 8 xaraf tahay
+                        Waa in uu ugu yaraan yahay 8 xaraf
                       </p>
                     </div>
                     {/* Phone Number field */}
