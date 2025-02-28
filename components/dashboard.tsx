@@ -55,7 +55,7 @@ interface StateDistributionData {
 }
 
 interface RecentActivity {
-  id: number;
+  id: string;
   type: string;
   title: string;
   description: string;
@@ -87,13 +87,12 @@ export default function Dashboard() {
     const fetchDashboardData = async () => {
       setIsLoading(true);
       try {
-        // Fetch all dashboard data in parallel
         const [statsRes, growthRes, stateDistRes, activitiesRes] =
           await Promise.all([
-            axios.get("/api/dashboard/stats"),
-            axios.get("/api/dashboard/member-growth"),
-            axios.get("/api/dashboard/state-distribution"),
-            axios.get("/api/dashboard/recent-activities"),
+            axios.get("/dashboard/stats"),
+            axios.get("/dashboard/member-growth"),
+            axios.get("/dashboard/state-distribution"),
+            axios.get("/dashboard/recent-activities"),
           ]);
 
         setStats(statsRes.data);
@@ -147,7 +146,6 @@ export default function Dashboard() {
     </div>
   );
 
-  // Function to get icon based on activity type
   const getActivityIcon = (type: string) => {
     switch (type) {
       case "member":
