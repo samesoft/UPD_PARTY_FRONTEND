@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import {
   Users,
   UserPlus,
@@ -11,7 +11,6 @@ import {
   Activity,
   BarChart2,
 } from "lucide-react";
-import axios from "../commons/axios";
 import {
   AreaChart,
   Area,
@@ -24,6 +23,7 @@ import {
   Bar,
   Legend,
 } from "recharts";
+import { useStatStore } from "@/models/stat-store";
 
 interface DashboardStats {
   totalMembers: number;
@@ -41,49 +41,27 @@ interface StatCardProps {
   trend?: number | null;
 }
 
-const membershipGrowthData = [
-  { month: "Jan", members: 400 },
-  { month: "Feb", members: 600 },
-  { month: "Mar", members: 800 },
-  { month: "Apr", members: 1000 },
-  { month: "May", members: 1400 },
-  { month: "Jun", members: 1800 },
-  { month: "Jul", members: 2200 },
-];
-
-const stateDistributionData = [
-  { state: "Benaadir", members: 1200 },
-  { state: "Galmudug", members: 900 },
-  { state: "Putland", members: 800 },
-  { state: "Hirshabbele", members: 600 },
-  { state: "Konfur Galbed", members: 500 },
-  { state: "Jubaland", members: 400 },
-];
-
 export default function Dashboard() {
-  const [stats, setStats] = useState<DashboardStats>({
-    totalMembers: 0,
-    newMembersThisMonth: 0,
-    totalStates: 0,
-    membershipLevels: 0,
-    activeMembers: 0,
-    monthlyGrowth: 0,
-  });
-  const [isLoading, setIsLoading] = useState(true);
+  const {
+    getStats,
+    stats,
+    recentActivity,
+    getMembersGrowth,
+    getMembersStateGrowth,
+    getRecentActivity,
+    membersGrowth: membershipGrowthData,
+    membersStateGrowth: stateDistributionData,
+  } = useStatStore();
 
   useEffect(() => {
-    const fetchDashboardStats = async () => {
-      try {
-        const response = await axios.get("/dashboard/stats");
-        setStats(response.data);
-      } catch (error) {
-        console.error("Error fetching dashboard stats:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchDashboardStats();
+    (async () => {
+      await Promise.all([
+        getStats(),
+        getMembersGrowth(),
+        getMembersStateGrowth(),
+        getRecentActivity(),
+      ]);
+    })();
   }, []);
 
   const StatCard = ({
@@ -131,19 +109,18 @@ export default function Dashboard() {
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
         <StatCard
           title="Total Members"
-          value={stats.totalMembers}
+          value={stats?.totalMembers ?? 0}
           icon={Users}
         />
         <StatCard
           title="New Members"
-          value={stats.newMembersThisMonth}
+          value={stats?.newMembersThisMonth ?? 0}
           icon={UserPlus}
-          trend={12}
         />
-        <StatCard title="States" value={stats.totalStates} icon={Map} />
+        <StatCard title="States" value={stats?.totalStates ?? 0} icon={Map} />
         <StatCard
           title="Membership Levels"
-          value={stats.membershipLevels}
+          value={stats?.membershipLevels ?? 0}
           icon={Award}
         />
       </div>
@@ -252,54 +229,32 @@ export default function Dashboard() {
         </div>
         <div className="space-y-4">
           {/* Activity Items */}
-          <div className="flex items-center justify-between py-3 border-b">
-            <div className="flex items-center space-x-3">
-              <div className="p-2 bg-green-100 rounded-full">
-                <UserPlus className="h-4 w-4 text-green-600" />
+
+          {recentActivity.map((item, index) => {
+            return (
+              <div
+                key={index}
+                className="flex items-center justify-between py-3 border-b"
+              >
+                <div className="flex items-center space-x-3">
+                  <div className="p-2 bg-green-100 rounded-full">
+                    {item.type === "member" ? (
+                      <UserPlus className="h-4 w-4 text-green-600" />
+                    ) : (
+                      <Calendar className="h-4 w-4 text-green-600" />
+                    )}
+                  </div>
+                  <div>
+                    <p className="text-sm font-medium text-gray-800">
+                      {item.title}
+                    </p>
+                    <p className="text-xs text-gray-500">{item.description}</p>
+                  </div>
+                </div>
+                <span className="text-xs text-gray-500">{item.timeAgo}</span>
               </div>
-              <div>
-                <p className="text-sm font-medium text-gray-800">
-                  New member registered
-                </p>
-                <p className="text-xs text-gray-500">
-                  Abdi Doe joined from Benadir
-                </p>
-              </div>
-            </div>
-            <span className="text-xs text-gray-500">2 hours ago</span>
-          </div>
-          <div className="flex items-center justify-between py-3 border-b">
-            <div className="flex items-center space-x-3">
-              <div className="p-2 bg-green-100 rounded-full">
-                <Award className="h-4 w-4 text-green-600" />
-              </div>
-              <div>
-                <p className="text-sm font-medium text-gray-800">
-                  Membership level updated
-                </p>
-                <p className="text-xs text-gray-500">
-                  Premium tier added to the system
-                </p>
-              </div>
-            </div>
-            <span className="text-xs text-gray-500">5 hours ago</span>
-          </div>
-          <div className="flex items-center justify-between py-3">
-            <div className="flex items-center space-x-3">
-              <div className="p-2 bg-green-100 rounded-full">
-                <Calendar className="h-4 w-4 text-green-600" />
-              </div>
-              <div>
-                <p className="text-sm font-medium text-gray-800">
-                  Monthly meeting scheduled
-                </p>
-                <p className="text-xs text-gray-500">
-                  State representatives meeting set for next week
-                </p>
-              </div>
-            </div>
-            <span className="text-xs text-gray-500">1 day ago</span>
-          </div>
+            );
+          })}
         </div>
       </div>
     </div>
