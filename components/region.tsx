@@ -236,7 +236,7 @@ const RegionFormElements = () => {
                   {isAdding ? (
                     <CircularProgress size={20} color="inherit" />
                   ) : (
-                    "Add District"
+                    "Add Region"
                   )}
                 </button>
               </div>
