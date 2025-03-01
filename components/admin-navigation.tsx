@@ -35,44 +35,13 @@ export default function AdminNavigation() {
       >
         Campaign
       </button>
-      <button
-        onClick={() => router.push("/profile")}
-        className="text-[#2E8B57] hover:text-secondary transition-colors"
-      >
-        Profile
-      </button>
+
       <button
         onClick={() => handleLoginNavigation("/news")}
         className="text-[#2E8B57] hover:text-secondary transition-colors"
       >
         News
       </button>
-
-      <div className="relative group">
-        <button className="text-[#2E8B57] hover:text-secondary transition-colors">
-          Utilities
-        </button>
-        <div className="absolute hidden group-hover:block bg-white shadow-lg rounded-md py-2 w-40 z-50">
-          <button
-            onClick={() => handleLoginNavigation("/state")}
-            className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
-          >
-            Add State
-          </button>
-          <button
-            onClick={() => handleLoginNavigation("/district")}
-            className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
-          >
-            Add District
-          </button>
-          <button
-            onClick={() => handleLoginNavigation("/region")}
-            className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
-          >
-            Add Region
-          </button>
-        </div>
-      </div>
 
       <div className="relative group">
         <button className="text-[#2E8B57] hover:text-secondary transition-colors">
@@ -114,6 +83,37 @@ export default function AdminNavigation() {
       >
         Donate
       </button>
+      <div className="relative group">
+        <button className="text-[#2E8B57] hover:text-secondary transition-colors">
+          Utilities
+        </button>
+        <div className="absolute hidden group-hover:block bg-white shadow-lg rounded-md py-2 w-40 z-50">
+          <button
+            onClick={() => handleLoginNavigation("/state")}
+            className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
+          >
+            Add State
+          </button>
+          <button
+            onClick={() => handleLoginNavigation("/district")}
+            className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
+          >
+            Add District
+          </button>
+          <button
+            onClick={() => handleLoginNavigation("/region")}
+            className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
+          >
+            Add Region
+          </button>
+        </div>
+      </div>
+      <button
+        onClick={() => router.push("/profile")}
+        className="text-[#2E8B57] hover:text-secondary transition-colors"
+      >
+        Profile
+      </button>
 
       <button
         onClick={handleSignOut}
@@ -139,17 +139,90 @@ export default function AdminNavigation() {
       >
         Campaign
       </button>
-      <button
-        onClick={() => router.push("/profile")}
-        className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
-      >
-        Profile
-      </button>
+      
       <button
         onClick={() => handleLoginNavigation("/donate")}
         className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
       >
         Donate
+      </button>
+      <button
+        onClick={() => handleLoginNavigation("/news")}
+        className="text-[#2E8B57] hover:text-secondary transition-colors"
+      >
+        News
+      </button>
+
+      <div className="relative group">
+        <button className="text-[#2E8B57] hover:text-secondary transition-colors">
+          Members
+        </button>
+        <div className="absolute hidden group-hover:block bg-white shadow-lg rounded-md py-2 w-40 z-50">
+          <button
+            onClick={() => handleLoginNavigation("/membership-level")}
+            className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
+          >
+            Member Level
+          </button>
+          <button
+            onClick={() => handleLoginNavigation("/memberships")}
+            className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
+          >
+            Members List
+          </button>
+        </div>
+      </div>
+
+      <div className="relative group">
+        <button className="text-[#2E8B57] hover:text-secondary transition-colors">
+          Events
+        </button>
+        <div className="absolute hidden group-hover:block bg-white shadow-lg rounded-md py-2 w-40 z-50">
+          <button
+            onClick={() => handleLoginNavigation("/event-registration")}
+            className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
+          >
+            Event Registration
+          </button>
+        </div>
+      </div>
+      <div className="relative group">
+        <button className="text-[#2E8B57] hover:text-secondary transition-colors">
+          Utilities
+        </button>
+        <div className="absolute hidden group-hover:block bg-white shadow-lg rounded-md py-2 w-40 z-50">
+          <button
+            onClick={() => handleLoginNavigation("/state")}
+            className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
+          >
+            Add State
+          </button>
+          <button
+            onClick={() => handleLoginNavigation("/district")}
+            className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
+          >
+            Add District
+          </button>
+          <button
+            onClick={() => handleLoginNavigation("/region")}
+            className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
+          >
+            Add Region
+          </button>
+        </div>
+      </div>
+      <button
+        onClick={() => router.push("/profile")}
+        className="text-[#2E8B57] hover:text-secondary transition-colors"
+      >
+        Profile
+      </button>
+      <button
+        onClick={handleSignOut}
+        className="flex items-center space-x-2 px-4 py-2 rounded-md bg-red-500 text-white hover:bg-red-600 transition-colors"
+      >
+        <LogOut size={18} />
+        <span>Sign Out</span>
       </button>
     </>
   );

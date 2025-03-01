@@ -24,12 +24,7 @@ export default function UserNavigation() {
       >
         Home
       </button>
-      <button
-        onClick={() => router.push("/profile")}
-        className="text-[#2E8B57] hover:text-secondary transition-colors"
-      >
-        Profile
-      </button>
+
       <button
         onClick={() => router.push("/news")}
         className="text-[#2E8B57] hover:text-secondary transition-colors"
@@ -57,16 +52,22 @@ export default function UserNavigation() {
             onClick={() => router.push("/event-selecting")}
             className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
           >
-            Events
+            Upcoming Events
           </button>
           <button
             onClick={() => router.push("/selected-events")}
             className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
           >
-            My Events
+            My Registered Events
           </button>
         </div>
       </div>
+      <button
+        onClick={() => router.push("/profile")}
+        className="text-[#2E8B57] hover:text-secondary transition-colors"
+      >
+        Profile
+      </button>
     </>
   );
 
@@ -78,12 +79,7 @@ export default function UserNavigation() {
       >
         Home
       </button>
-      <button
-        onClick={() => router.push("/profile")}
-        className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
-      >
-        Profile
-      </button>
+
       <button
         onClick={() => router.push("/campaign")}
         className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
@@ -96,23 +92,36 @@ export default function UserNavigation() {
       >
         News
       </button>
-      <button
-        onClick={() => router.push("/event-selecting")}
-        className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
-      >
-        Events
-      </button>
-      <button
-        onClick={() => router.push("/selected-events")}
-        className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
-      >
-        My Events
-      </button>
+      <div className="relative group">
+        <button className="text-[#2E8B57] hover:text-secondary transition-colors">
+          Events
+        </button>
+        <div className="absolute hidden group-hover:block bg-white shadow-lg rounded-md py-2 w-40 z-50">
+          <button
+            onClick={() => router.push("/event-selecting")}
+            className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
+          >
+            Upcoming Events
+          </button>
+          <button
+            onClick={() => router.push("/selected-events")}
+            className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
+          >
+            My Registered Events
+          </button>
+        </div>
+      </div>
       <button
         onClick={() => router.push("/donate")}
         className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
       >
         Donate
+      </button>
+      <button
+        onClick={() => router.push("/profile")}
+        className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
+      >
+        Profile
       </button>
     </>
   );
