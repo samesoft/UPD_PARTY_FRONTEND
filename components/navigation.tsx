@@ -13,37 +13,37 @@ export default function Navigation() {
     <>
       <button
         onClick={() => router.push("/")}
-        className="text-[#2E8B57] hover:text-[#1a6e3f] font-medium text-base transition-colors duration-300"
+        className="px-2 py-1.5 text-[#2E8B57] hover:text-[#1a6e3f] font-medium text-sm lg:text-base transition-colors duration-300"
       >
         Hoyga
       </button>
       <button
         onClick={() => router.push("/news")}
-        className="text-[#2E8B57] hover:text-[#1a6e3f] font-medium text-base transition-colors duration-300"
+        className="px-2 py-1.5 text-[#2E8B57] hover:text-[#1a6e3f] font-medium text-sm lg:text-base transition-colors duration-300"
       >
         Wararka
       </button>
       <button
         onClick={() => router.push("/campaign")}
-        className="text-[#2E8B57] hover:text-[#1a6e3f] font-medium text-base transition-colors duration-300"
+        className="px-2 py-1.5 text-[#2E8B57] hover:text-[#1a6e3f] font-medium text-sm lg:text-base transition-colors duration-300"
       >
         Ololaha
       </button>
       <button
         onClick={() => router.push("/donate")}
-        className="text-[#2E8B57] hover:text-[#1a6e3f] font-medium text-base transition-colors duration-300"
+        className="px-2 py-1.5 text-[#2E8B57] hover:text-[#1a6e3f] font-medium text-sm lg:text-base transition-colors duration-300"
       >
         Ku Deeq
       </button>
       <button
         onClick={() => router.push("/create-account")}
-        className="px-5 py-2.5 rounded-md border-2 border-[#2E8B57] text-[#2E8B57] font-semibold text-base hover:bg-[#2E8B57] hover:text-white transition-all duration-300"
+        className="px-4 py-2 rounded-md border-2 border-[#2E8B57] text-[#2E8B57] font-semibold text-sm lg:text-base hover:bg-[#2E8B57] hover:text-white transition-all duration-300"
       >
         Samee Akoon
       </button>
       <button
         onClick={() => router.push("/sign-in")}
-        className="px-5 py-2.5 rounded-md bg-[#2E8B57] text-white font-semibold text-base hover:bg-[#236B43] transition-all duration-300 shadow-sm"
+        className="px-4 py-2 rounded-md bg-[#2E8B57] text-white font-semibold text-sm lg:text-base hover:bg-[#236B43] transition-all duration-300 shadow-sm"
       >
         Nagu Soo Biir
       </button>
@@ -54,25 +54,25 @@ export default function Navigation() {
     <>
       <button
         onClick={() => router.push("/")}
-        className="block w-full text-left px-5 py-3 text-[#2E8B57] font-medium text-lg hover:bg-[#e6f5ee] hover:text-[#1a6e3f] transition-colors duration-300 rounded-md"
+        className="block w-full text-left px-4 py-2.5 text-[#2E8B57] font-medium text-lg hover:bg-[#e6f5ee] hover:text-[#1a6e3f] transition-colors duration-300 rounded-md"
       >
         Hoyga
       </button>
       <button
         onClick={() => router.push("/news")}
-        className="block w-full text-left px-5 py-3 text-[#2E8B57] font-medium text-lg hover:bg-[#e6f5ee] hover:text-[#1a6e3f] transition-colors duration-300 rounded-md"
+        className="block w-full text-left px-4 py-2.5 text-[#2E8B57] font-medium text-lg hover:bg-[#e6f5ee] hover:text-[#1a6e3f] transition-colors duration-300 rounded-md"
       >
         Wararka
       </button>
       <button
         onClick={() => router.push("/campaign")}
-        className="block w-full text-left px-5 py-3 text-[#2E8B57] font-medium text-lg hover:bg-[#e6f5ee] hover:text-[#1a6e3f] transition-colors duration-300 rounded-md"
+        className="block w-full text-left px-4 py-2.5 text-[#2E8B57] font-medium text-lg hover:bg-[#e6f5ee] hover:text-[#1a6e3f] transition-colors duration-300 rounded-md"
       >
         Ololaha
       </button>
       <button
         onClick={() => router.push("/donate")}
-        className="block w-full text-left px-5 py-3 text-[#2E8B57] font-medium text-lg hover:bg-[#e6f5ee] hover:text-[#1a6e3f] transition-colors duration-300 rounded-md"
+        className="block w-full text-left px-4 py-2.5 text-[#2E8B57] font-medium text-lg hover:bg-[#e6f5ee] hover:text-[#1a6e3f] transition-colors duration-300 rounded-md"
       >
         Ku Deeq
       </button>
@@ -94,7 +94,7 @@ export default function Navigation() {
   );
 
   return (
-    <nav className="bg-white text-xl py-3 px-5 shadow-md h-auto min-h-20 sticky top-0 z-50">
+    <nav className="bg-white py-6 shadow-md h-auto min-h-20 sticky top-0 z-50">
       <div className="container mx-auto flex items-center justify-between">
         <button
           onClick={() => router.push("/")}
@@ -114,7 +114,7 @@ export default function Navigation() {
           </span>
         </button>
 
-        <div className="hidden md:flex items-center space-x-6 lg:space-x-10">
+        <div className="hidden md:flex items-center ml-auto space-x-3 lg:space-x-4">
           {renderNavItems()}
         </div>
 

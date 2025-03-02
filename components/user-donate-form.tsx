@@ -347,11 +347,12 @@ export default function UserDonateForm({
             type="tel"
             value={phoneNumber}
             onChange={(e) => setPhoneNumber(e.target.value)}
-            placeholder="tusaale, 615123456"
+            placeholder="tusaale, +252XXXXXXXXX"
             className="pl-8"
           />
           <p className="text-sm text-gray-500">
-            Gali lambarka iyada oo aan lahayn furaha dalka (tusaale, +252xxxxxxxxx)
+            Gali lambarka iyada oo aan lahayn furaha dalka (tusaale,
+            +252XXXXXXXXX)
           </p>
         </div>
 

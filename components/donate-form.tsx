@@ -331,7 +331,7 @@ export default function UserDonateForm({
             onChange={(e) => setSelectedPaymentMethod(e.target.value)}
             value={selectedPaymentMethod}
           >
-            <option value="">Dooro Habka Lacag bixinta</option>
+            <option value="">Dooro habka lacag bixinta</option>
             {/* Add your payment method options here */}
             <option value="mpesa">EVC-Plus</option>
             <option value="paypal">E-Dahab</option>
@@ -348,12 +348,12 @@ export default function UserDonateForm({
             type="tel"
             value={phoneNumber}
             onChange={(e) => setPhoneNumber(e.target.value)}
-            placeholder="tusaale, 615123456"
+            placeholder="tusaale, +252XXXXXXXXX"
             className="pl-8"
           />
           <p className="text-sm text-gray-500">
             Gali lambarka iyada oo aan lahayn furaha dalka (tusaale,
-            +252xxxxxxxxx)
+            +252XXXXXXXXX)
           </p>
         </div>
 
