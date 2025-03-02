@@ -59,7 +59,7 @@ export default function LatestNews() {
     <section className="py-16 sm:py-20 bg-gray-100">
       <div className="container">
         <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-center mb-12 text-primary text-balance">
-          WARARKA UGU DANBEEYA
+          WARARKA UGU DANBEEYEY
         </h2>
 
         <div className="relative overflow-hidden py-4 mb-12">
