@@ -330,7 +330,7 @@ export default function UserDonateForm({
             onChange={(e) => setSelectedPaymentMethod(e.target.value)}
             value={selectedPaymentMethod}
           >
-            <option value="">Dooro Habka Lacag bixinta</option>
+            
             {/* Add your payment method options here */}
             <option value="mpesa">EVC-Plus</option>
             <option value="paypal">E-Dahab</option>
