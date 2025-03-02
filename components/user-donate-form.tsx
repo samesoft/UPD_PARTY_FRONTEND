@@ -4,6 +4,7 @@ import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import {
   Select,
   SelectContent,
@@ -21,7 +22,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { CheckCircle2, XCircle } from "lucide-react";
-import type { IMember } from "@/types/member";
+import { IMember } from "@/types/member";
 
 const donationAmounts = [
   { value: 5, label: "$5" },
@@ -86,7 +87,6 @@ export default function UserDonateForm({
     memberData?.district_id?.toString() || ""
   );
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(""); // Add state for payment method
-  const [isLoading, setIsLoading] = useState(true);
   console.log(selectedDistrict);
   // Calculate next payment date when component mounts
   const today = new Date();
@@ -124,51 +124,6 @@ export default function UserDonateForm({
       console.error("Error fetching districts:", error);
     }
   };
-
-  useEffect(() => {
-    const fetchUserData = async () => {
-      setIsLoading(true);
-      try {
-        // If we don't have complete member data, fetch it
-        if (!memberData || !memberData.first_name || !memberData.last_name) {
-          const response = await axios.get("/members/profile");
-          const userData = response.data.data;
-
-          // Update all form fields with fetched data
-          setNames({
-            firstName: userData.first_name || "",
-            lastName: userData.last_name || "",
-            middleName: userData.middle_name || "",
-          });
-          setPhoneNumber(userData.mobile || "");
-          setSelectedState(userData.state_id || null);
-          if (userData.state_id) {
-            fetchDistrictsByState(userData.state_id);
-          }
-          setSelectedDistrict(userData.district_id?.toString() || "");
-        } else {
-          // If we already have member data, just use it
-          setNames({
-            firstName: memberData.first_name || "",
-            lastName: memberData.last_name || "",
-            middleName: memberData.middle_name || "",
-          });
-          setPhoneNumber(memberData.mobile || "");
-          setSelectedState(memberData.state_id || null);
-          if (memberData.state_id) {
-            fetchDistrictsByState(memberData.state_id);
-          }
-          setSelectedDistrict(memberData.district_id?.toString() || "");
-        }
-      } catch (error) {
-        console.error("Error fetching user data:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
-    fetchUserData();
-  }, [memberData]);
 
   const handleDonation = async () => {
     setIsProcessing(true);
@@ -251,15 +206,6 @@ export default function UserDonateForm({
       </DialogContent>
     </Dialog>
   );
-
-  if (isLoading) {
-    return (
-      <div className="flex justify-center items-center h-64">
-        <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
-        <span className="ml-2">Loading your information...</span>
-      </div>
-    );
-  }
 
   return (
     <div className="bg-white rounded-lg shadow-md p-8">
@@ -430,21 +376,20 @@ export default function UserDonateForm({
               ))}
             </select>
           </div>
+
           <div className="space-y-2">
             <Label htmlFor="district">District</Label>
             <select
               id="district"
-              disabled={!selectedState || !!selectedDistrict}
               className="w-full h-10 px-3 border rounded-md"
-              onChange={(e) => setSelectedDistrict(e.target.value)}
-              value={selectedDistrict || ""}
+              onChange={(e) => {
+                setSelectedDistrict(e.target.value);
+              }}
+              value={selectedDistrict}
             >
               <option value="">Select District</option>
-              {districtOptions.data.map((option) => (
-                <option
-                  key={option.district_id}
-                  value={option.district_id.toString()}
-                >
+              {districtOptions.data?.map((option) => (
+                <option key={option.district_id} value={option.district}>
                   {option.district}
                 </option>
               ))}
