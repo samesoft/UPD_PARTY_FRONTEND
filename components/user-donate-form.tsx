@@ -33,10 +33,10 @@ const donationAmounts = [
 ];
 
 const frequencies = [
-  { value: "weekly", label: "Weekly" },
-  { value: "monthly", label: "Monthly" },
-  { value: "quarterly", label: "Quarterly" },
-  { value: "annually", label: "Annually" },
+  { value: "weekly", label: "Toddobaadlaha" },
+  { value: "monthly", label: "Bishiiba" },
+  { value: "quarterly", label: "Saddexdii biloodba" },
+  { value: "annually", label: "Sannadkiiba" },
 ];
 
 // Add these interfaces at the top of the file
@@ -130,7 +130,7 @@ export default function UserDonateForm({
     const amount = selectedAmount === "other" ? customAmount : selectedAmount;
 
     if (!phoneNumber || !amount) {
-      setErrorMessage("Please provide both phone number and amount");
+      setErrorMessage("Fadlan gali lambarka taleefanka iyo lacagta");
       setShowErrorModal(true);
       setIsProcessing(false);
       return;
@@ -152,7 +152,7 @@ export default function UserDonateForm({
       }
     } catch (error: any) {
       setErrorMessage(
-        error?.response?.data?.message || "Payment processing failed"
+        error?.response?.data?.message || "Lacag bixintu waa ay guuldarreysatay."
       );
       setShowErrorModal(true);
     } finally {
@@ -166,19 +166,19 @@ export default function UserDonateForm({
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2 text-green-600">
             <CheckCircle2 className="w-6 h-6" />
-            Payment Successful
+            Lacag bixintu waa la aqbalay
           </DialogTitle>
         </DialogHeader>
         <div className="p-6 text-center space-y-4">
           <p className="text-gray-600">
-            Thank you for your generous donation! You will receive an SMS
-            confirmation shortly.
+            Waad ku mahadsan tahay tabarucaaga deeqsinimada leh! Waxaad dhowaan
+            heli doontaa xaqiijin SMS ah.
           </p>
           <Button
             onClick={() => setShowSuccessModal(false)}
             className="bg-green-600 hover:bg-green-700"
           >
-            Close
+            Xir
           </Button>
         </div>
       </DialogContent>
@@ -191,7 +191,7 @@ export default function UserDonateForm({
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2 text-red-600">
             <XCircle className="w-6 h-6" />
-            Payment Failed
+            Lacag bixintu waa ay guuldarreysatay.
           </DialogTitle>
         </DialogHeader>
         <div className="p-6 text-center space-y-4">
@@ -200,7 +200,7 @@ export default function UserDonateForm({
             onClick={() => setShowErrorModal(false)}
             className="bg-red-600 hover:bg-red-700"
           >
-            Close
+            Xir
           </Button>
         </div>
       </DialogContent>
@@ -212,7 +212,7 @@ export default function UserDonateForm({
       <div className="space-y-8">
         {/* Donation Type */}
         <div>
-          <h2 className="text-2xl font-bold mb-2">Donate any amount</h2>
+          <h2 className="text-2xl font-bold mb-2">Ku deeq lacag kasta</h2>
 
           <div className="flex gap-2 mb-6">
             <Button
@@ -220,14 +220,14 @@ export default function UserDonateForm({
               onClick={() => setDonationType("one-time")}
               className="flex-1"
             >
-              One-time donation
+              Ku Deeq hal mar ah
             </Button>
             <Button
               variant={donationType === "recurring" ? "default" : "outline"}
               onClick={() => setDonationType("recurring")}
               className="flex-1"
             >
-              Recurring donation
+              Deeq joogto ah
             </Button>
           </div>
         </div>
@@ -236,10 +236,10 @@ export default function UserDonateForm({
         {donationType === "recurring" && (
           <div className="space-y-4">
             <div className="space-y-2">
-              <Label>Process my gift</Label>
+              <Label>Habka lacag bixinta</Label>
               <Select defaultValue={frequency} onValueChange={setFrequency}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Select frequency" />
+                  <SelectValue placeholder="Dooro joogtaynta" />
                 </SelectTrigger>
                 <SelectContent>
                   {frequencies.map((freq) => (
@@ -251,18 +251,20 @@ export default function UserDonateForm({
               </Select>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="nextPayment">Next payment on</Label>
+              <Label htmlFor="nextPayment">Lacag bixinta xigta</Label>
               <Input
                 type="text"
                 id="nextPayment"
                 value={nextPaymentDate || formattedDate}
                 onChange={(e) => setNextPaymentDate(e.target.value)}
-                placeholder="MM/DD/YYYY"
+                placeholder="BB/MM/SSSS"
               />
-              <p className="text-sm text-gray-500">Use the format MM/DD/YYYY</p>
               <p className="text-sm text-gray-500">
-                Your first gift processes today. The next gift processes on{" "}
-                {formattedDate}.
+                Isticmaal qaabka BB/MM/SSSS
+              </p>
+              <p className="text-sm text-gray-500">
+                Deeqda koowaad waxay dhacaysaa maanta. Deeqda xigta waxay
+                dhacaysaa {formattedDate}.
               </p>
             </div>
           </div>
@@ -285,13 +287,13 @@ export default function UserDonateForm({
             onClick={() => setSelectedAmount("other")}
             className="col-span-2"
           >
-            Other amount
+            Lacag kale
           </Button>
         </div>
 
         {selectedAmount === "other" && (
           <div className="space-y-2">
-            <Label htmlFor="customAmount">Enter amount</Label>
+            <Label htmlFor="customAmount">Gali lacagta</Label>
             <div className="relative">
               <span className="absolute left-3 top-1/2 -translate-y-1/2">
                 $
@@ -307,117 +309,28 @@ export default function UserDonateForm({
           </div>
         )}
 
-        {/* Personal Information */}
-        {/* <div className="space-y-6">
-          <h3 className="text-xl font-semibold">Your information</h3>
-
-          <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label htmlFor="firstName">First name</Label>
-              <Input
-                id="firstName"
-                value={names.firstName}
-                disabled={names?.firstName?.length > 0}
-                onChange={(e) =>
-                  setNames((prev) => {
-                    return { ...prev, firstName: e.target.value };
-                  })
-                }
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="lastName">Middle name</Label>
-              <Input
-                id="lastName"
-                value={names.middleName}
-                disabled={names?.middleName?.length > 0}
-                onChange={(e) =>
-                  setNames((prev) => {
-                    return { ...prev, lastName: e.target.value };
-                  })
-                }
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="lastName">Last name</Label>
-              <Input
-                id="lastName"
-                value={names.lastName}
-                disabled={names?.lastName?.length > 0}
-                onChange={(e) =>
-                  setNames((prev) => {
-                    return { ...prev, lastName: e.target.value };
-                  })
-                }
-              />
-            </div>
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="state">State</Label>
-            <select
-              id="state"
-              disabled={!!selectedState}
-              className="w-full h-10 px-3 border rounded-md"
-              onChange={(e) => {
-                const stateId = Number(e.target.value);
-                setSelectedState(stateId);
-                // if (stateId) {
-                //   fetchDistrictsByState(stateId);
-                // }
-              }}
-              value={selectedState || ""}
-            >
-              <option value="">Select State</option>
-              {stateOptions.map((option) => (
-                <option key={option.stateid} value={option.stateid}>
-                  {option.state}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="district">District</Label>
-            <select
-              id="district"
-              className="w-full h-10 px-3 border rounded-md"
-              onChange={(e) => {
-                setSelectedDistrict(e.target.value);
-              }}
-              value={selectedDistrict}
-            >
-              <option value="">Select District</option>
-              {districtOptions.data?.map((option) => (
-                <option key={option.district_id} value={option.district}>
-                  {option.district}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div> */}
-
         {/* Privacy Policy */}
         <p className="text-sm text-gray-600">
-          To learn how we collect and use your information, please read our{" "}
+          Si aad u ogaato sida aan u ururinno oo aan u isticmaalno
+          macluumaadkaaga, fadlan akhri{" "}
           <Link
             href="/privacy-policy"
             className="text-secondary hover:underline"
           >
-            privacy policy
+            xeerka asturnaanta
           </Link>
           .
         </p>
         {/* Add Payment Method Selection */}
         <div className="space-y-2">
-          <Label htmlFor="paymentMethod">Payment Method</Label>
+          <Label htmlFor="paymentMethod">Habka Lacag bixinta</Label>
           <select
             id="paymentMethod"
             className="w-full h-10 px-3 border rounded-md"
             onChange={(e) => setSelectedPaymentMethod(e.target.value)}
             value={selectedPaymentMethod}
           >
-            <option value="">Select Payment Method</option>
+            <option value="">Dooro Habka Lacag bixinta</option>
             {/* Add your payment method options here */}
             <option value="mpesa">EVC-Plus</option>
             <option value="paypal">E-Dahab</option>
@@ -428,23 +341,23 @@ export default function UserDonateForm({
         </div>
         {/* Add Phone Number Field */}
         <div className="space-y-2">
-          <Label htmlFor="phone">Phone Number</Label>
+          <Label htmlFor="phone">Lambarka Taleefanka</Label>
           <Input
             id="phone"
             type="tel"
             value={phoneNumber}
             onChange={(e) => setPhoneNumber(e.target.value)}
-            placeholder="e.g., 615123456"
+            placeholder="tusaale, 615123456"
             className="pl-8"
           />
           <p className="text-sm text-gray-500">
-            Enter number without country code (e.g., 61000000)
+            Gali lambarka iyada oo aan lahayn furaha dalka (tusaale, +252xxxxxxxxx)
           </p>
         </div>
 
         {/* Update Payment Button */}
         <div>
-          <h3 className="text-xl font-semibold mb-4">Payment</h3>
+          <h3 className="text-xl font-semibold mb-4">Lacag bixinta</h3>
           <Button
             className="w-full h-12 bg-primary hover:bg-primary/90 relative"
             onClick={handleDonation}
@@ -453,13 +366,13 @@ export default function UserDonateForm({
             <Lock className="w-4 h-4 mr-2" />
             {isProcessing ? (
               <>
-                <span className="animate-pulse">Processing...</span>
+                <span className="animate-pulse">Waa la hawlgalayaa...</span>
                 <div className="absolute right-4 top-1/2 transform -translate-y-1/2">
                   <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
                 </div>
               </>
             ) : (
-              "Donate"
+              "Ku deeq"
             )}
           </Button>
         </div>
