@@ -38,7 +38,7 @@ export default function UserNavigation() {
         Campaign
       </button>
       <button
-        onClick={() => router.push("/donate")}
+        onClick={() => router.push("/user-donate-form")}
         className="text-[#2E8B57] hover:text-secondary transition-colors"
       >
         Donate
@@ -112,7 +112,7 @@ export default function UserNavigation() {
         </div>
       </div>
       <button
-        onClick={() => router.push("/donate")}
+        onClick={() => router.push("/user-donate-form")}
         className="block w-full text-left px-4 py-2 text-[#2E8B57] hover:bg-[#2E8B57] hover:text-white transition-colors"
       >
         Donate
