@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
@@ -86,6 +86,7 @@ export default function UserDonateForm({
     memberData?.district_id?.toString() || ""
   );
   const [selectedPaymentMethod, setSelectedPaymentMethod] = useState(""); // Add state for payment method
+  const [isLoading, setIsLoading] = useState(true);
   console.log(selectedDistrict);
   // Calculate next payment date when component mounts
   const today = new Date();
@@ -95,33 +96,11 @@ export default function UserDonateForm({
     year: "numeric",
   });
 
-  const fetchDistrictsByState = useCallback(async (stateId: number) => {
-    try {
-      console.log(`Fetching districts for state ID: ${stateId}`);
-      const response = await axios.get(`/district/districtByState/${stateId}`);
-      if (response.data && response.data.data) {
-        setDistrictOptions({ data: response.data.data });
-        console.log("Districts fetched:", response.data.data);
-      } else {
-        console.warn("No district data found in response:", response.data);
-        setDistrictOptions({ data: [] });
-      }
-    } catch (error) {
-      console.error("Error fetching districts:", error);
-      setDistrictOptions({ data: [] });
-    }
-  }, []);
-
   useEffect(() => {
     const fetchStates = async () => {
       try {
         const response = await axios.get("/state");
         setStateOptions(response.data.data);
-
-        // If we have a selectedState but no district options yet, fetch districts
-        // if (selectedState && districtOptions.data.length === 0) {
-        //   fetchDistrictsByState(selectedState)
-        // }
       } catch (error) {
         console.error("Error fetching states:", error);
       }
@@ -131,54 +110,64 @@ export default function UserDonateForm({
   }, []);
 
   useEffect(() => {
-    // Only fetch districts if we have a valid state ID
-    if (selectedState && selectedState > 0) {
+    if (selectedState) {
       fetchDistrictsByState(selectedState);
     }
-  }, [selectedState, fetchDistrictsByState]);
+  }, [selectedState]);
 
-  // Add fallback data fetching if memberData is incomplete
+  const fetchDistrictsByState = async (stateId: number) => {
+    try {
+      const response = await axios.get(`/district/districtByState/${stateId}`);
+      setDistrictOptions({ data: response.data.data });
+      console.log("Districts fetched:", response.data.data);
+    } catch (error) {
+      console.error("Error fetching districts:", error);
+    }
+  };
+
   useEffect(() => {
-    const fetchMemberData = async () => {
+    const fetchUserData = async () => {
+      setIsLoading(true);
       try {
-        // Check if we need to fetch data (missing or incomplete memberData)
+        // If we don't have complete member data, fetch it
         if (!memberData || !memberData.first_name || !memberData.last_name) {
-          // You can replace this with your actual member ID or identifier
-          const memberId =
-            localStorage.getItem("memberId") ||
-            sessionStorage.getItem("memberId");
+          const response = await axios.get("/members/profile");
+          const userData = response.data.data;
 
-          if (memberId) {
-            const response = await axios.get(`/members/${memberId}`);
-            if (response.data.success) {
-              const fetchedMember = response.data.data;
-
-              // Update all form fields with fetched data
-              setNames({
-                firstName: fetchedMember.first_name || "",
-                lastName: fetchedMember.last_name || "",
-                middleName: fetchedMember.middle_name || "",
-              });
-
-              setPhoneNumber(fetchedMember.mobile || "");
-
-              if (fetchedMember.state_id) {
-                setSelectedState(fetchedMember.state_id);
-                // District will be fetched by the other useEffect that watches selectedState
-              }
-
-              if (fetchedMember.district_id) {
-                setSelectedDistrict(fetchedMember.district_id.toString());
-              }
-            }
+          // Update all form fields with fetched data
+          setNames({
+            firstName: userData.first_name || "",
+            lastName: userData.last_name || "",
+            middleName: userData.middle_name || "",
+          });
+          setPhoneNumber(userData.mobile || "");
+          setSelectedState(userData.state_id || null);
+          if (userData.state_id) {
+            fetchDistrictsByState(userData.state_id);
           }
+          setSelectedDistrict(userData.district_id?.toString() || "");
+        } else {
+          // If we already have member data, just use it
+          setNames({
+            firstName: memberData.first_name || "",
+            lastName: memberData.last_name || "",
+            middleName: memberData.middle_name || "",
+          });
+          setPhoneNumber(memberData.mobile || "");
+          setSelectedState(memberData.state_id || null);
+          if (memberData.state_id) {
+            fetchDistrictsByState(memberData.state_id);
+          }
+          setSelectedDistrict(memberData.district_id?.toString() || "");
         }
       } catch (error) {
-        console.error("Error fetching member data:", error);
+        console.error("Error fetching user data:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
-    fetchMemberData();
+    fetchUserData();
   }, [memberData]);
 
   const handleDonation = async () => {
@@ -263,62 +252,17 @@ export default function UserDonateForm({
     </Dialog>
   );
 
-  const handleRefreshData = async () => {
-    try {
-      setIsProcessing(true);
-
-      // Clear current form data
-      setNames({ firstName: "", lastName: "", middleName: "" });
-      setPhoneNumber("");
-      setSelectedState(null);
-      setSelectedDistrict("");
-
-      // Fetch fresh data
-      const memberId =
-        localStorage.getItem("memberId") || sessionStorage.getItem("memberId");
-      if (memberId) {
-        const response = await axios.get(`/members/${memberId}`);
-        if (response.data.success) {
-          const fetchedMember = response.data.data;
-
-          setNames({
-            firstName: fetchedMember.first_name || "",
-            lastName: fetchedMember.last_name || "",
-            middleName: fetchedMember.middle_name || "",
-          });
-
-          setPhoneNumber(fetchedMember.mobile || "");
-
-          if (fetchedMember.state_id) {
-            setSelectedState(fetchedMember.state_id);
-          }
-
-          if (fetchedMember.district_id) {
-            setSelectedDistrict(fetchedMember.district_id.toString());
-          }
-        }
-      }
-    } catch (error) {
-      console.error("Error refreshing data:", error);
-      setErrorMessage("Failed to refresh user data");
-      setShowErrorModal(true);
-    } finally {
-      setIsProcessing(false);
-    }
-  };
+  if (isLoading) {
+    return (
+      <div className="flex justify-center items-center h-64">
+        <div className="w-8 h-8 border-4 border-primary border-t-transparent rounded-full animate-spin"></div>
+        <span className="ml-2">Loading your information...</span>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-white rounded-lg shadow-md p-8">
-      <div className="flex justify-end mb-4">
-        <Button
-          variant="outline"
-          onClick={handleRefreshData}
-          disabled={isProcessing}
-          className="text-sm"
-        >
-          {isProcessing ? "Refreshing..." : "Refresh Data"}
-        </Button>
-      </div>
       <div className="space-y-8">
         {/* Donation Type */}
         <div>
@@ -427,7 +371,7 @@ export default function UserDonateForm({
               <Input
                 id="firstName"
                 value={names.firstName}
-                disabled={isProcessing}
+                disabled={names?.firstName?.length > 0}
                 onChange={(e) =>
                   setNames((prev) => {
                     return { ...prev, firstName: e.target.value };
@@ -440,7 +384,7 @@ export default function UserDonateForm({
               <Input
                 id="lastName"
                 value={names.middleName}
-                disabled={isProcessing}
+                disabled={names?.middleName?.length > 0}
                 onChange={(e) =>
                   setNames((prev) => {
                     return { ...prev, lastName: e.target.value };
@@ -453,7 +397,7 @@ export default function UserDonateForm({
               <Input
                 id="lastName"
                 value={names.lastName}
-                disabled={isProcessing}
+                disabled={names?.lastName?.length > 0}
                 onChange={(e) =>
                   setNames((prev) => {
                     return { ...prev, lastName: e.target.value };
@@ -467,7 +411,7 @@ export default function UserDonateForm({
             <Label htmlFor="state">State</Label>
             <select
               id="state"
-              disabled={isProcessing}
+              disabled={!!selectedState}
               className="w-full h-10 px-3 border rounded-md"
               onChange={(e) => {
                 const stateId = Number(e.target.value);
@@ -482,6 +426,26 @@ export default function UserDonateForm({
               {stateOptions.map((option) => (
                 <option key={option.stateid} value={option.stateid}>
                   {option.state}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div className="space-y-2">
+            <Label htmlFor="district">District</Label>
+            <select
+              id="district"
+              disabled={!selectedState || !!selectedDistrict}
+              className="w-full h-10 px-3 border rounded-md"
+              onChange={(e) => setSelectedDistrict(e.target.value)}
+              value={selectedDistrict || ""}
+            >
+              <option value="">Select District</option>
+              {districtOptions.data.map((option) => (
+                <option
+                  key={option.district_id}
+                  value={option.district_id.toString()}
+                >
+                  {option.district}
                 </option>
               ))}
             </select>
