@@ -213,7 +213,7 @@ export default function UserDonateForm({
       <div className="space-y-8">
         {/* Donation Type */}
         <div>
-          <h2 className="text-2xl font-bold mb-2">Ku deeq lacag kasta</h2>
+          <h2 className="text-2xl font-bold mb-2">Lacag Bixinta</h2>
 
           <div className="flex gap-2 mb-6">
             <Button
@@ -311,7 +311,7 @@ export default function UserDonateForm({
         )}
 
         {/* Privacy Policy */}
-        <p className="text-sm text-gray-600">
+        {/* <p className="text-sm text-gray-600">
           Si aad u ogaato sida aan u ururinno oo aan u isticmaalno
           macluumaadkaaga, fadlan akhri{" "}
           <Link
@@ -321,7 +321,7 @@ export default function UserDonateForm({
             xeerka asturnaanta
           </Link>
           .
-        </p>
+        </p> */}
         {/* Add Payment Method Selection */}
         <div className="space-y-2">
           <Label htmlFor="paymentMethod">Habka Lacag bixinta</Label>

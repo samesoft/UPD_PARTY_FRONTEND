@@ -94,7 +94,7 @@ export default function Navigation() {
   );
 
   return (
-    <nav className="bg-background py-2 px-4 shadow-sm">
+    <nav className="bg-background py-2 px-4 shadow-sm h-20">
       <div className="container mx-auto flex items-center justify-between">
         <button
           onClick={() => router.push("/")}
