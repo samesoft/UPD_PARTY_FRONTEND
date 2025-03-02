@@ -78,7 +78,7 @@ export default function AdminNavigation() {
       </div>
 
       <button
-        onClick={() => handleLoginNavigation("/donate")}
+        onClick={() => handleLoginNavigation("/user-donate-form")}
         className="text-[#2E8B57] hover:text-secondary transition-colors"
       >
         Donate
