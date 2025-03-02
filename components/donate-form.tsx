@@ -327,7 +327,7 @@ export default function DonateForm() {
         )}
 
         {/* Personal Information */}
-        <div className="space-y-6">
+        {/* <div className="space-y-6">
           <h3 className="text-xl font-semibold">Your information</h3>
 
           <div className="grid grid-cols-2 gap-4">
@@ -410,7 +410,7 @@ export default function DonateForm() {
               ))}
             </select>
           </div>
-        </div>
+        </div> */}
 
         {/* Privacy Policy */}
         <p className="text-sm text-gray-600">

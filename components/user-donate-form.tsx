@@ -308,7 +308,7 @@ export default function UserDonateForm({
         )}
 
         {/* Personal Information */}
-        <div className="space-y-6">
+        {/* <div className="space-y-6">
           <h3 className="text-xl font-semibold">Your information</h3>
 
           <div className="grid grid-cols-2 gap-4">
@@ -395,7 +395,7 @@ export default function UserDonateForm({
               ))}
             </select>
           </div>
-        </div>
+        </div> */}
 
         {/* Privacy Policy */}
         <p className="text-sm text-gray-600">
