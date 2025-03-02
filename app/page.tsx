@@ -1,7 +1,7 @@
 "use client";
 
 import HeroSection from "@/components/hero-section";
-
+import TopBar from "@/components/top-bar";
 import LatestNews from "@/components/latest-news";
 import JoinSection from "@/components/join-section";
 import ScrollingText from "@/components/scrolling-text";

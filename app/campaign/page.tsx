@@ -72,7 +72,7 @@ export default function Campaign() {
         <section id="events" className="py-16">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold text-center text-primary mb-12">
-              Upcoming Events
+              DHACDOOYINKA SOO SOCDA
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {[
@@ -93,7 +93,6 @@ export default function Campaign() {
                       Nagu soo biir {event.toLowerCase()} xiisaha leh si aan uga
                       wada hadalno aragtidayada mustaqbalka wanaagsan.
                     </CardDescription>
-                    
                   </CardContent>
                 </Card>
               ))}
@@ -104,7 +103,7 @@ export default function Campaign() {
         <section id="candidates" className="py-16 bg-accent">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold text-center text-primary mb-12">
-              Hogaamiyeyaasha Xisbiga
+              HOGGAAMIYEYAASHA XISBIGA
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {[
@@ -148,12 +147,13 @@ export default function Campaign() {
           <div className="absolute inset-0 bg-primary/80 mix-blend-multiply"></div>
           <div className="container mx-auto px-4 relative z-10">
             <h2 className="text-3xl font-bold text-center text-primary-foreground mb-8">
-              Ka qeybqaado
+              KA QEYB QAADO
             </h2>
-            <p className="text-center text-primary-foreground text-xl mb-8">
-              Ku soo biir dhaqdhaqaaqayaga oo naga caawi inaan dhisno mustaqbal
-              wanaagsan oo dadka oo dhan. Iska diiwaan geli si aad u noqoto
-              mutadawac ama aad u hesho wararkii ugu dambeeyay.
+            <p className="text-center text-primary-foreground  mb-8">
+              Ku soo biir dhaqdhaqaaqayaga oo naga caawi <br /> inaan dhisno
+              mustaqbal wanaagsan oo dadka oo dhan. <br />
+              Iska diiwaan geli si aad u noqoto mutadawac ama aad u hesho
+              wararkii ugu dambeeyay.
             </p>
             {/* <form className="max-w-md mx-auto">
               <div className="flex gap-4">

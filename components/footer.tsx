@@ -142,7 +142,7 @@ export default function Footer() {
           ))}
         </div> */}
 
-        <div className="text-center text-sm space-y-2 pt-4">
+        <div className="text-center text-sm space-y-2 ">
           <p>© 2025 The Party.</p>
           <p>Promoted by Party UPD at, Mogadishu, Somalia.</p>
         </div>

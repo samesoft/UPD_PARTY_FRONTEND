@@ -129,14 +129,17 @@ function LayoutContent({ children }: { children: React.ReactNode }) {
 
   return (
     <>
+      {/* Show TopBar only on public routes and when not authenticated */}
+      {!isAuthenticated && <TopBar />}
       {/* Show only one navigation bar based on auth status and role */}
       {isAuthenticated ? (
-        userRole === 'ADMIN' ? (
+        userRole === "ADMIN" ? (
           <AdminNavigation />
         ) : (
           <UserNavigation />
         )
       ) : (
+          
         <Navigation />
       )}
 

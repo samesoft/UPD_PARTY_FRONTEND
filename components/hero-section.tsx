@@ -3,7 +3,8 @@ import { Button } from "@/components/ui/button";
 
 export default function HeroSection() {
   return (
-    <div className="relative min-h-screen w-full flex items-center overflow-hidden">
+    <div className="relative min-h-screen w-full flex items-center overflow-hidden font-sans">
+      {/* Background Image */}
       <div className="absolute inset-0 z-0">
         <Image
           src="/HSM2.jpg"
@@ -16,30 +17,31 @@ export default function HeroSection() {
         <div className="absolute inset-0 bg-gradient-to-br from-primary/65 to-secondary/65" />
       </div>
 
-      <div className="container relative z-10 mx-auto px-4 py-24">
+      {/* Content Section */}
+      <div className="container relative z-10 mx-auto px-6 py-24">
         <div className="grid md:grid-cols-2 gap-8 items-center">
           <div className="space-y-6 animate-fade-in-up text-left">
-            <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-primary-foreground leading-tight">
-              U codee xisbiga siyaasadeed ee ugu fiican.
+            <h1 className="text-4xl sm:text-2xl md:text-3xl lg:text-4xl font-extrabold text-primary-foreground leading-tight">
+              U codee <span className="italic">xisbiga siyaasadeed</span> ee ugu
+              fiican.
             </h1>
-            <blockquote className="text-xl sm:text-2xl md:text-3xl font-semibold text-white">
+            <blockquote className="text-lg sm:text-xl md:text-2xl font-semibold italic text-white">
               "Waxaan u dagaallamaa xuquuqda muwaadiniinteena, markaa nagu soo
               biir oo aan wadajir u qurxinno dalkeenna."
             </blockquote>
-            <p className="text-sm sm:text-base md:text-lg text-primary-foreground/80">
+            <p className="text-base sm:text-lg md:text-xl text-primary-foreground/80 italic">
               Soomali heshiis ah dunidana heshiis la ah.
             </p>
-            <Button className="bg-white text-primary hover:bg-secondary/90 hover:text-white text-base sm:text-lg px-6 sm:px-8">
-              Learn More →
-            </Button>
+            
           </div>
 
           <div></div>
         </div>
       </div>
 
-      <div className="absolute bottom-0 left-0 right-0 overflow-hidden h-8 sm:h-12 bg-secondary flex justify-center items-center">
-        <div className="animate-scroll-text whitespace-nowrap flex items-center text-secondary-foreground text-xs sm:text-sm md:text-base text-center">
+      {/* Scrolling Text Section */}
+      <div className="absolute bottom-0 left-0 right-0 overflow-hidden h-10 sm:h-14 bg-[#2E8B57] flex justify-center text-white items-center">
+        <div className="animate-scroll-text whitespace-nowrap flex items-center text-white text-sm sm:text-base md:text-lg font-medium italic">
           <span className="mx-4">
             Nagu soo biir dhismaha mustaqbal wanaagsan
           </span>
