@@ -33,7 +33,7 @@ export default function Navigation() {
         onClick={() => router.push("/donate")}
         className="text-[#2E8B57] hover:text-[#1a6e3f] font-medium text-base transition-colors duration-300"
       >
-        Ku deeq
+        Ku Deeq
       </button>
       <button
         onClick={() => router.push("/create-account")}
@@ -45,7 +45,7 @@ export default function Navigation() {
         onClick={() => router.push("/sign-in")}
         className="px-5 py-2.5 rounded-md bg-[#2E8B57] text-white font-semibold text-base hover:bg-[#236B43] transition-all duration-300 shadow-sm"
       >
-        Gal
+        Nagu Soo Biir
       </button>
     </>
   );
@@ -94,7 +94,7 @@ export default function Navigation() {
   );
 
   return (
-    <nav className="bg-white py-3 px-5 shadow-md h-auto min-h-20 sticky top-0 z-50">
+    <nav className="bg-white text-xl py-3 px-5 shadow-md h-auto min-h-20 sticky top-0 z-50">
       <div className="container mx-auto flex items-center justify-between">
         <button
           onClick={() => router.push("/")}
