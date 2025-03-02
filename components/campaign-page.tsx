@@ -68,7 +68,7 @@ export default function CampaignPage() {
         </div>
         <div className="relative">
           <h2 className="text-4xl font-bold text-white mb-8">
-            Deeq Bixi Maanta
+            Deeq Bixi 
           </h2>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
             {["$25", "$50", "$75", "$100", "$200"].map((amount, index) => (
