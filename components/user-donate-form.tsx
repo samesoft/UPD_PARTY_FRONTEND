@@ -1,10 +1,9 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { Textarea } from "@/components/ui/textarea";
 import {
   Select,
   SelectContent,
@@ -22,7 +21,7 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog";
 import { CheckCircle2, XCircle } from "lucide-react";
-import { IMember } from "@/types/member";
+import type { IMember } from "@/types/member";
 
 const donationAmounts = [
   { value: 5, label: "$5" },
@@ -96,11 +95,33 @@ export default function UserDonateForm({
     year: "numeric",
   });
 
+  const fetchDistrictsByState = useCallback(async (stateId: number) => {
+    try {
+      console.log(`Fetching districts for state ID: ${stateId}`);
+      const response = await axios.get(`/district/districtByState/${stateId}`);
+      if (response.data && response.data.data) {
+        setDistrictOptions({ data: response.data.data });
+        console.log("Districts fetched:", response.data.data);
+      } else {
+        console.warn("No district data found in response:", response.data);
+        setDistrictOptions({ data: [] });
+      }
+    } catch (error) {
+      console.error("Error fetching districts:", error);
+      setDistrictOptions({ data: [] });
+    }
+  }, []);
+
   useEffect(() => {
     const fetchStates = async () => {
       try {
         const response = await axios.get("/state");
         setStateOptions(response.data.data);
+
+        // If we have a selectedState but no district options yet, fetch districts
+        // if (selectedState && districtOptions.data.length === 0) {
+        //   fetchDistrictsByState(selectedState)
+        // }
       } catch (error) {
         console.error("Error fetching states:", error);
       }
@@ -110,20 +131,55 @@ export default function UserDonateForm({
   }, []);
 
   useEffect(() => {
-    if (selectedState) {
+    // Only fetch districts if we have a valid state ID
+    if (selectedState && selectedState > 0) {
       fetchDistrictsByState(selectedState);
     }
-  }, [selectedState]);
+  }, [selectedState, fetchDistrictsByState]);
 
-  const fetchDistrictsByState = async (stateId: number) => {
-    try {
-      const response = await axios.get(`/district/districtByState/${stateId}`);
-      setDistrictOptions({ data: response.data.data });
-      console.log("Districts fetched:", response.data.data);
-    } catch (error) {
-      console.error("Error fetching districts:", error);
-    }
-  };
+  // Add fallback data fetching if memberData is incomplete
+  useEffect(() => {
+    const fetchMemberData = async () => {
+      try {
+        // Check if we need to fetch data (missing or incomplete memberData)
+        if (!memberData || !memberData.first_name || !memberData.last_name) {
+          // You can replace this with your actual member ID or identifier
+          const memberId =
+            localStorage.getItem("memberId") ||
+            sessionStorage.getItem("memberId");
+
+          if (memberId) {
+            const response = await axios.get(`/members/${memberId}`);
+            if (response.data.success) {
+              const fetchedMember = response.data.data;
+
+              // Update all form fields with fetched data
+              setNames({
+                firstName: fetchedMember.first_name || "",
+                lastName: fetchedMember.last_name || "",
+                middleName: fetchedMember.middle_name || "",
+              });
+
+              setPhoneNumber(fetchedMember.mobile || "");
+
+              if (fetchedMember.state_id) {
+                setSelectedState(fetchedMember.state_id);
+                // District will be fetched by the other useEffect that watches selectedState
+              }
+
+              if (fetchedMember.district_id) {
+                setSelectedDistrict(fetchedMember.district_id.toString());
+              }
+            }
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching member data:", error);
+      }
+    };
+
+    fetchMemberData();
+  }, [memberData]);
 
   const handleDonation = async () => {
     setIsProcessing(true);
@@ -207,8 +263,62 @@ export default function UserDonateForm({
     </Dialog>
   );
 
+  const handleRefreshData = async () => {
+    try {
+      setIsProcessing(true);
+
+      // Clear current form data
+      setNames({ firstName: "", lastName: "", middleName: "" });
+      setPhoneNumber("");
+      setSelectedState(null);
+      setSelectedDistrict("");
+
+      // Fetch fresh data
+      const memberId =
+        localStorage.getItem("memberId") || sessionStorage.getItem("memberId");
+      if (memberId) {
+        const response = await axios.get(`/members/${memberId}`);
+        if (response.data.success) {
+          const fetchedMember = response.data.data;
+
+          setNames({
+            firstName: fetchedMember.first_name || "",
+            lastName: fetchedMember.last_name || "",
+            middleName: fetchedMember.middle_name || "",
+          });
+
+          setPhoneNumber(fetchedMember.mobile || "");
+
+          if (fetchedMember.state_id) {
+            setSelectedState(fetchedMember.state_id);
+          }
+
+          if (fetchedMember.district_id) {
+            setSelectedDistrict(fetchedMember.district_id.toString());
+          }
+        }
+      }
+    } catch (error) {
+      console.error("Error refreshing data:", error);
+      setErrorMessage("Failed to refresh user data");
+      setShowErrorModal(true);
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
   return (
     <div className="bg-white rounded-lg shadow-md p-8">
+      <div className="flex justify-end mb-4">
+        <Button
+          variant="outline"
+          onClick={handleRefreshData}
+          disabled={isProcessing}
+          className="text-sm"
+        >
+          {isProcessing ? "Refreshing..." : "Refresh Data"}
+        </Button>
+      </div>
       <div className="space-y-8">
         {/* Donation Type */}
         <div>
@@ -317,7 +427,7 @@ export default function UserDonateForm({
               <Input
                 id="firstName"
                 value={names.firstName}
-                disabled={names?.firstName?.length > 0}
+                disabled={isProcessing}
                 onChange={(e) =>
                   setNames((prev) => {
                     return { ...prev, firstName: e.target.value };
@@ -330,7 +440,7 @@ export default function UserDonateForm({
               <Input
                 id="lastName"
                 value={names.middleName}
-                disabled={names?.middleName?.length > 0}
+                disabled={isProcessing}
                 onChange={(e) =>
                   setNames((prev) => {
                     return { ...prev, lastName: e.target.value };
@@ -343,7 +453,7 @@ export default function UserDonateForm({
               <Input
                 id="lastName"
                 value={names.lastName}
-                disabled={names?.lastName?.length > 0}
+                disabled={isProcessing}
                 onChange={(e) =>
                   setNames((prev) => {
                     return { ...prev, lastName: e.target.value };
@@ -357,7 +467,7 @@ export default function UserDonateForm({
             <Label htmlFor="state">State</Label>
             <select
               id="state"
-              disabled={!!selectedState}
+              disabled={isProcessing}
               className="w-full h-10 px-3 border rounded-md"
               onChange={(e) => {
                 const stateId = Number(e.target.value);
@@ -376,25 +486,6 @@ export default function UserDonateForm({
               ))}
             </select>
           </div>
-
-          {/* <div className="space-y-2">
-            <Label htmlFor="district">District</Label>
-            <select
-              id="district"
-              className="w-full h-10 px-3 border rounded-md"
-              onChange={(e) => {
-                setSelectedDistrict(e.target.value);
-              }}
-              value={selectedDistrict}
-            >
-              <option value="">Select District</option>
-              {districtOptions.data?.map((option) => (
-                <option key={option.district_id} value={option.district}>
-                  {option.district}
-                </option>
-              ))}
-            </select>
-          </div> */}
         </div>
 
         {/* Privacy Policy */}
