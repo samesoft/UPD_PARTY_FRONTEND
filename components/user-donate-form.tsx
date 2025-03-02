@@ -358,7 +358,7 @@ export default function UserDonateForm({
 
         {/* Update Payment Button */}
         <div>
-          <h3 className="text-xl font-semibold mb-4">Lacag bixinta</h3>
+         
           <Button
             className="w-full h-12 bg-primary hover:bg-primary/90 relative"
             onClick={handleDonation}
