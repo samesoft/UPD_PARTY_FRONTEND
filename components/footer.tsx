@@ -52,7 +52,11 @@ const mainNavLinks = [
 // ];
 
 const socialLinks = [
-  { name: "Facebook", icon: Facebook, href: "https://facebook.com" },
+  {
+    name: "Facebook",
+    icon: Facebook,
+    href: "https://www.facebook.com/UPDParty",
+  },
   { name: "Instagram", icon: Instagram, href: "https://instagram.com" },
   { name: "Twitter", icon: Twitter, href: "https://twitter.com" },
   { name: "LinkedIn", icon: Linkedin, href: "https://linkedin.com" },
@@ -138,9 +142,9 @@ export default function Footer() {
           ))}
         </div> */}
 
-        <div className="text-center text-sm space-y-2 pt-12">
+        <div className="text-center text-sm space-y-2 pt-4">
           <p>© 2025 The Party.</p>
-          <p>Promoted by Party UPD at 123 Party Street, City, ABC 123.</p>
+          <p>Promoted by Party UPD at, Mogadishu, Somalia.</p>
         </div>
       </div>
     </footer>

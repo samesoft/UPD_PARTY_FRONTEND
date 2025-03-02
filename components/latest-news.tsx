@@ -59,7 +59,7 @@ export default function LatestNews() {
     <section className="py-16 sm:py-20 bg-gray-100">
       <div className="container">
         <h2 className="text-4xl sm:text-5xl md:text-6xl font-bold text-center mb-12 text-primary text-balance">
-          LATEST NEWS
+          WARARKA UGU DANBEEYA
         </h2>
 
         <div className="relative overflow-hidden py-4 mb-12">
@@ -67,7 +67,7 @@ export default function LatestNews() {
             <div className="inline-block">
               <span className="inline-flex text-lg sm:text-xl">
                 {Array(10)
-                  .fill("READ ALL ABOUT IT")
+                  .fill("Akhri Faahfaahinta")
                   .map((text, i) => (
                     <span
                       key={i}
@@ -120,7 +120,7 @@ export default function LatestNews() {
             asChild
             className="px-8 py-3 bg-primary text-white font-semibold hover:bg-primary/90 transition-colors"
           >
-            <Link href="/news#top">SEE ALL</Link>
+            <Link href="/news#top">Arag Dhammaan</Link>
           </Button>
         </div>
       </div>

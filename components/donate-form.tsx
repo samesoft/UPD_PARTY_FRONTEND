@@ -32,10 +32,10 @@ const donationAmounts = [
 ];
 
 const frequencies = [
-  { value: "weekly", label: "Weekly" },
-  { value: "monthly", label: "Monthly" },
-  { value: "quarterly", label: "Quarterly" },
-  { value: "annually", label: "Annually" },
+  { value: "weekly", label: "Toddobaadle" },
+  { value: "monthly", label: "Bil kasta" },
+  { value: "quarterly", label: "Saddexdii bilood" },
+  { value: "annually", label: "Sanadle" },
 ];
 
 // Add these interfaces at the top of the file
@@ -140,7 +140,7 @@ export default function DonateForm() {
     const amount = selectedAmount === "other" ? customAmount : selectedAmount;
 
     if (!phoneNumber || !amount) {
-      setErrorMessage("Please provide both phone number and amount");
+      setErrorMessage("Fadlan geli lambarka taleefanka iyo qadarka");
       setShowErrorModal(true);
       setIsProcessing(false);
       return;
@@ -162,7 +162,7 @@ export default function DonateForm() {
       }
     } catch (error: any) {
       setErrorMessage(
-        error?.response?.data?.message || "Payment processing failed"
+        error?.response?.data?.message || "Nidaamka lacag bixinta wuu fashilmay"
       );
       setShowErrorModal(true);
     } finally {
@@ -176,19 +176,19 @@ export default function DonateForm() {
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2 text-green-600">
             <CheckCircle2 className="w-6 h-6" />
-            Payment Successful
+            Lacag Bixinta Waa Guul
           </DialogTitle>
         </DialogHeader>
         <div className="p-6 text-center space-y-4">
           <p className="text-gray-600">
-            Thank you for your generous donation! You will receive an SMS
-            confirmation shortly.
+            Waad ku mahadsan tahay deeqdaada qiimaha leh! waxaad heli doontaa
+            SMS xaqiijin ah dhowaan.
           </p>
           <Button
             onClick={() => setShowSuccessModal(false)}
             className="bg-green-600 hover:bg-green-700"
           >
-            Close
+            Xir
           </Button>
         </div>
       </DialogContent>
@@ -201,7 +201,7 @@ export default function DonateForm() {
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2 text-red-600">
             <XCircle className="w-6 h-6" />
-            Payment Failed
+            Lacag Bixinta Waa Fashilantay
           </DialogTitle>
         </DialogHeader>
         <div className="p-6 text-center space-y-4">
@@ -210,7 +210,7 @@ export default function DonateForm() {
             onClick={() => setShowErrorModal(false)}
             className="bg-red-600 hover:bg-red-700"
           >
-            Close
+            Xir
           </Button>
         </div>
       </DialogContent>
@@ -222,14 +222,14 @@ export default function DonateForm() {
       <div className="space-y-8">
         {/* Donation Type */}
         <div>
-          <h2 className="text-2xl font-bold mb-2">Donate any amount</h2>
+          <h2 className="text-2xl font-bold mb-2">Deeq Bixinta Qadarka</h2>
           <p className="mb-4">
-            Or find out about our{" "}
+            Ama ka hel{" "}
             <Link
               href="/donor-clubs"
               className="text-secondary hover:underline"
             >
-              Donor Clubs
+              Naadiyada Deeq-bixiyayaasha
             </Link>
             .
           </p>
@@ -239,14 +239,14 @@ export default function DonateForm() {
               onClick={() => setDonationType("one-time")}
               className="flex-1"
             >
-              One-time donation
+              Deeq hal mar ah
             </Button>
             <Button
               variant={donationType === "recurring" ? "default" : "outline"}
               onClick={() => setDonationType("recurring")}
               className="flex-1"
             >
-              Recurring donation
+              Deeq joogto ah
             </Button>
           </div>
         </div>
@@ -255,10 +255,10 @@ export default function DonateForm() {
         {donationType === "recurring" && (
           <div className="space-y-4">
             <div className="space-y-2">
-              <Label>Process my gift</Label>
+              <Label>Geedi socodka hadiyadeyda</Label>
               <Select defaultValue={frequency} onValueChange={setFrequency}>
                 <SelectTrigger>
-                  <SelectValue placeholder="Select frequency" />
+                  <SelectValue placeholder="Xulo joogitaanka" />
                 </SelectTrigger>
                 <SelectContent>
                   {frequencies.map((freq) => (
@@ -270,7 +270,7 @@ export default function DonateForm() {
               </Select>
             </div>
             <div className="space-y-2">
-              <Label htmlFor="nextPayment">Next payment on</Label>
+              <Label htmlFor="nextPayment">Lacag bixinta xigta ee</Label>
               <Input
                 type="text"
                 id="nextPayment"
@@ -278,10 +278,12 @@ export default function DonateForm() {
                 onChange={(e) => setNextPaymentDate(e.target.value)}
                 placeholder="MM/DD/YYYY"
               />
-              <p className="text-sm text-gray-500">Use the format MM/DD/YYYY</p>
               <p className="text-sm text-gray-500">
-                Your first gift processes today. The next gift processes on{" "}
-                {formattedDate}.
+                Isticmaal qaabka MM/DD/YYYY
+              </p>
+              <p className="text-sm text-gray-500">
+                Hadiyaddaada koowaad waxay maanta socotaa. Hadiyadda xigta waxay
+                socotaa on {formattedDate}.
               </p>
             </div>
           </div>
@@ -304,13 +306,13 @@ export default function DonateForm() {
             onClick={() => setSelectedAmount("other")}
             className="col-span-2"
           >
-            Other amount
+            Qadar kale
           </Button>
         </div>
 
         {selectedAmount === "other" && (
           <div className="space-y-2">
-            <Label htmlFor="customAmount">Enter amount</Label>
+            <Label htmlFor="customAmount">Geli Qadarka</Label>
             <div className="relative">
               <span className="absolute left-3 top-1/2 -translate-y-1/2">
                 $
@@ -325,165 +327,33 @@ export default function DonateForm() {
             </div>
           </div>
         )}
-
-        {/* Personal Information */}
-        <div className="space-y-6">
-          <h3 className="text-xl font-semibold">Your information</h3>
-
-          <div className="grid grid-cols-2 gap-4">
-            <div className="space-y-2">
-              <Label htmlFor="firstName">First name</Label>
-              <Input 
-                id="firstName"
-                value={firstName}
-                onChange={(e) => setFirstName(e.target.value)}
-                disabled={isLoggedIn}
-                className={isLoggedIn ? "bg-gray-100" : ""}
-              />
-            </div>
-            <div className="space-y-2">
-              <Label htmlFor="lastName">Last name</Label>
-              <Input 
-                id="lastName"
-                value={lastName}
-                onChange={(e) => setLastName(e.target.value)}
-                disabled={isLoggedIn}
-                className={isLoggedIn ? "bg-gray-100" : ""}
-              />
-            </div>
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="email">Email</Label>
-            <Input 
-              id="email" 
-              type="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="Enter your email"
-              disabled={isLoggedIn && email !== ""}
-              className={isLoggedIn && email !== "" ? "bg-gray-100" : ""}
-            />
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="state">State</Label>
-            <select
-              id="state"
-              className="w-full h-10 px-3 border rounded-md"
-              onChange={(e) => {
-                const stateId = Number(e.target.value);
-                setSelectedState(stateId);
-                if (stateId) {
-                  fetchDistrictsByState(stateId);
-                }
-                setSelectedDistrict(null);
-              }}
-              value={selectedState || ""}
-              disabled={isLoggedIn}
-            >
-              <option value="">Select State</option>
-              {stateOptions.map((option) => (
-                <option key={option.stateid} value={option.stateid}>
-                  {option.state}
-                </option>
-              ))}
-            </select>
-          </div>
-
-          <div className="space-y-2">
-            <Label htmlFor="district">District</Label>
-            <select
-              id="district"
-              className="w-full h-10 px-3 border rounded-md"
-              onChange={(e) => {
-                setSelectedDistrict(Number(e.target.value));
-              }}
-              value={selectedDistrict || ""}
-              disabled={isLoggedIn}
-            >
-              <option value="">Select District</option>
-              {districtOptions.data?.map((option) => (
-                <option key={option.district_id} value={option.district_id}>
-                  {option.district}
-                </option>
-              ))}
-            </select>
-          </div>
-        </div>
-
-        {/* Privacy Policy */}
-        <p className="text-sm text-gray-600">
-          To learn how we collect and use your information, please read our{" "}
-          <Link
-            href="/privacy-policy"
-            className="text-secondary hover:underline"
-          >
-            privacy policy
-          </Link>
-          .
-        </p>
-        {/* Add Payment Method Selection */}
+        {/* Phone Number */}
         <div className="space-y-2">
-          <Label htmlFor="paymentMethod">Payment Method</Label>
-          <select
-            id="paymentMethod"
-            className="w-full h-10 px-3 border rounded-md"
-            onChange={(e) => setSelectedPaymentMethod(e.target.value)}
-            value={selectedPaymentMethod}
-          >
-            <option value="">Select Payment Method</option>
-            {/* Add your payment method options here */}
-            <option value="mpesa">EVC-Plus</option>
-            <option value="paypal">E-Dahab</option>
-            <option value="paypal">Premier Wallet </option>
-            <option value="paypal">Zaad Service</option>
-            <option value="paypal">SAHAL Wallet </option>
-          </select>
-        </div>
-
-        {/* Add Phone Number Field */}
-        <div className="space-y-2">
-          <Label htmlFor="phone">Phone Number</Label>
+          <Label>Telefon</Label>
           <Input
-            id="phone"
             type="tel"
             value={phoneNumber}
             onChange={(e) => setPhoneNumber(e.target.value)}
-            placeholder="e.g., 615123456"
-            className="pl-8"
+            placeholder="0700 123 456"
           />
-          <p className="text-sm text-gray-500">
-            Enter number without country code (e.g., 615123456)
-          </p>
         </div>
-
-        {/* Update Payment Button */}
-        <div>
-          <h3 className="text-xl font-semibold mb-4">Payment</h3>
+        <div className="space-y-2">
           <Button
-            className="w-full h-12 bg-primary hover:bg-primary/90 relative"
             onClick={handleDonation}
             disabled={isProcessing}
+            className="w-full"
           >
-            <Lock className="w-4 h-4 mr-2" />
             {isProcessing ? (
-              <>
-                <span className="animate-pulse">Processing...</span>
-                <div className="absolute right-4 top-1/2 transform -translate-y-1/2">
-                  <div className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin"></div>
-                </div>
-              </>
+              <div className="spinner"></div>
             ) : (
-              "Donate"
+              <span>Deeq Bixinta</span>
             )}
           </Button>
         </div>
-
-        {/* Add Modals */}
-        <SuccessModal />
-        <ErrorModal />
       </div>
+
+      <SuccessModal />
+      <ErrorModal />
     </div>
   );
 }

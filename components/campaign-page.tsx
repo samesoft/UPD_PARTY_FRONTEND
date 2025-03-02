@@ -32,11 +32,10 @@ export default function CampaignPage() {
         </div>
         <div className="relative">
           <h1 className="text-4xl md:text-5xl font-bold text-white mb-6">
-            Explore Our Newest Political Campaign
+            Soo Baadh Ololaha Siyaasadeed ee Ugu Dambeeyay
           </h1>
           <p className="text-white/90 text-lg mb-8">
-            The most exciting city of northeast, get your opportunity to move
-            forward together now.
+            ka faa’iidayso fursadaada si aan wadajir u horumarino.
           </p>
           <Button
             variant="secondary"
@@ -44,7 +43,7 @@ export default function CampaignPage() {
             className="bg-white hover:bg-gray-100 text-primary border-0 rounded-md w-fit font-semibold"
             onClick={() => handleNavigation("/campaign")}
           >
-            Learn More
+            Waxbadan Ka Ogoow
             <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
         </div>
@@ -68,7 +67,9 @@ export default function CampaignPage() {
           />
         </div>
         <div className="relative">
-          <h2 className="text-4xl font-bold text-white mb-8">Donate Today</h2>
+          <h2 className="text-4xl font-bold text-white mb-8">
+            Deeq Bixi Maanta
+          </h2>
           <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-8">
             {["$25", "$50", "$75", "$100", "$200"].map((amount, index) => (
               <Button
@@ -86,7 +87,7 @@ export default function CampaignPage() {
             size="lg"
             className="bg-white/10 hover:bg-white/20 text-white border-2 border-white/20 rounded-md w-fit"
           >
-            Donate Now
+            Deeq Baxso 
             <ArrowRight className="ml-2 h-4 w-4" />
           </Button>
         </div>

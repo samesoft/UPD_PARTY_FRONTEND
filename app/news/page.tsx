@@ -59,7 +59,7 @@ export default function NewsPage() {
     <div className="min-h-screen bg-background scroll-smooth" id="top">
       <main className="container py-16 sm:py-20">
         <h1 className="text-4xl sm:text-5xl md:text-6xl font-bold text-center mb-12 text-primary text-balance">
-          ALL NEWS
+          DHAMMANAN WARARKA
         </h1>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {newsItems.map((item, index) => (
@@ -91,7 +91,7 @@ export default function NewsPage() {
         <div className="text-center mt-12">
           <Link href="/">
             <Button className="px-8 py-3 bg-primary text-white font-semibold hover:bg-primary/90 transition-colors">
-              Back to Home
+              KU NOQO BOGGA HORE
             </Button>
           </Link>
         </div>

@@ -18,27 +18,21 @@ export default function Campaign() {
           <div className="absolute inset-0 bg-primary/60 mix-blend-multiply"></div>
           <div className="container mx-auto px-4 text-center relative z-10">
             <h1 className="text-4xl md:text-5xl font-bold text-primary-foreground mb-4 animate-fade-in-up">
-              Building a Greener Future Together.
+              Soomaali Heshiis Ah Dunidana Heshiis La Ah.
             </h1>
             <p
               className="text-xl text-primary-foreground mb-8 max-w-2xl mx-auto animate-fade-in-up"
               style={{ animationDelay: "0.2s" }}
             >
-              SOOMAALI HESHIIS AH DUNIDANA HESHIIS LA AH.
+              Dhisidda Mustaqbal Cagaaran Wadajir.
             </p>
-            <Button
-              className="bg-background text-primary hover:bg-accent text-lg px-8 py-3 animate-fade-in-up"
-              style={{ animationDelay: "0.4s" }}
-            >
-              learn more
-            </Button>
           </div>
         </section>
 
         <section id="issues" className="py-16 bg-accent overflow-hidden">
           <div className="container mx-auto px-4">
             <h2 className="text-3xl font-bold text-center text-primary mb-12">
-              Our Key Issues
+              Arrimahayaga Muhiimka ah
             </h2>
             <div className="relative">
               <div className="overflow-x-auto scrollbar-visible">
@@ -99,15 +93,12 @@ export default function Campaign() {
                       Nagu soo biir {event.toLowerCase()} xiisaha leh si aan uga
                       wada hadalno aragtidayada mustaqbalka wanaagsan.
                     </CardDescription>
-                    <Button className="mt-4 bg-secondary hover:bg-secondary/90 text-secondary-foreground">
-                      Ka qeybgal
-                    </Button>
+                    
                   </CardContent>
                 </Card>
               ))}
             </div>
           </div>
-          
         </section>
 
         <section id="candidates" className="py-16 bg-accent">
@@ -164,7 +155,7 @@ export default function Campaign() {
               wanaagsan oo dadka oo dhan. Iska diiwaan geli si aad u noqoto
               mutadawac ama aad u hesho wararkii ugu dambeeyay.
             </p>
-            <form className="max-w-md mx-auto">
+            {/* <form className="max-w-md mx-auto">
               <div className="flex gap-4">
                 <Input
                   type="email"
@@ -178,7 +169,7 @@ export default function Campaign() {
                   Sign Up
                 </Button>
               </div>
-            </form>
+            </form> */}
           </div>
         </section>
       </main>

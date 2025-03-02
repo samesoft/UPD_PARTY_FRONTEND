@@ -109,8 +109,8 @@ export default function Navigation() {
               className="object-contain"
             />
           </div>
-          <span className="text-xl sm:text-sm font-bold text-primary">
-            Union Peace & Dev
+          <span className="text-xl sm:text-sm font-bold text-primary cursor-pointer">
+            Midowga Nabadda & Horumarka
           </span>
         </button>
 

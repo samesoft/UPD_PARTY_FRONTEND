@@ -1,6 +1,6 @@
 import DonateHero from "@/components/donate-hero";
 import DonateForm from "@/components/donate-form";
-import LegalInformation from "@/components/legal-information";
+// import LegalInformation from "@/components/legal-information";
 
 // export default function DonatePage() {
 //   return (
@@ -27,7 +27,7 @@ export default function DonatePage() {
           {/* Ensure full width within the container */}
         </div>
       </div>
-      <LegalInformation className="mt-8 mb-20 w-full " />
+      {/* <LegalInformation className="mt-8 mb-20 w-full " /> */}
     </main>
   );
 }

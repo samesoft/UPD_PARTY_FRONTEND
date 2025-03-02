@@ -43,15 +43,16 @@ export default function DonateHero() {
       {/* Content */}
       <div className="relative z-10 text-center space-y-6 px-4 max-w-4xl mx-auto">
         <h1 className="text-4xl sm:text-5xl md:text-6xl lg:text-8xl font-bold text-white tracking-tight">
-          DONATE
+          DEEQ BIXI
         </h1>
         <h2 className="text-xl sm:text-2xl md:text-3xl lg:text-4xl font-bold text-white tracking-wider">
-          POWER THE RENEWAL
+          XOOJI CUSBOONAYSIINTA
         </h2>
         <p className="text-lg sm:text-xl text-white max-w-2xl mx-auto">
-          Your contribution helps us build a stronger, more prosperous future
-          for all. Every donation, big or small, makes a difference in our
-          campaign.
+          Taageeradaada ayaa muhiim u ah abuurista mustaqbal ifaya, koboc badan
+          leh oo dhammaan dadka ka faa'iideysanaya. Hadiyad kasta, xitaa haddii
+          ay yar tahay, waxay kaalin muhiim ah ka ciyaaraysaa horumarinta
+          ololaheena.
         </p>
       </div>
     </div>
