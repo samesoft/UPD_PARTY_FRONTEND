@@ -45,7 +45,7 @@ export default function Navigation() {
         onClick={() => router.push("/sign-in")}
         className="px-4 py-2 rounded-md bg-[#2E8B57] text-white font-semibold text-sm lg:text-base hover:bg-[#236B43] transition-all duration-300 shadow-sm"
       >
-        Nagu Soo Biir
+        Gelid
       </button>
     </>
   );
@@ -87,7 +87,7 @@ export default function Navigation() {
           onClick={() => router.push("/sign-in")}
           className="w-full px-5 py-3 rounded-md bg-[#2E8B57] text-white font-semibold text-base hover:bg-[#236B43] transition-all duration-300 shadow-sm"
         >
-          Nagu Soo Biir
+          Gelid
         </button>
       </div>
     </>
